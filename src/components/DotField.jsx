@@ -27,17 +27,12 @@ export default function DotField() {
       canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // concentrate brightness toward the top-centre, fading out down/edges
-      const cx = w * 0.5;
-      const cy = h * 0.12;
-      const maxd = Math.hypot(w * 0.7, h * 1.05);
+      // dots span the whole viewport, gently brighter toward the top
       dots = [];
       for (let y = GAP; y < h; y += GAP) {
+        const topFactor = 0.45 + 0.55 * Math.max(0, 1 - y / (h * 1.25));
         for (let x = GAP; x < w; x += GAP) {
-          const d = Math.hypot(x - cx, y - cy) / maxd;
-          const spatial = Math.max(0, 1 - d);
-          if (spatial < 0.04) continue;
-          dots.push({ x, y, spatial, phase: x * 0.012 + y * 0.02 });
+          dots.push({ x, y, spatial: topFactor, phase: x * 0.013 + y * 0.021 });
         }
       }
     };
@@ -48,8 +43,8 @@ export default function DotField() {
       for (let i = 0; i < dots.length; i++) {
         const dt = dots[i];
         const ripple = reduce ? 0.6 : 0.5 + 0.5 * Math.sin(t * 0.0011 + dt.phase);
-        ctx.globalAlpha = (0.03 + 0.17 * ripple) * dt.spatial;
-        ctx.fillRect(dt.x, dt.y, 1.7, 1.7);
+        ctx.globalAlpha = (0.06 + 0.24 * ripple) * dt.spatial;
+        ctx.fillRect(dt.x, dt.y, 2, 2);
       }
       ctx.globalAlpha = 1;
     };

@@ -188,17 +188,6 @@
   color: var(--muted);
   margin-top: 2px;
 }
-/* dual-system rows stand out */
-.group-s2,
-.group-s1 {
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
-  border-color: var(--accent-line);
-}
-.group-s2 .loop-node,
-.group-s1 .loop-node {
-  border-color: var(--accent);
-  box-shadow: 0 0 10px var(--accent-soft);
-}
 .group-safety {
   border-style: dashed;
 }

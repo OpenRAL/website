@@ -20,13 +20,6 @@
   overflow: visible;
 }
 
-.dual-band {
-  fill: rgba(255, 255, 255, 0.04);
-  stroke: var(--accent-line);
-  stroke-width: 1;
-  stroke-dasharray: 3 6;
-}
-
 /* edges */
 .edge-base {
   stroke: var(--hair-2);
@@ -44,6 +37,11 @@
 .edge-flow.flow-tap {
   stroke-width: 1.4;
   opacity: 0.5;
+  filter: none;
+}
+.edge-flow.flow-dashed {
+  stroke-width: 1.5;
+  opacity: 0.55;
   filter: none;
 }
 @keyframes edge-dash {
@@ -64,10 +62,10 @@
 .edge {
   transition: opacity 0.25s var(--ease);
 }
-/* dashed feedback (veto → replan) */
+/* dashed feedback (veto → replan) — subtle guide, motion comes from the flow */
 .edge.dashed .edge-base {
-  stroke: var(--accent);
-  opacity: 0.85;
+  stroke: var(--accent-line);
+  opacity: 0.6;
 }
 /* dotted observability taps */
 .edge.tap .edge-base {

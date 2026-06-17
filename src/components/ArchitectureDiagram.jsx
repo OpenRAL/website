@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { NODES, EDGES, DUAL_BAND } from "../data/layers.js";
+import { NODES, EDGES } from "../data/layers.js";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
 
@@ -113,14 +113,6 @@ export default function ArchitectureDiagram() {
       >
         <div className="diagram-stage" onMouseLeave={() => setHovered(null)}>
           <svg className="diagram-svg" viewBox={`0 0 ${VW} ${VH}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <rect
-              className="dual-band"
-              x={DUAL_BAND.x}
-              y={DUAL_BAND.y}
-              width={DUAL_BAND.w}
-              height={DUAL_BAND.h}
-              rx="20"
-            />
             {EDGES.map((e, i) => {
               const d = edgePath(e);
               const hot = isEdgeHot(e);
@@ -139,7 +131,7 @@ export default function ArchitectureDiagram() {
                   />
                   {!reduce && (
                     <path
-                      className={`edge-flow${faint ? " flow-tap" : ""}`}
+                      className={`edge-flow${faint ? " flow-tap" : ""}${e.dashed ? " flow-dashed" : ""}`}
                       d={d}
                       fill="none"
                       style={{ animationDelay: `${i * 0.22}s` }}
