@@ -64,17 +64,17 @@ const MODES = [
   {
     tag: "Benchmark",
     title: "Reproduce the score",
-    body: "12 benchmark configs across LIBERO, MetaWorld, ManiSkill3, SimplerEnv, RoboCasa, gym-aloha and gym-pusht — every rSkill ships a reproducible eval, never a faked number.",
+    body: "12 reproducible eval configs — LIBERO, MetaWorld, ManiSkill3, SimplerEnv, RoboCasa, gym-aloha, gym-pusht. Every rSkill ships its score.",
   },
   {
     tag: "Simulate",
     title: "Roll out in sim",
-    body: "Run any rSkill headless in its backend — LIBERO, ManiSkill3, RoboCasa, SimplerEnv and an Isaac Sim integration — to validate a policy before it ever touches hardware.",
+    body: "Run any rSkill headless in its sim backend — validate a policy before it touches hardware.",
   },
   {
     tag: "Deploy",
     title: "Run the harness",
-    body: "The same typed manifest drives sim and real: perception, the S2 reasoner, S1 rSkills and the deny-by-default safety supervisor, end to end.",
+    body: "One typed manifest drives sim and real — perception, reasoning, rSkills and safety, end to end.",
   },
 ];
 

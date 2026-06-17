@@ -1,48 +1,58 @@
+// Capability cards. `items` renders as a chip list; `media` holds 1–3 video/gif
+// paths (empty for now — pass paths later and the card populates).
 export const FEATURES = [
   {
-    tag: "L0–L1 · HAL + sensors",
-    title: "16 robot manifests",
-    body: "SO-100/101, Franka, UR5e/10e, ALOHA, OpenArm, Rizon4, Unitree H1 & G1, panda_mobile — a typed HAL over ros2_control plus a generalizable sensor catalog (RGB-D, LiDAR, F/T, tactile).",
+    title: "Robot manifests",
+    body: "One typed HAL over ros2_control — the same contract drives every embodiment.",
+    items: ["SO-101", "Franka", "UR5e", "ALOHA", "OpenArm", "Unitree G1", "Fourier GR-2", "WidowX"],
+    media: [],
   },
   {
-    tag: "L3 · rSkill (S1)",
-    title: "Swappable VLA adapters",
-    body: "SmolVLA, π0.5, ACT, Diffusion Policy, xVLA, MolmoAct2, GR00T N1.7 and RLDX-1 behind one rSkill interface — quantized, action-chunked, latency-budgeted.",
-  },
-  {
-    tag: "L1–L2 · perception",
     title: "Perception → world state",
-    body: "A GStreamer perception bus with RT-DETR / open-vocab detectors, 2D→3D object lift into the map frame, and a 30 Hz tf2-aware world-state snapshot.",
+    body: "Open-vocab detectors lift 2D→3D into a tf2-aware, 30 Hz world-state snapshot.",
+    media: [],
   },
   {
-    tag: "L2 · memory",
     title: "Spatial memory",
-    body: "A persistent, advisory scene graph the reasoner queries to recall where objects, places and rooms are — open-vocab matching so 'find the mug' resolves to a pose.",
+    body: "An advisory scene graph the reasoner queries to recall where things are.",
+    media: [],
   },
   {
-    tag: "L4 · Reasoning (S2)",
+    title: "Swappable policies",
+    body: "Any VLA behind one rSkill interface — quantized, action-chunked, latency-budgeted.",
+    items: ["π0.5", "SmolVLA", "ACT", "Diffusion Policy", "xVLA", "MolmoAct2", "GR00T N1.7", "RLDX-1", "OpenVLA-OFT"],
+    media: [],
+  },
+  {
     title: "Typed reasoner",
-    body: "An LLM emits typed ReasonerToolCall structured tool-calls — ExecuteRskill, navigate, recall, lifecycle — over a palette built from the live skill registry. Bounded replanning, no free-form JSON.",
+    body: "An LLM emits typed tool-calls over the live skill registry — never free-form JSON.",
+    media: [],
   },
   {
-    tag: "L6 · Safety",
+    title: "Edge ↔ cloud inference",
+    body: "ONNX→TensorRT + NF4 quantization; run on Jetson Thor / Orin, or split to the cloud.",
+    media: [],
+  },
+  {
+    title: "Simulation environments",
+    body: "Roll out any rSkill headless before it touches hardware.",
+    items: ["MuJoCo", "Isaac Sim", "Genesis", "RoboCasa", "ManiSkill3", "SimplerEnv", "LIBERO", "MetaWorld"],
+    media: [],
+  },
+  {
     title: "Deny-by-default safety",
-    body: "Python proposes, a separate C++ safety process disposes. Deadman + E-stop forwarders, deny-by-default supervision, and a certifiable kernel hardening toward the EU AI Act 2027 safety-case deadline.",
+    body: "A separate C++ supervisor gates every command — deadman + E-stop, hardening toward the EU AI Act.",
+    media: [],
   },
   {
-    tag: "L7 · Observability",
     title: "Traceable & replayable",
-    body: "OpenTelemetry spans with tensor shapes, a live dashboard, a failure bus, and a rosbag2 ↔ LeRobot dataset flywheel. Every run replayable from its trace.",
+    body: "OpenTelemetry spans, a Foxglove live scene, and a LeRobot dataset flywheel.",
+    media: [],
   },
   {
-    tag: "L5 · World Action Model",
     title: "World models",
-    body: "Mental simulation, failure anticipation and replanning subgoals slot in front of the reasoner — the interface ships today, concrete adapters next.",
+    body: "Mental simulation and failure anticipation slot in front of the reasoner.",
     soon: true,
-  },
-  {
-    tag: "deploy · edge",
-    title: "Edge & TensorRT",
-    body: "ONNX→TensorRT engine build/cache, NF4 quantization, and a sim ↔ real deploy path — the same manifest drives MuJoCo, robosuite, RoboCasa and real hardware.",
+    media: [],
   },
 ];

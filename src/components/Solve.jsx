@@ -2,42 +2,32 @@ import { motion } from "framer-motion";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./Solve.css";
 
+// title = the problem; solution = OpenRAL's answer.
 const ITEMS = [
   {
     title: "Fragmentation, everywhere",
-    body: (
-      <>
-        Every robot SDK, every VLA, every sensor has its own dialect. OpenRAL puts a single, typed contract
-        layer — Pydantic manifests over a ROS 2 backbone — between your robot and your models.
-      </>
-    ),
+    problem: "Every robot SDK, VLA and sensor speaks its own dialect.",
+    solution: "One typed contract — Pydantic manifests over a ROS 2 backbone.",
   },
   {
     title: "Safety bolted on last",
-    body: (
-      <>
-        Safety is the architecture, not a wrapper. Python <em>proposes</em> actions; a deny-by-default
-        supervisor <em>disposes</em> them. <code>ROSSafetyViolation</code> is never silently caught.
-      </>
-    ),
+    problem: "Most stacks treat safety as a wrapper added at the end.",
+    solution: "A separate deny-by-default supervisor — Python proposes, it disposes.",
   },
   {
     title: "Models locked to vendors",
-    body: (
-      <>
-        Swap SmolVLA, π0.5, ACT, Diffusion Policy, MolmoAct2, GR00T N1.7 or RLDX-1 behind one{" "}
-        <code>rSkill</code> interface — embodiment tags, license posture and latency budgets enforced at load.
-      </>
-    ),
+    problem: "Each VLA ships its own runtime; swapping one is a rewrite.",
+    solution: "π0.5, SmolVLA, ACT, GR00T… behind one rSkill interface.",
+  },
+  {
+    title: "Robots fail — then nothing",
+    problem: "A dropped grasp or a changed scene silently ends the task.",
+    solution: "A typed failure bus + a replanning ladder: retry → substitute → re-plan → handoff.",
   },
   {
     title: "Nothing reproducible",
-    body: (
-      <>
-        Every execution is replayable from its trace alone: OpenTelemetry spans with tensor shapes, pinned
-        weights, logged prompts, and a rosbag2 ↔ LeRobot dataset flywheel.
-      </>
-    ),
+    problem: "A run that worked once can't be replayed or audited.",
+    solution: "Every execution replays from its trace — OTel spans + a dataset flywheel.",
   },
 ];
 
@@ -47,7 +37,7 @@ export default function Solve() {
   return (
     <section id="solve" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">03 — The problem</div>
+        <div className="eyebrow">03 — The problem &amp; our answer</div>
         <h2>
           Robots, models and sensors don't speak the same language. OpenRAL is the <em>contract</em> that
           makes them.
@@ -64,8 +54,15 @@ export default function Solve() {
           <motion.article className="solve-row" key={it.title} variants={item}>
             <div className="solve-idx">{String(i + 1).padStart(2, "0")}</div>
             <div className="solve-content">
-              <h3>{it.title}</h3>
-              <p>{it.body}</p>
+              <div className="solve-problem">
+                <span className="solve-tag">Problem</span>
+                <h3>{it.title}</h3>
+                <p>{it.problem}</p>
+              </div>
+              <div className="solve-answer">
+                <span className="solve-tag is-answer">OpenRAL</span>
+                <p>{it.solution}</p>
+              </div>
             </div>
           </motion.article>
         ))}
