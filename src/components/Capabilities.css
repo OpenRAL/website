@@ -1,0 +1,71 @@
+.feat-bento {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+}
+.feat-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* useBalancedColumns() sets an equal min-height on every column; the extra
+     slack distributes here so all columns end flush — the bento is a rectangle */
+  justify-content: space-between;
+}
+.feat {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+  padding: 22px;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+}
+.feat:hover {
+  transform: translateY(-4px);
+  border-color: var(--hair-2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+.feat h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.feat p {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 60ch;
+}
+.feat-items {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.feat-items li {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  background: var(--bg-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  padding: 4px 9px;
+}
+.soon {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--hair-2);
+  border-radius: 100px;
+  padding: 2px 8px;
+}
+
+/* column count is driven by useBalancedColumns(): 3 / 2 / 1 by width */

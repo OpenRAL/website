@@ -1,0 +1,135 @@
+.agent {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+.agent-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.015);
+}
+.agent-dots {
+  display: flex;
+  gap: 6px;
+}
+.agent-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hair-2);
+}
+.agent-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+}
+.agent-live {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--live);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.agent-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--live);
+  animation: agent-pulse 1.8s infinite;
+}
+@keyframes agent-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(79, 181, 139, 0.45); }
+  50% { opacity: 0.4; box-shadow: 0 0 0 5px rgba(79, 181, 139, 0); }
+}
+
+.agent-trace {
+  padding: 16px 18px;
+  min-height: 224px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.tr-line {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  white-space: nowrap;
+}
+.tr-tok {
+  color: var(--text-2);
+}
+.tr-arrow {
+  color: var(--muted);
+}
+.tr-val {
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tr-line.ok .tr-val {
+  color: var(--text);
+}
+.tr-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  background: #fff;
+  transform: translateY(2px);
+  animation: agent-blink 1s steps(1) infinite;
+}
+@keyframes agent-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.agent-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.012);
+}
+.chip {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  padding: 4px 9px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.chip.on {
+  color: #0b0c10;
+  background: #fff;
+  border-color: #fff;
+}
+
+@media (max-width: 920px) {
+  .agent {
+    max-width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .agent-pulse,
+  .tr-cursor {
+    animation: none;
+  }
+}
