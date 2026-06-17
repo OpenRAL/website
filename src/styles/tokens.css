@@ -26,9 +26,9 @@
   --red: #d98a8e;
 
   /* type */
-  --display: "Clash Display", "Satoshi", system-ui, sans-serif;
-  --body: "Satoshi", system-ui, -apple-system, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --maxw: 1200px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

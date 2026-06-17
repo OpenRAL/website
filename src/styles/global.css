@@ -20,7 +20,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
 }
 
@@ -96,8 +96,7 @@ h3 em {
   position: relative;
   z-index: 1;
 }
-/* content sits above the dot-field canvas */
-.nav,
+/* content sits above the dot-field canvas (.nav keeps its own sticky + z-index) */
 main,
 .footer,
 .legal {

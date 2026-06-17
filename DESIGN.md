@@ -77,14 +77,17 @@ purple/blue "AI neon," outer-glow shadows, gradient text, pure `#000000`.
 
 ## 3. Typography Rules
 
-Three self-hosted families (no third-party font requests). Distinctive by design.
+Three self-hosted families (no third-party font requests).
 
-- **Display — Clash Display** (`--display`): headlines and card titles.
-  Track-tight, weight-driven hierarchy. Weights loaded: 400 / 500 / 600 / 700.
-- **Body — Satoshi** (`--body`): all prose. Relaxed leading (1.6), ~30em
-  (≈60–65ch) measure on ledes.
-- **Mono — JetBrains Mono** (`--mono`, variable): code, manifests, eyebrows,
-  labels, the agent trace, all numbers and metadata.
+- **Display — Space Grotesk** (`--display`, variable 300–700): headlines and
+  card titles. An engineered grotesque with mechanical detailing — reads like a
+  robotics control panel. Track-tight, weight-driven hierarchy.
+- **Body — IBM Plex Sans** (`--body`, variable 400–700): all prose. An
+  engineering-grade humanist sans with open-source heritage. Relaxed leading
+  (1.6), ~30em (≈60–65ch) measure on ledes.
+- **Mono — IBM Plex Mono** (`--mono`, weights 400/500/700): code, manifests,
+  eyebrows, labels, the agent trace, all numbers and metadata. Pairs natively
+  with Plex Sans.
 
 ### Scale (the canonical ladder)
 | Role | Family / weight | Size |
