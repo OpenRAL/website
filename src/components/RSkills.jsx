@@ -78,7 +78,7 @@ weights: none`,
 ];
 
 const LINKS = [
-  { href: "https://huggingface.co/OpenRAL/models", label: "Browse rSkills on the Hub", primary: true },
+  { href: "https://huggingface.co/OpenRAL/models", label: "Browse rSkills", primary: true },
   { href: "https://github.com/OpenRAL/openral/tree/master/rskills/template", label: "rSkill template ↗" },
   { href: "https://github.com/OpenRAL/openral/tree/master/.agents/skills/rskill-packager", label: "rskill-packager agent ↗" },
 ];

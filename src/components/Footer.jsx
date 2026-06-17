@@ -71,7 +71,7 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Resources</h4>
           <a href="https://openral.github.io/openral/" target="_blank" rel="noopener">Documentation</a>
-          <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">rSkills on the Hub</a>
+          <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">Browse rSkills</a>
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
           <a href="/privacy">Privacy</a>
         </div>
