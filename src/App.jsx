@@ -7,8 +7,13 @@ import Capabilities from "./components/Capabilities.jsx";
 import RSkills from "./components/RSkills.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
+import Privacy from "./components/Privacy.jsx";
+import CookieNotice from "./components/CookieNotice.jsx";
 
 export default function App() {
+  const path = typeof window !== "undefined" ? window.location.pathname.replace(/\/+$/, "") : "";
+  if (path === "/privacy") return <Privacy />;
+
   return (
     <>
       <div className="bg-grid" aria-hidden="true" />
@@ -24,6 +29,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <CookieNotice />
     </>
   );
 }

@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import "./Nav.css";
 
 const LINKS = [
-  { href: "#install", label: "Install" },
-  { href: "#architecture", label: "Architecture" },
-  { href: "#solve", label: "Why" },
-  { href: "#features", label: "Capabilities" },
-  { href: "#rskills", label: "rSkills" },
+  { href: "/#install", label: "Install" },
+  { href: "/#architecture", label: "Architecture" },
+  { href: "/#solve", label: "Why" },
+  { href: "/#features", label: "Capabilities" },
+  { href: "/#rskills", label: "rSkills" },
 ];
 
 export default function Nav() {
@@ -17,7 +17,7 @@ export default function Nav() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <a className="brand" href="#top">
+      <a className="brand" href="/">
         <img className="brand-mark" src="/assets/icon.svg" alt="" aria-hidden="true" />
         <span className="brand-name">OpenRAL</span>
       </a>
@@ -27,7 +27,7 @@ export default function Nav() {
             {l.label}
           </a>
         ))}
-        <a href="#contact" className="nav-cta">
+        <a href="/#contact" className="nav-cta">
           Contact
         </a>
       </nav>

@@ -9,7 +9,7 @@ export const NODES = [
   { id: "skills", x: 500, y: 296, w: 208, h: 104, group: "s1", layer: "L3", title: "S1 · rSkill", sub: "VLA policy · 30–200 Hz chunks" },
   { id: "safety", x: 772, y: 196, w: 150, h: 104, group: "safety", layer: "L6", title: "Safety", sub: "C++ · deny-by-default" },
   { id: "robot", x: 952, y: 196, w: 104, h: 104, group: "robot", layer: "act", title: "Robot", sub: "real · sim" },
-  { id: "obs", x: 246, y: 452, w: 676, h: 80, group: "obs", layer: "L7", title: "Observability", sub: "OpenTelemetry spans · Foxglove live scene · LeRobot dataset flywheel" },
+  { id: "obs", x: 500, y: 452, w: 208, h: 96, group: "obs", layer: "L7", title: "Observability", sub: "OTel · Foxglove · flywheel" },
 ];
 
 export const EDGES = [

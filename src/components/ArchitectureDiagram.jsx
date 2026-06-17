@@ -35,14 +35,19 @@ function edgePath(e) {
     const [bx, by] = b.left;
     return `M ${ax} ${ay} C ${ax + 180} ${ay + 32} ${bx - 180} ${by + 32} ${bx} ${by}`;
   }
-  // node → observability rail (dotted taps)
+  // node → observability card (dotted taps)
   if (e.route === "tap") {
+    const obs = byId.obs;
     const [ax, ay] = a.bottom;
     if (e.from === "reasoner") {
-      // route down the gap between memory and rSkill
-      return `M 560 ${ay} C 560 ${ay + 50} 460 ${obsTop - 90} 460 ${obsTop}`;
+      const tx = obs.x + 34; // enter obs top-left, routed down the memory/rSkill gap
+      return `M 545 ${ay} C 470 ${ay + 90} 470 ${obsTop - 46} ${tx} ${obsTop}`;
     }
-    return `M ${ax} ${ay} C ${ax} ${ay + 24} ${ax} ${obsTop - 24} ${ax} ${obsTop}`;
+    if (e.from === "safety") {
+      const tx = obs.x + obs.w - 34; // enter obs top-right, kept clear of rSkill
+      return `M ${ax} ${ay} C ${ax} ${ay + 120} ${tx + 34} ${obsTop - 30} ${tx} ${obsTop}`;
+    }
+    return `M ${ax} ${ay} C ${ax} ${ay + 24} ${ax} ${obsTop - 24} ${ax} ${obsTop}`; // skills, straight down
   }
   // vertically stacked (same column) → bottom → top
   if (Math.abs(a.cx - b.cx) < 60) {
@@ -121,7 +126,7 @@ export default function ArchitectureDiagram() {
               const hot = isEdgeHot(e);
               const faint = e.route === "tap";
               return (
-                <g key={`${e.from}-${e.to}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}${faint ? " tap" : ""}`}>
+                <g key={`${e.from}-${e.to}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}${faint ? " tap" : ""}${e.dashed ? " dashed" : ""}`}>
                   <motion.path
                     className="edge-base"
                     d={d}
@@ -130,7 +135,7 @@ export default function ArchitectureDiagram() {
                     whileInView={{ pathLength: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.9, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    strokeDasharray={e.dashed ? "3 7" : faint ? "1.5 7" : undefined}
+                    strokeDasharray={e.dashed ? "4 6" : faint ? "2 6" : undefined}
                   />
                   {!reduce && !e.dashed && !faint && (
                     <path className="edge-flow" d={d} fill="none" style={{ animationDelay: `${i * 0.25}s` }} />
@@ -140,14 +145,10 @@ export default function ArchitectureDiagram() {
             })}
           </svg>
 
-          <div className="dual-label" style={{ left: pct(DUAL_BAND.x, VW), top: pct(DUAL_BAND.y - 22, VH) }}>
-            Dual-system control · S1 ⇄ S2
-          </div>
-
           {EDGES.filter((e) => e.label).map((e) => {
             const a = anchors(byId[e.from]);
             const b = anchors(byId[e.to]);
-            const x = a.top[0] * 0.7 + b.top[0] * 0.3;
+            const x = (a.top[0] + b.top[0]) / 2;
             return (
               <div key={e.label} className="edge-label" style={{ left: pct(x, VW), top: pct(ARC_TOP - 16, VH) }}>
                 {e.label}

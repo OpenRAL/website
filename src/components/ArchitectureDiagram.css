@@ -59,13 +59,18 @@
 .edge {
   transition: opacity 0.25s var(--ease);
 }
+/* dashed feedback (veto → replan) */
+.edge.dashed .edge-base {
+  stroke: var(--clay);
+  opacity: 0.85;
+}
 /* dotted observability taps */
 .edge.tap .edge-base {
-  stroke: var(--muted);
-  opacity: 0.6;
+  stroke: var(--clay-line);
+  opacity: 0.75;
 }
 .edge.tap.hot .edge-base {
-  stroke: var(--clay-line);
+  stroke: var(--clay);
   opacity: 1;
 }
 
@@ -131,19 +136,8 @@
   background: var(--bg-2);
 }
 .node-obs {
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 14px;
   background: rgba(255, 255, 255, 0.014);
   border-style: dashed;
-}
-.node-obs .node-title {
-  font-size: 15px;
-}
-.node-obs .node-sub {
-  font-size: 11.5px;
-  color: var(--text-2);
 }
 
 .dual-label {

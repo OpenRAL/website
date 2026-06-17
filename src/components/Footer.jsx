@@ -33,10 +33,10 @@ const SOCIAL = [
 ];
 
 const NAV = [
-  { href: "#install", label: "Install" },
-  { href: "#architecture", label: "Architecture" },
-  { href: "#features", label: "Capabilities" },
-  { href: "#rskills", label: "rSkills" },
+  { href: "/#install", label: "Install" },
+  { href: "/#architecture", label: "Architecture" },
+  { href: "/#features", label: "Capabilities" },
+  { href: "/#rskills", label: "rSkills" },
 ];
 
 export default function Footer() {
@@ -73,6 +73,7 @@ export default function Footer() {
           <a href="https://openral.github.io/openral/" target="_blank" rel="noopener">Documentation</a>
           <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">rSkills on the Hub</a>
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
+          <a href="/privacy">Privacy</a>
         </div>
       </div>
     </footer>
