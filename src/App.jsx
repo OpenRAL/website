@@ -9,6 +9,7 @@ import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import Privacy from "./components/Privacy.jsx";
 import CookieNotice from "./components/CookieNotice.jsx";
+import DotField from "./components/DotField.jsx";
 
 export default function App() {
   const path = typeof window !== "undefined" ? window.location.pathname.replace(/\/+$/, "") : "";
@@ -16,8 +17,7 @@ export default function App() {
 
   return (
     <>
-      <div className="bg-grid" aria-hidden="true" />
-      <div className="bg-glow" aria-hidden="true" />
+      <DotField />
       <Nav />
       <main id="top">
         <Hero />

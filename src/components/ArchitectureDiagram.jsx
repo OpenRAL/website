@@ -137,8 +137,13 @@ export default function ArchitectureDiagram() {
                     transition={{ duration: 0.9, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                     strokeDasharray={e.dashed ? "4 6" : faint ? "2 6" : undefined}
                   />
-                  {!reduce && !e.dashed && !faint && (
-                    <path className="edge-flow" d={d} fill="none" style={{ animationDelay: `${i * 0.25}s` }} />
+                  {!reduce && (
+                    <path
+                      className={`edge-flow${faint ? " flow-tap" : ""}`}
+                      d={d}
+                      fill="none"
+                      style={{ animationDelay: `${i * 0.22}s` }}
+                    />
                   )}
                 </g>
               );

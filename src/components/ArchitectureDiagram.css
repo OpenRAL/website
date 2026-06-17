@@ -21,8 +21,8 @@
 }
 
 .dual-band {
-  fill: rgba(192, 121, 90, 0.04);
-  stroke: var(--clay-line);
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: var(--accent-line);
   stroke-width: 1;
   stroke-dasharray: 3 6;
 }
@@ -33,13 +33,18 @@
   stroke-width: 1.6;
 }
 .edge-flow {
-  stroke: var(--clay);
+  stroke: var(--accent);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-dasharray: 5 16;
-  filter: drop-shadow(0 0 5px rgba(192, 121, 90, 0.5));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
   animation: edge-dash 1.5s linear infinite;
-  opacity: 0.85;
+  opacity: 0.8;
+}
+.edge-flow.flow-tap {
+  stroke-width: 1.4;
+  opacity: 0.5;
+  filter: none;
 }
 @keyframes edge-dash {
   to {
@@ -47,7 +52,7 @@
   }
 }
 .edge.hot .edge-base {
-  stroke: var(--clay-line);
+  stroke: var(--accent-line);
 }
 .edge.hot .edge-flow {
   opacity: 1;
@@ -61,16 +66,16 @@
 }
 /* dashed feedback (veto → replan) */
 .edge.dashed .edge-base {
-  stroke: var(--clay);
+  stroke: var(--accent);
   opacity: 0.85;
 }
 /* dotted observability taps */
 .edge.tap .edge-base {
-  stroke: var(--clay-line);
+  stroke: var(--accent-line);
   opacity: 0.75;
 }
 .edge.tap.hot .edge-base {
-  stroke: var(--clay);
+  stroke: var(--accent);
   opacity: 1;
 }
 
@@ -91,13 +96,13 @@
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
 }
 .node:focus-visible {
-  border-color: var(--clay);
+  border-color: var(--accent);
 }
 .node-layer {
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.12em;
-  color: var(--clay);
+  color: var(--accent);
   text-transform: uppercase;
 }
 .node-title {
@@ -114,8 +119,8 @@
 }
 .node.active {
   transform: translateY(-3px);
-  border-color: var(--clay);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--clay-line);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-line);
   z-index: 3;
 }
 .node.dim {
@@ -126,11 +131,11 @@
 .node-s2,
 .node-s1 {
   background: linear-gradient(180deg, var(--surface-2), var(--surface));
-  border-color: var(--clay-line);
+  border-color: var(--accent-line);
 }
 .node-safety {
   border-style: dashed;
-  border-color: var(--clay-line);
+  border-color: var(--accent-line);
 }
 .node-robot {
   background: var(--bg-2);
@@ -154,10 +159,10 @@
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.04em;
-  color: var(--clay);
+  color: var(--accent);
   background: var(--bg);
   padding: 1px 7px;
-  border: 1px solid var(--clay-line);
+  border: 1px solid var(--accent-line);
   border-radius: 100px;
   white-space: nowrap;
 }
@@ -178,7 +183,7 @@
 }
 .mode:hover {
   transform: translateY(-3px);
-  border-color: var(--clay-line);
+  border-color: var(--accent-line);
 }
 .mode-tag {
   display: inline-block;
@@ -186,8 +191,8 @@
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--clay);
-  border: 1px solid var(--clay-line);
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
   border-radius: 100px;
   padding: 3px 11px;
   margin-bottom: 14px;

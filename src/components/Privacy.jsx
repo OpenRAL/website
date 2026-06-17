@@ -1,11 +1,12 @@
 import Nav from "./Nav.jsx";
 import Footer from "./Footer.jsx";
+import DotField from "./DotField.jsx";
 import "./Privacy.css";
 
 export default function Privacy() {
   return (
     <>
-      <div className="bg-grid" aria-hidden="true" />
+      <DotField />
       <Nav />
       <main className="legal">
         <div className="legal-head">

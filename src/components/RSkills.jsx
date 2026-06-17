@@ -83,7 +83,7 @@ const LINKS = [
   { href: "https://github.com/OpenRAL/openral/tree/master/.agents/skills/rskill-packager", label: "rskill-packager agent ↗" },
 ];
 
-// Minimal YAML colorizer: keys, quoted strings (clay), numbers (green).
+// Minimal YAML colorizer: keys, quoted strings, numbers — tonal monochrome.
 function colorize(text) {
   return text.split("\n").map((line, li) => {
     const m = line.match(/^(\s*)([\w.]+)(:)(.*)$/);

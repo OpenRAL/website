@@ -26,10 +26,10 @@
   font-weight: 500;
 }
 .cookie a {
-  color: var(--clay);
+  color: var(--accent);
 }
 .cookie a:hover {
-  color: var(--clay-tint);
+  color: var(--accent-tint);
 }
 .cookie-ok {
   flex-shrink: 0;
@@ -37,7 +37,7 @@
   font-size: 12px;
   font-weight: 500;
   color: #14100c;
-  background: var(--clay);
+  background: var(--accent);
   border: none;
   border-radius: 8px;
   padding: 8px 14px;
@@ -45,7 +45,7 @@
   transition: background 0.2s;
 }
 .cookie-ok:hover {
-  background: var(--clay-tint);
+  background: var(--accent-tint);
 }
 
 @media (max-width: 480px) {

@@ -18,8 +18,8 @@
 .solve-n {
   font-family: var(--mono);
   font-size: 13px;
-  color: var(--clay);
-  border: 1px solid var(--clay-line);
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
   width: 30px;
   height: 30px;
   display: grid;

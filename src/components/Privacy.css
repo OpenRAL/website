@@ -42,10 +42,10 @@
   line-height: 1.75;
 }
 .legal a {
-  color: var(--clay);
+  color: var(--accent);
 }
 .legal a:hover {
-  color: var(--clay-tint);
+  color: var(--accent-tint);
 }
 .legal-back {
   margin-top: 44px;
@@ -58,5 +58,5 @@
   color: var(--text-2);
 }
 .legal-back a:hover {
-  color: var(--clay);
+  color: var(--accent);
 }

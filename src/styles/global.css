@@ -32,15 +32,15 @@ a {
 code {
   font-family: var(--mono);
   font-size: 0.86em;
-  color: var(--clay-tint);
-  background: var(--clay-soft);
+  color: var(--accent-tint);
+  background: var(--accent-soft);
   padding: 0.1em 0.4em;
   border-radius: 4px;
 }
 
 em {
   font-style: normal;
-  color: var(--clay);
+  color: var(--accent);
 }
 
 strong {
@@ -65,16 +65,22 @@ h3 {
   color: #fff;
 }
 
-/* headings emphasise only one or two words */
+/* headings emphasise only one or two words — boldness + brightest white */
 h1 em,
 h2 em,
 h3 em {
   font-style: normal;
-  font-weight: 600;
-  color: var(--clay);
+  font-weight: 700;
+  color: #fff;
 }
 
 /* ---- atmosphere ---- */
+.dotfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
 .bg-grid {
   position: fixed;
   inset: 0;
@@ -94,11 +100,19 @@ h3 em {
   pointer-events: none;
   width: 820px;
   height: 820px;
-  background: radial-gradient(circle, rgba(192, 121, 90, 0.1) 0%, transparent 62%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 62%);
   filter: blur(24px);
 }
 
 #root {
+  position: relative;
+  z-index: 1;
+}
+/* content sits above the dot-field canvas */
+.nav,
+main,
+.footer,
+.legal {
   position: relative;
   z-index: 1;
 }
@@ -124,7 +138,7 @@ h3 em {
   font-size: 12px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--clay);
+  color: var(--text-2);
   margin-bottom: 18px;
 }
 
@@ -149,14 +163,14 @@ h3 em {
   transform: translateX(3px);
 }
 .btn-primary {
-  background: var(--clay);
-  color: #14100c;
+  background: var(--accent);
+  color: #0b0c10;
   font-weight: 700;
-  box-shadow: 0 6px 26px rgba(192, 121, 90, 0.26);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
 .btn-primary:hover {
-  background: var(--clay-tint);
-  box-shadow: 0 10px 34px rgba(192, 121, 90, 0.38);
+  background: var(--accent-tint);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
 }
 .btn-ghost {
   background: transparent;

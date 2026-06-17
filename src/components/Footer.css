@@ -27,7 +27,7 @@
   width: 22px;
   height: 22px;
   border-radius: 5px;
-  box-shadow: 0 0 16px rgba(192, 121, 90, 0.3);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
 }
 .footer-brand p {
   color: var(--text-2);
@@ -52,9 +52,9 @@
   transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 .footer-social a:hover {
-  color: var(--clay);
-  border-color: var(--clay);
-  box-shadow: 0 0 14px var(--clay-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-soft);
   transform: translateY(-2px);
 }
 
@@ -78,7 +78,7 @@
   transition: color 0.2s;
 }
 .footer-col a:hover {
-  color: var(--clay);
+  color: var(--accent);
 }
 
 @media (max-width: 760px) {

@@ -23,7 +23,7 @@
   content: "▸";
   position: absolute;
   left: 4px;
-  color: var(--clay);
+  color: var(--accent);
   font-family: var(--mono);
 }
 .yaml {
@@ -56,13 +56,13 @@
   white-space: pre;
 }
 .yk {
-  color: var(--text);
+  color: var(--text-2);
 }
 .ys {
-  color: var(--clay);
+  color: #fff;
 }
 .yn {
-  color: var(--green);
+  color: var(--muted);
 }
 
 .split-actions {
@@ -96,8 +96,8 @@
 }
 .kind-tab.active {
   color: #14100c;
-  background: var(--clay);
-  border-color: var(--clay);
+  background: var(--accent);
+  border-color: var(--accent);
   font-weight: 500;
 }
 
@@ -107,7 +107,7 @@
   justify-content: space-between;
 }
 .yaml-kind {
-  color: var(--clay);
+  color: var(--accent);
   text-transform: none;
 }
 .yaml pre {

@@ -45,8 +45,8 @@
   transition: border-color 0.2s, color 0.2s;
 }
 .term-copy:hover {
-  border-color: var(--clay);
-  color: var(--clay);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .term-body {
   padding: 22px 20px 26px;
@@ -60,7 +60,7 @@
   align-items: flex-start;
 }
 .term-prompt {
-  color: var(--clay);
+  color: var(--accent);
   user-select: none;
 }
 .term-cmd code {
@@ -73,7 +73,7 @@
   display: inline-block;
   width: 7px;
   height: 1.05em;
-  background: var(--clay);
+  background: var(--accent);
   vertical-align: -2px;
   margin-left: 2px;
   animation: term-blink 1s steps(1) infinite;
@@ -102,8 +102,8 @@
   max-width: 900px;
 }
 .term-note a {
-  color: var(--clay);
+  color: var(--accent);
 }
 .term-note a:hover {
-  color: var(--clay-tint);
+  color: var(--accent-tint);
 }
