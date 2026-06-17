@@ -64,6 +64,18 @@ export default function DotField() {
       resizeTimer = setTimeout(build, 150);
     };
 
+    // pause the loop while the tab is hidden
+    const onVisibility = () => {
+      if (reduce) return;
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!raf) {
+        last = 0;
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
     build();
     if (reduce) {
       draw(0);
@@ -71,10 +83,12 @@ export default function DotField() {
       raf = requestAnimationFrame(loop);
     }
     window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 

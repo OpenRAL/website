@@ -21,6 +21,8 @@ export default function Contact() {
     };
     if (!data.name || !data.email || !data.message) {
       setStatus({ msg: "Please fill in every field.", kind: "err" });
+      const firstEmpty = !data.name ? "name" : !data.email ? "email" : "message";
+      form.elements[firstEmpty]?.focus();
       return;
     }
 

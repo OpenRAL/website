@@ -86,7 +86,8 @@
   background: var(--bg-2);
   border: 1px solid var(--hair-2);
   border-radius: 8px;
-  padding: 7px 13px;
+  padding: 10px 15px;
+  min-height: 40px;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }

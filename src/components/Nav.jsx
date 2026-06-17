@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Nav.css";
 
@@ -10,6 +11,24 @@ const LINKS = [
 ];
 
 export default function Nav() {
+  const [active, setActive] = useState("");
+
+  // scroll-spy: highlight the nav item for the section in view
+  useEffect(() => {
+    const sections = LINKS.map((l) => document.getElementById(l.href.split("#")[1])).filter(Boolean);
+    if (!sections.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <motion.header
       className="nav"
@@ -23,7 +42,12 @@ export default function Nav() {
       </a>
       <nav className="nav-links">
         {LINKS.map((l) => (
-          <a key={l.href} href={l.href}>
+          <a
+            key={l.href}
+            href={l.href}
+            className={active && l.href.endsWith("#" + active) ? "active" : undefined}
+            aria-current={active && l.href.endsWith("#" + active) ? "true" : undefined}
+          >
             {l.label}
           </a>
         ))}

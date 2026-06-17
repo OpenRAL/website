@@ -29,6 +29,16 @@ a {
   text-decoration: none;
 }
 
+/* visible keyboard focus on every interactive element */
+:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-radius: 5px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 code {
   font-family: var(--mono);
   font-size: 0.86em;
@@ -81,28 +91,6 @@ h3 em {
   z-index: 0;
   pointer-events: none;
 }
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 80%);
-}
-.bg-glow {
-  position: fixed;
-  top: -320px;
-  right: -200px;
-  z-index: 0;
-  pointer-events: none;
-  width: 820px;
-  height: 820px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 62%);
-  filter: blur(24px);
-}
 
 #root {
   position: relative;
@@ -118,6 +106,11 @@ main,
 }
 
 /* ---- shared layout ---- */
+/* keep anchored section headings clear of the sticky nav */
+main[id],
+section[id] {
+  scroll-margin-top: 84px;
+}
 .band {
   max-width: var(--maxw);
   margin: 0 auto;
