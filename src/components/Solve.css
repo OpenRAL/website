@@ -1,154 +1,198 @@
-.solve-list {
-  list-style: none;
+/* git-diff console -------------------------------------------------------- */
+.diff-console {
+  max-width: 860px;
+  margin: 0 auto;
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+
+.diff-bar {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.solve-row {
-  margin: 0;
-}
-
-/* page-flip card ------------------------------------------------------- */
-.flip {
-  perspective: 1800px;
-  cursor: pointer;
-  border-radius: 14px;
-}
-.flip:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-.flip-inner {
-  /* both faces share one grid cell, so the row sizes to the taller face */
-  display: grid;
-  transform-style: preserve-3d;
-  transition: transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.flip:hover .flip-inner,
-.flip.is-flipped .flip-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-face {
-  grid-area: 1 / 1;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  display: grid;
-  grid-template-columns: clamp(48px, 6vw, 74px) 1fr auto;
   align-items: center;
-  gap: clamp(12px, 3vw, 30px);
-  padding: clamp(18px, 2.4vw, 26px) clamp(20px, 3vw, 30px);
-  background: var(--surface);
-  border: 1px solid var(--hair);
-  border-radius: 14px;
-  transition: border-color 0.25s;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.015);
 }
-.flip:hover .flip-face {
-  border-color: var(--hair-2);
+.diff-dots {
+  display: flex;
+  gap: 8px;
 }
-.flip-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+.diff-dots i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--hair);
 }
-
-.solve-idx {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(26px, 3.4vw, 40px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--hair-2);
-  font-variant-numeric: tabular-nums;
-  transition: color 0.25s var(--ease);
+.diff-dots i:first-child {
+  background: var(--hair-2);
 }
-.flip:hover .flip-front .solve-idx {
+.diff-file {
+  font-family: var(--mono);
+  font-size: 13px;
   color: var(--text-2);
+  margin-left: 10px;
 }
-.flip-back .solve-idx {
-  color: var(--accent-line);
-}
-
-/* both faces share one heading + paragraph treatment, so flipping never
-   changes the typographic feel */
-.flip-body h3 {
-  font-family: var(--display);
-  font-size: clamp(16px, 1.8vw, 20px);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
-}
-.flip-body p {
-  font-family: var(--body);
-  color: var(--text-2);
-  font-size: 14.5px;
-  line-height: 1.5;
-}
-.flip-back .flip-body p {
+.diff-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
   color: var(--text);
 }
+.diff-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  animation: diff-pulse 2s infinite;
+}
+@keyframes diff-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
-.flip-hint {
+.diff-list {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.diff-hunk {
+  border: 1px solid var(--hair);
+  border-radius: 11px;
+  overflow: hidden;
+  background: #14161b;
+  transition: border-color 0.25s, transform 0.25s var(--ease);
+}
+.diff-hunk:hover {
+  border-color: var(--hair-2);
+  transform: translateY(-2px);
+}
+
+.diff-hunk-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.025);
+}
+.diff-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--hair-2);
+  background: var(--surface-2);
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--text);
+}
+.diff-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  color: #f4f5f7;
+}
+.diff-meta {
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+.diff-path {
   font-family: var(--mono);
   font-size: 11px;
-  letter-spacing: 0.04em;
   color: var(--muted);
-  white-space: nowrap;
-  transition: color 0.25s;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 5px;
+  padding: 2px 8px;
 }
-.flip-hint svg {
-  transition: transform 0.25s var(--ease);
+.diff-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  border-radius: 5px;
+  padding: 2px 7px;
 }
-.flip:hover .flip-hint {
-  color: var(--text);
+.diff-count.del {
+  color: #e8918d;
+  background: rgba(229, 83, 75, 0.12);
 }
-.flip:hover .flip-hint svg {
-  transform: translateX(3px);
+.diff-count.add {
+  color: #6fc79b;
+  background: rgba(79, 181, 139, 0.14);
+}
+
+.diff-lines {
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.diff-line {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-radius: 0 6px 6px 0;
+  padding: 5px 11px;
+}
+.diff-line.del {
+  background: rgba(229, 83, 75, 0.1);
+  border-left: 2px solid rgba(229, 83, 75, 0.45);
+}
+.diff-line.add {
+  background: rgba(79, 181, 139, 0.12);
+  border-left: 2px solid rgba(79, 181, 139, 0.5);
+}
+.diff-sign {
+  flex: none;
+  font-weight: 700;
+}
+.diff-line.del .diff-sign {
+  color: #e8918d;
+}
+.diff-line.add .diff-sign {
+  color: #6fc79b;
+}
+.diff-line.del .diff-text {
+  color: #cda7a5;
+  text-decoration: line-through;
+  text-decoration-color: rgba(229, 83, 75, 0.4);
+}
+.diff-line.add .diff-text {
+  color: #d2e8db;
 }
 
 @media (max-width: 560px) {
-  .flip-face {
-    grid-template-columns: 40px 1fr;
-  }
-  .flip-hint {
+  .diff-path {
     display: none;
+  }
+  .diff-title {
+    font-size: 14px;
   }
 }
-
-/* reduced motion: no flip — show problem and answer stacked --------------- */
 @media (prefers-reduced-motion: reduce) {
-  .flip {
-    cursor: default;
-  }
-  .flip-inner {
-    transition: none;
-  }
-  .flip:hover .flip-inner,
-  .flip.is-flipped .flip-inner {
-    transform: none;
-  }
-  .flip-face {
-    -webkit-backface-visibility: visible;
-    backface-visibility: visible;
-  }
-  .flip-front {
-    grid-area: auto;
-  }
-  .flip-back {
-    grid-area: auto;
-    transform: none;
-    border-top: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .flip-front {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .flip-hint {
-    display: none;
+  .diff-pulse {
+    animation: none;
+    opacity: 1;
   }
 }
