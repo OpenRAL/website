@@ -10,9 +10,11 @@
 // { code: "not_configured" } so the front-end can tell the visitor to email
 // us directly — it never pretends to have sent a message it didn't send.
 
+// Both audiences currently deliver to hello@openral.com; the subject line
+// still distinguishes a partnership enquiry from a general one.
 const ROUTES = {
   hello: "hello@openral.com",
-  partner: "partner@openral.com",
+  partner: "hello@openral.com",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
