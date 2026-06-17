@@ -1,78 +1,99 @@
-.solve-list {
+.solve-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+/* tile 5 cards into 2 clean rows: three span-2, two span-3 */
+.prob-card.s2 {
+  grid-column: span 2;
+}
+.prob-card.s3 {
+  grid-column: span 3;
+}
+
+.prob-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--hair);
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
 }
-.solve-row {
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: clamp(14px, 3vw, 40px);
-  align-items: start;
-  padding: clamp(22px, 3vw, 34px) 0;
-  border-bottom: 1px solid var(--hair);
+.prob-card::before {
+  /* faint left rail that brightens on hover, anchoring the problem→answer flow */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: var(--hair-2);
+  transition: background 0.25s;
 }
-.solve-idx {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(26px, 3vw, 36px);
-  line-height: 1;
-  color: var(--hair-2);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  transition: color 0.25s var(--ease);
+.prob-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--hair-2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
 }
-.solve-row:hover .solve-idx {
-  color: var(--text-2);
+.prob-card:hover::before {
+  background: var(--accent-line);
 }
-.solve-content {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(20px, 3vw, 44px);
-}
-.solve-tag {
-  display: inline-block;
+
+.prob-num {
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   color: var(--muted);
-  margin-bottom: 9px;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 10px;
 }
-.solve-tag.is-answer {
-  color: #fff;
-}
-.solve-problem h3 {
-  font-size: clamp(17px, 1.8vw, 20px);
+.prob-title {
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.25;
   margin-bottom: 7px;
 }
-.solve-problem p {
+.prob-text {
   color: var(--text-2);
-  font-size: 14.5px;
-  line-height: 1.55;
-}
-.solve-answer {
-  padding-left: clamp(20px, 3vw, 44px);
-  border-left: 1px solid var(--hair);
-}
-.solve-answer p {
-  color: var(--text);
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
-@media (max-width: 760px) {
-  .solve-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
+.prob-divider {
+  height: 1px;
+  background: var(--hair);
+  margin: 16px 0 14px;
+}
+
+.prob-answer {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.prob-answer svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--accent);
+}
+.prob-answer p {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+@media (max-width: 1024px) {
+  .solve-grid {
+    grid-template-columns: 1fr 1fr;
   }
-  .solve-answer {
-    padding-left: 14px;
-    border-left: 1px solid var(--accent-line);
+  .prob-card.s2,
+  .prob-card.s3 {
+    grid-column: auto;
   }
 }
-@media (max-width: 560px) {
-  .solve-row {
+@media (max-width: 600px) {
+  .solve-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
   }
 }

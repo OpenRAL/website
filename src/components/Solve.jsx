@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
-import { useReveal, useStagger } from "../hooks/useReveal.js";
+import { motion, useReducedMotion } from "framer-motion";
+import { useReveal } from "../hooks/useReveal.js";
 import "./Solve.css";
 
-// title = the problem; solution = OpenRAL's answer.
+// title = the problem; solution = OpenRAL's answer. The answer unveils on
+// scroll, a beat after each card enters view — the reveal is the scroll moment.
 const ITEMS = [
   {
     title: "Fragmentation, everywhere",
@@ -31,9 +32,21 @@ const ITEMS = [
   },
 ];
 
+// span pattern that tiles 5 cards into two clean rows on the 6-col grid
+const SPANS = ["s2", "s2", "s2", "s3", "s3"];
+
+function Arrow() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+      <path d="M2 7.5h10M8.5 4l3.5 3.5L8.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function Solve() {
   const reveal = useReveal();
-  const { container, item } = useStagger();
+  const reduce = useReducedMotion();
+
   return (
     <section id="solve" className="band">
       <motion.div className="band-head" {...reveal}>
@@ -43,30 +56,34 @@ export default function Solve() {
           makes them.
         </h2>
       </motion.div>
-      <motion.div
-        className="solve-list"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-40px" }}
-      >
+
+      <div className="solve-grid">
         {ITEMS.map((it, i) => (
-          <motion.article className="solve-row" key={it.title} variants={item}>
-            <div className="solve-idx">{String(i + 1).padStart(2, "0")}</div>
-            <div className="solve-content">
-              <div className="solve-problem">
-                <span className="solve-tag">Problem</span>
-                <h3>{it.title}</h3>
-                <p>{it.problem}</p>
-              </div>
-              <div className="solve-answer">
-                <span className="solve-tag is-answer">OpenRAL</span>
-                <p>{it.solution}</p>
-              </div>
-            </div>
+          <motion.article
+            className={`prob-card ${SPANS[i]}`}
+            key={it.title}
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.45, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="prob-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="prob-title">{it.title}</h3>
+            <p className="prob-text">{it.problem}</p>
+            <div className="prob-divider" />
+            <motion.div
+              className="prob-answer"
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.07 + 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Arrow />
+              <p>{it.solution}</p>
+            </motion.div>
           </motion.article>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

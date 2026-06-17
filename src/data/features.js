@@ -18,13 +18,13 @@ export const FEATURES = [
     title: "Perception",
     body: "Open-vocab AI detectors and a scene VLM lift 2D→3D into a tf2-aware, 30 Hz world state.",
     items: ["RT-DETR", "LocateAnything", "Qwen3.5-4B VLM"],
-    // media: tabletop pointcloud with detected objects
+    viz: "pointcloud",
     media: [],
   },
   {
     title: "Spatial memory",
     body: "An advisory scene graph the reasoner queries to recall where things are.",
-    // media: graph of object poses and locations
+    viz: "scenegraph",
     media: [],
   },
   {
@@ -35,7 +35,7 @@ export const FEATURES = [
   },
   {
     title: "Safety Kernel",
-    body: "A separate C++ deny-by-default supervisor gates every command — deadman + E-stop. **EU AI Act 2027 compliant.**",
+    body: "A separate C++ deny-by-default supervisor screens every policy action chunk for self- and world-collision (ACM), with deadman + E-stop. **EU AI Act 2027 compliant.**",
     media: [],
   },
   {
@@ -57,8 +57,9 @@ export const FEATURES = [
     media: [],
   },
   {
-    title: "Traceable & replayable",
-    body: "OpenTelemetry spans, a Foxglove live scene, and a LeRobot dataset flywheel.",
+    title: "Traceability",
+    body: "Every run replays from its trace — distributed spans, a live 3D scene, and a dataset flywheel.",
+    items: ["OpenTelemetry", "Foxglove", "LeRobot"],
     media: [],
   },
 ];

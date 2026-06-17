@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import { FEATURES } from "../data/features.js";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import CardMedia from "./CardMedia.jsx";
+import PointcloudViz from "./PointcloudViz.jsx";
+import SceneGraphViz from "./SceneGraphViz.jsx";
 import "./Capabilities.css";
+
+const VIZ = { pointcloud: PointcloudViz, scenegraph: SceneGraphViz };
 
 // Bento spans, matched to FEATURES order. c2 = 2 cols, c4 = 4 cols (wide).
 // Tiles a 6-col grid into 4 clean rows; the two list-heavy cards (rSkills #7,
@@ -42,9 +46,11 @@ export default function Capabilities() {
         whileInView="show"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {FEATURES.map((f, i) => (
+        {FEATURES.map((f, i) => {
+          const Viz = f.viz && VIZ[f.viz];
+          return (
           <motion.article className={`feat ${SPANS[i]}${f.soon ? " is-soon" : ""}`} key={f.title} variants={item}>
-            <CardMedia paths={f.media} />
+            {Viz ? <Viz /> : <CardMedia paths={f.media} />}
             <h3>
               {f.title}
               {f.soon && <span className="soon">Soon</span>}
@@ -58,7 +64,8 @@ export default function Capabilities() {
               </ul>
             )}
           </motion.article>
-        ))}
+          );
+        })}
       </motion.div>
     </section>
   );
