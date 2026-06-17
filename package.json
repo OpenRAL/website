@@ -1,0 +1,11 @@
+{
+  "name": "openral-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public website for OpenRAL — the open harness for physical AI.",
+  "license": "Apache-2.0",
+  "homepage": "https://openral.com",
+  "engines": {
+    "node": ">=18"
+  }
+}
