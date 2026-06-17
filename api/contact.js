@@ -1,7 +1,8 @@
 // Vercel serverless function — contact form → email via Resend.
 //
-// Routes a submission to hello@openral.com (general) or partner@openral.com
-// (partnerships). Requires two pieces of config as Vercel environment vars:
+// Routes a submission to hello@openral.com. Both the general and partnership
+// topics currently deliver there (the subject line distinguishes them).
+// Requires two pieces of config as Vercel environment vars:
 //   RESEND_API_KEY   — API key from https://resend.com
 //   CONTACT_FROM     — a verified sender on openral.com, e.g.
 //                      "OpenRAL <noreply@openral.com>"
@@ -10,9 +11,11 @@
 // { code: "not_configured" } so the front-end can tell the visitor to email
 // us directly — it never pretends to have sent a message it didn't send.
 
+// Both audiences currently deliver to hello@openral.com; the subject line
+// still distinguishes a partnership enquiry from a general one.
 const ROUTES = {
   hello: "hello@openral.com",
-  partner: "partner@openral.com",
+  partner: "hello@openral.com",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

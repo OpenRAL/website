@@ -50,8 +50,9 @@ vercel dev
 ### Contact form behavior
 
 The form posts `{ audience, name, email, message }` to `/api/contact`. `audience`
-routes the message to **hello@openral.com** (general) or **partner@openral.com**
-(partnerships); the visitor's address is set as `reply_to`.
+routes the message to **hello@openral.com** (both the general and partnership
+topics currently land there; the subject line distinguishes them); the
+visitor's address is set as `reply_to`.
 
 Until `RESEND_API_KEY` and `CONTACT_FROM` are set, the endpoint returns
 `503 { code: "not_configured" }` and the form tells the visitor to email us

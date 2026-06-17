@@ -78,9 +78,8 @@ strong { color: #fff; font-weight: 700; }
 }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; letter-spacing: -0.01em; font-size: 19px; }
 .brand-mark {
-  width: 16px; height: 16px; border-radius: 3px;
-  background: conic-gradient(from 135deg, var(--amber), var(--cyan), var(--amber));
-  box-shadow: 0 0 14px rgba(255,138,61,0.5);
+  width: 22px; height: 22px; border-radius: 5px; display: block; object-fit: contain;
+  box-shadow: 0 0 16px rgba(255,138,61,0.35);
 }
 .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); }
 .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--text-2); transition: color 0.2s; }
@@ -304,6 +303,7 @@ h3 { font-family: var(--display); font-weight: 600; font-size: 19px; letter-spac
 .select-wrap { position: relative; }
 .select-wrap::after { content: "▾"; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 12px; }
 .field select { appearance: none; cursor: pointer; }
+.hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
 .form-status { font-family: var(--mono); font-size: 13px; min-height: 18px; }
 .form-status.ok { color: var(--green); }
 .form-status.err { color: var(--red); }
