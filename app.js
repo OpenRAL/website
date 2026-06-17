@@ -193,11 +193,11 @@
         const out = await res.json().catch(() => ({}));
 
         if (res.ok) {
-          const to = data.audience === "partner" ? "partner@openral.com" : "hello@openral.com";
+          const to = "hello@openral.com";
           setStatus("Message sent to " + to + ". We'll be in touch.", "ok");
           form.reset();
         } else if (res.status === 503 && out.code === "not_configured") {
-          const to = data.audience === "partner" ? "partner@openral.com" : "hello@openral.com";
+          const to = "hello@openral.com";
           setStatus("Email isn't wired up yet — please reach us directly at " + to + ".", "info");
         } else {
           setStatus(out.error || "Something went wrong. Please email us directly.", "err");
