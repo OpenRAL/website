@@ -1,11 +1,17 @@
-.feat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.feat-bento {
+  display: flex;
+  align-items: stretch;
   gap: 14px;
-  /* fine row track + useMasonry() sets each card's row span by its height,
-     so cards pack tightly instead of stretching to the tallest in the row */
-  grid-auto-rows: 8px;
-  align-items: start;
+}
+.feat-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* useBalancedColumns() sets an equal min-height on every column; the extra
+     slack distributes here so all columns end flush — the bento is a rectangle */
+  justify-content: space-between;
 }
 .feat {
   display: flex;
@@ -62,13 +68,4 @@
   padding: 2px 8px;
 }
 
-@media (max-width: 1024px) {
-  .feat-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 560px) {
-  .feat-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* column count is driven by useBalancedColumns(): 3 / 2 / 1 by width */

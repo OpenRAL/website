@@ -1,8 +1,7 @@
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FEATURES } from "../data/features.js";
-import { useReveal, useStagger } from "../hooks/useReveal.js";
-import { useMasonry } from "../hooks/useMasonry.js";
+import { useReveal } from "../hooks/useReveal.js";
+import { useBalancedColumns } from "../hooks/useBalancedColumns.js";
 import CardMedia from "./CardMedia.jsx";
 import "./Capabilities.css";
 
@@ -17,11 +16,37 @@ function richBody(text) {
   );
 }
 
+function Card({ f, idx, reduce }) {
+  return (
+    <motion.article
+      className={`feat${f.soon ? " is-soon" : ""}`}
+      data-feat={idx}
+      initial={reduce ? false : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: (idx % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <CardMedia paths={f.media} />
+      <h3>
+        {f.title}
+        {f.soon && <span className="soon">Soon</span>}
+      </h3>
+      <p>{richBody(f.body)}</p>
+      {f.items && (
+        <ul className="feat-items">
+          {f.items.map((it) => (
+            <li key={it}>{it}</li>
+          ))}
+        </ul>
+      )}
+    </motion.article>
+  );
+}
+
 export default function Capabilities() {
   const reveal = useReveal();
-  const { container, item } = useStagger(0.05);
-  const gridRef = useRef(null);
-  useMasonry(gridRef, [FEATURES.length]);
+  const reduce = useReducedMotion();
+  const { ref, cols, minH } = useBalancedColumns(FEATURES.length);
 
   return (
     <section id="features" className="band">
@@ -35,32 +60,15 @@ export default function Capabilities() {
           safety / observability layer ROS 2 doesn't have.
         </p>
       </motion.div>
-      <motion.div
-        className="feat-grid"
-        ref={gridRef}
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-40px" }}
-      >
-        {FEATURES.map((f) => (
-          <motion.article className={`feat${f.soon ? " is-soon" : ""}`} key={f.title} variants={item}>
-            <CardMedia paths={f.media} />
-            <h3>
-              {f.title}
-              {f.soon && <span className="soon">Soon</span>}
-            </h3>
-            <p>{richBody(f.body)}</p>
-            {f.items && (
-              <ul className="feat-items">
-                {f.items.map((it) => (
-                  <li key={it}>{it}</li>
-                ))}
-              </ul>
-            )}
-          </motion.article>
+      <div className="feat-bento" ref={ref}>
+        {cols.map((idxs, ci) => (
+          <div className="feat-col" key={ci} style={minH ? { minHeight: minH } : undefined}>
+            {idxs.map((idx) => (
+              <Card key={FEATURES[idx].title} f={FEATURES[idx]} idx={idx} reduce={reduce} />
+            ))}
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useReveal } from "../hooks/useReveal.js";
+import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./Solve.css";
 
-// title = the problem; solution = OpenRAL's answer. The answer unveils on
-// scroll, a beat after each card enters view — the reveal is the scroll moment.
+// title = the problem; solution = OpenRAL's answer. A numbered list; each row
+// flips like a book page (hover / focus / tap) to reveal the answer.
 const ITEMS = [
   {
     title: "Fragmentation, everywhere",
@@ -32,9 +33,6 @@ const ITEMS = [
   },
 ];
 
-// span pattern that tiles 5 cards into two clean rows on the 6-col grid
-const SPANS = ["s2", "s2", "s2", "s3", "s3"];
-
 function Arrow() {
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
@@ -46,6 +44,15 @@ function Arrow() {
 export default function Solve() {
   const reveal = useReveal();
   const reduce = useReducedMotion();
+  const { container, item } = useStagger(0.06);
+  const [flipped, setFlipped] = useState(() => new Set());
+
+  const toggle = (i) =>
+    setFlipped((prev) => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
 
   return (
     <section id="solve" className="band">
@@ -55,35 +62,57 @@ export default function Solve() {
           Robots, models and sensors don't speak the same language. OpenRAL is the <em>contract</em> that
           makes them.
         </h2>
+        <p className="band-sub">Hover a row to turn the page — every problem, the OpenRAL answer on the back.</p>
       </motion.div>
 
-      <div className="solve-grid">
-        {ITEMS.map((it, i) => (
-          <motion.article
-            className={`prob-card ${SPANS[i]}`}
-            key={it.title}
-            initial={reduce ? false : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.45, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="prob-num">{String(i + 1).padStart(2, "0")}</span>
-            <h3 className="prob-title">{it.title}</h3>
-            <p className="prob-text">{it.problem}</p>
-            <div className="prob-divider" />
-            <motion.div
-              className="prob-answer"
-              initial={reduce ? false : { opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.07 + 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Arrow />
-              <p>{it.solution}</p>
-            </motion.div>
-          </motion.article>
-        ))}
-      </div>
+      <motion.ol
+        className="solve-list"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-40px" }}
+      >
+        {ITEMS.map((it, i) => {
+          const num = String(i + 1).padStart(2, "0");
+          return (
+            <motion.li className="solve-row" key={it.title} variants={item}>
+              <div
+                className={`flip${flipped.has(i) ? " is-flipped" : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`${it.title}. Reveal OpenRAL's answer.`}
+                onClick={() => toggle(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle(i);
+                  }
+                }}
+              >
+                <div className="flip-inner">
+                  <div className="flip-face flip-front">
+                    <span className="solve-idx">{num}</span>
+                    <div className="flip-body">
+                      <h3>{it.title}</h3>
+                      <p>{it.problem}</p>
+                    </div>
+                    <span className="flip-hint">
+                      the fix <Arrow />
+                    </span>
+                  </div>
+                  <div className="flip-face flip-back">
+                    <span className="solve-idx">{num}</span>
+                    <div className="flip-body">
+                      <span className="flip-tag">OpenRAL</span>
+                      <p>{it.solution}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.li>
+          );
+        })}
+      </motion.ol>
     </section>
   );
 }

@@ -6,15 +6,23 @@ import "./AgentConsole.css";
 // Distinct from the architecture diagram — this shows the system running.
 const TRACE = [
   { tok: "reasoner.tick", val: "S2 online", skill: null },
+  { tok: "ExecuteRSkill", val: 'detect · "mug, table"', skill: "detect" },
   { tok: "query_scene", val: 'vlm · "mug on table"', skill: "vlm" },
   { tok: "recall", val: '"mug" → pose ✓', skill: "recall", ok: true },
-  { tok: "ExecuteRskill", val: "navigate_to_pose", skill: "navigate" },
-  { tok: "ExecuteRskill", val: 'pick("mug")', skill: "pick" },
+  { tok: "LifecycleTransition", val: "pick → ACTIVE", skill: "pick" },
+  { tok: "ExecuteRSkill", val: "navigate_to_pose", skill: "navigate" },
+  { tok: "safety.acm", val: "self/world clear ✓", skill: "safety", ok: true },
+  { tok: "ExecuteRSkill", val: 'pick("mug")', skill: "pick" },
   { tok: "query_progress", val: "robometer 0.72 ↑", skill: "robometer" },
-  { tok: "ExecuteRskill", val: "place", skill: "place" },
+  { tok: "failure.bus", val: "grasp slipped", skill: null },
+  { tok: "replan", val: "retry → substitute", skill: null },
+  { tok: "EmitPrompt", val: '"confirm placement?"', skill: null },
+  { tok: "ExecuteRSkill", val: "place", skill: "place" },
   { tok: "safety.check", val: "verdict pass ✓", skill: "safety", ok: true },
+  { tok: "dataset.append", val: "episode +1 ↗", skill: null },
+  { tok: "otel.span", val: "trace flushed", skill: null },
 ];
-const CHIPS = ["vlm", "recall", "navigate", "pick", "robometer", "place", "safety"];
+const CHIPS = ["detect", "vlm", "recall", "navigate", "pick", "robometer", "place", "safety"];
 const MAX = 6;
 
 export default function AgentConsole() {
