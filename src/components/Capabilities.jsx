@@ -5,6 +5,10 @@ import { useBalancedColumns } from "../hooks/useBalancedColumns.js";
 import CardMedia from "./CardMedia.jsx";
 import "./Capabilities.css";
 
+// Pin Spatial memory (a short card) to the bottom of the first column so the
+// taller cards spread more evenly and columns 1–2 carry less empty space.
+const PINS = [{ index: FEATURES.findIndex((f) => f.title === "Spatial memory"), col: 0, place: "end" }];
+
 // Renders a body string, turning **…** spans into <strong>.
 function richBody(text) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
@@ -46,7 +50,7 @@ function Card({ f, idx, reduce }) {
 export default function Capabilities() {
   const reveal = useReveal();
   const reduce = useReducedMotion();
-  const { ref, cols, minH } = useBalancedColumns(FEATURES.length);
+  const { ref, cols, minH } = useBalancedColumns(FEATURES.length, { pins: PINS });
 
   return (
     <section id="features" className="band">

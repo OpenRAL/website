@@ -103,7 +103,7 @@ export default function Solve() {
                   <div className="flip-face flip-back">
                     <span className="solve-idx">{num}</span>
                     <div className="flip-body">
-                      <span className="flip-tag">OpenRAL</span>
+                      <h3>OpenRAL</h3>
                       <p>{it.solution}</p>
                     </div>
                   </div>
