@@ -7,33 +7,28 @@ import "./Solve.css";
 const ITEMS = [
   {
     title: "Fragmentation, everywhere",
-    path: "harness/contract.py",
-    problem: "Every robot SDK, VLA and sensor speaks its own dialect.",
-    solution: "One typed contract — Pydantic manifests over a ROS 2 backbone.",
+    problem: "Every robot SDK, VLA and sensor speaks its own dialect — integration is one-off glue code.",
+    solution: "Eight typed layers with Pydantic v2 contracts at every boundary, over a ROS 2 backbone.",
   },
   {
     title: "Safety bolted on last",
-    path: "kernel/supervisor.cpp",
-    problem: "Most stacks treat safety as a wrapper added at the end.",
-    solution: "A separate deny-by-default supervisor — Python proposes, it disposes.",
+    problem: "Safety runs inside the policy process — the same one that can crash or hang.",
+    solution: "A separate C++ deny-by-default kernel screens every action chunk: Python proposes, C++ disposes.",
   },
   {
     title: "Models locked to vendors",
-    path: "rskills/registry.py",
-    problem: "Each VLA ships its own runtime; swapping one is a rewrite.",
-    solution: "π0.5, SmolVLA, ACT, GR00T… behind one rSkill interface.",
+    problem: "Each VLA ships its own runtime, deps and quirks — swapping one is a rewrite.",
+    solution: "31 policies, detectors and VLMs as Hub-installable rSkills behind one Skill interface.",
   },
   {
     title: "Robots fail — then nothing",
-    path: "recovery/ladder.py",
-    problem: "A dropped grasp or a changed scene silently ends the task.",
-    solution: "A typed failure bus + a replanning ladder: retry → substitute → re-plan → handoff.",
+    problem: "A dropped grasp or a shifted object silently ends the task — no recovery.",
+    solution: "Typed failure triggers drive a bounded ladder: retry → substitute → re-plan → human handoff.",
   },
   {
     title: "Nothing reproducible",
-    path: "trace/replay.py",
-    problem: "A run that worked once can't be replayed or audited.",
-    solution: "Every execution replays from its trace — OTel spans + a dataset flywheel.",
+    problem: "A run that worked once can't be replayed, audited or learned from.",
+    solution: "Every run is an OpenTelemetry trace — replay it, or fold it into a LeRobot dataset flywheel.",
   },
 ];
 
@@ -78,7 +73,6 @@ export default function Solve() {
                 <span className="diff-num">{String(i + 1).padStart(2, "0")}</span>
                 <span className="diff-title">{it.title}</span>
                 <span className="diff-meta">
-                  <span className="diff-path">{it.path}</span>
                   <span className="diff-count del">−1</span>
                   <span className="diff-count add">+1</span>
                 </span>
