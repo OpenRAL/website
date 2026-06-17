@@ -48,7 +48,7 @@ export default function Footer() {
             <img className="brand-mark" src="/assets/icon.svg" alt="" aria-hidden="true" />
             <span className="brand-name">OpenRAL</span>
           </a>
-          <p>One typed contract and one safety boundary for every robot, model and rSkill — open source, built on ROS 2.</p>
+          <p>The open harness for physical AI — one typed contract and one safety boundary across every robot and rSkill.</p>
           <div className="footer-social">
             {SOCIAL.map(({ href, label, icon: Icon }) => (
               <a key={label} href={href} target="_blank" rel="noopener" aria-label={label} title={label}>
@@ -56,6 +56,7 @@ export default function Footer() {
               </a>
             ))}
           </div>
+          <p className="footer-copy">© 2026 OpenRAL · Apache-2.0</p>
         </div>
 
         <div className="footer-col">
@@ -73,10 +74,6 @@ export default function Footer() {
           <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">rSkills on the Hub</a>
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
         </div>
-      </div>
-
-      <div className="footer-meta">
-        <span>© 2026 OpenRAL</span>
       </div>
     </footer>
   );

@@ -5,8 +5,8 @@ import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
 
 const VW = 1080;
-const VH = 500;
-const ARC_TOP = 52;
+const VH = 560;
+const ARC_TOP = 30;
 
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 const anchors = (n) => ({
@@ -18,15 +18,31 @@ const anchors = (n) => ({
   bottom: [n.x + n.w / 2, n.y + n.h],
 });
 
-function edgePath(fromId, toId, dashed) {
-  const a = anchors(byId[fromId]);
-  const b = anchors(byId[toId]);
+function edgePath(e) {
+  const a = anchors(byId[e.from]);
+  const b = anchors(byId[e.to]);
+  const obsTop = byId.obs.y;
 
-  // feedback loop (safety → reasoner): arc over the top
-  if (dashed) {
+  // safety → reasoner: feedback loop arcing over the top
+  if (e.route === "over") {
     const [ax, ay] = a.top;
     const [bx, by] = b.top;
     return `M ${ax} ${ay} C ${ax} ${ARC_TOP} ${bx} ${ARC_TOP} ${bx} ${by}`;
+  }
+  // sensors → safety: gentle bow across the inter-row gap
+  if (e.route === "cross") {
+    const [ax, ay] = a.right;
+    const [bx, by] = b.left;
+    return `M ${ax} ${ay} C ${ax + 180} ${ay + 32} ${bx - 180} ${by + 32} ${bx} ${by}`;
+  }
+  // node → observability rail (dotted taps)
+  if (e.route === "tap") {
+    const [ax, ay] = a.bottom;
+    if (e.from === "reasoner") {
+      // route down the gap between memory and rSkill
+      return `M 560 ${ay} C 560 ${ay + 50} 460 ${obsTop - 90} 460 ${obsTop}`;
+    }
+    return `M ${ax} ${ay} C ${ax} ${ay + 24} ${ax} ${obsTop - 24} ${ax} ${obsTop}`;
   }
   // vertically stacked (same column) → bottom → top
   if (Math.abs(a.cx - b.cx) < 60) {
@@ -45,7 +61,7 @@ const MODES = [
   {
     tag: "Benchmark",
     title: "Reproduce the score",
-    body: "22 benchmark configs across LIBERO, MetaWorld, ManiSkill3, SimplerEnv, RoboCasa, gym-aloha and gym-pusht — every rSkill ships a reproducible eval, never a faked number.",
+    body: "12 benchmark configs across LIBERO, MetaWorld, ManiSkill3, SimplerEnv, RoboCasa, gym-aloha and gym-pusht — every rSkill ships a reproducible eval, never a faked number.",
   },
   {
     tag: "Simulate",
@@ -65,7 +81,7 @@ export default function ArchitectureDiagram() {
   const { container, item } = useStagger();
   const [hovered, setHovered] = useState(null);
 
-  const isEdgeHot = (f, t) => hovered && (f === hovered || t === hovered);
+  const isEdgeHot = (e) => hovered && (e.from === hovered || e.to === hovered);
   const pct = (v, total) => `${(v / total) * 100}%`;
 
   return (
@@ -78,7 +94,8 @@ export default function ArchitectureDiagram() {
         <p className="band-sub">
           A slow <strong>S2 reasoner</strong> plans in typed tool-calls; a fast <strong>S1 rSkill</strong> layer
           executes action chunks. Perception lifts detections into spatial memory, both feed the reasoner, and a
-          deny-by-default supervisor gates every command — vetoes loop straight back into replanning.
+          deny-by-default supervisor watches sensors and gates every command — vetoes loop straight back into
+          replanning, and every step is traced.
         </p>
       </motion.div>
 
@@ -99,11 +116,12 @@ export default function ArchitectureDiagram() {
               height={DUAL_BAND.h}
               rx="20"
             />
-            {EDGES.map(([f, t, dashed], i) => {
-              const d = edgePath(f, t, dashed);
-              const hot = isEdgeHot(f, t);
+            {EDGES.map((e, i) => {
+              const d = edgePath(e);
+              const hot = isEdgeHot(e);
+              const faint = e.route === "tap";
               return (
-                <g key={`${f}-${t}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}`}>
+                <g key={`${e.from}-${e.to}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}${faint ? " tap" : ""}`}>
                   <motion.path
                     className="edge-base"
                     d={d}
@@ -111,10 +129,10 @@ export default function ArchitectureDiagram() {
                     initial={reduce ? false : { pathLength: 0, opacity: 0 }}
                     whileInView={{ pathLength: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.9, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    strokeDasharray={dashed ? "3 7" : undefined}
+                    transition={{ duration: 0.9, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    strokeDasharray={e.dashed ? "3 7" : faint ? "1.5 7" : undefined}
                   />
-                  {!reduce && !dashed && (
+                  {!reduce && !e.dashed && !faint && (
                     <path className="edge-flow" d={d} fill="none" style={{ animationDelay: `${i * 0.25}s` }} />
                   )}
                 </g>
@@ -122,18 +140,17 @@ export default function ArchitectureDiagram() {
             })}
           </svg>
 
-          <div className="dual-label" style={{ left: pct(DUAL_BAND.x, VW), top: pct(DUAL_BAND.y - 24, VH) }}>
+          <div className="dual-label" style={{ left: pct(DUAL_BAND.x, VW), top: pct(DUAL_BAND.y - 22, VH) }}>
             Dual-system control · S1 ⇄ S2
           </div>
 
-          {/* veto-loop label */}
-          {EDGES.filter((e) => e[3]).map(([f, t, , label]) => {
-            const a = anchors(byId[f]);
-            const b = anchors(byId[t]);
-            const x = (a.top[0] + b.top[0]) / 2;
+          {EDGES.filter((e) => e.label).map((e) => {
+            const a = anchors(byId[e.from]);
+            const b = anchors(byId[e.to]);
+            const x = a.top[0] * 0.7 + b.top[0] * 0.3;
             return (
-              <div key={label} className="edge-label" style={{ left: pct(x, VW), top: pct(ARC_TOP - 18, VH) }}>
-                {label}
+              <div key={e.label} className="edge-label" style={{ left: pct(x, VW), top: pct(ARC_TOP - 16, VH) }}>
+                {e.label}
               </div>
             );
           })}
@@ -156,15 +173,6 @@ export default function ArchitectureDiagram() {
             </div>
           ))}
         </div>
-      </motion.div>
-
-      {/* L7 observability rail */}
-      <motion.div className="obs-rail" {...useReveal({ delay: 0.05 })}>
-        <span className="obs-tag">L7 · Observability</span>
-        <span className="obs-text">
-          Every step traced — <b>OpenTelemetry</b> spans, <b>Foxglove</b> live-scene visualization, and a{" "}
-          <b>LeRobot dataset</b> flywheel. Replayable from the trace alone.
-        </span>
       </motion.div>
 
       {/* run modes */}

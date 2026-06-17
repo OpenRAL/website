@@ -19,7 +19,7 @@ export default function Hero() {
       <motion.div className="hero-copy" {...reveal}>
         <div className="kicker">
           <span className="dot" />
-          OPEN-SOURCE · APACHE-2.0 · BUILT ON ROS 2
+          OPEN-SOURCE · APACHE-2.0
         </div>
         <h1>
           The open harness

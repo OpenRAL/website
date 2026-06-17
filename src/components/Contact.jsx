@@ -60,6 +60,20 @@ export default function Contact() {
             Building a robot, a fleet, or a model you want to run on OpenRAL? Researching the harness layer?
             Looking to partner? Pick the topic in the form and send — we'll route it to the right place.
           </p>
+          <ul className="contact-points">
+            <li>Partnerships &amp; integrations</li>
+            <li>Research &amp; new rSkills</li>
+            <li>Hardware bring-up &amp; deployments</li>
+          </ul>
+          <div className="contact-community">
+            <span>Prefer real-time?</span>
+            <a className="cc-discord" href="https://discord.gg/3paXT2bVyB" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path d="M19.5 5.2A17 17 0 0 0 15.3 4l-.2.4a13 13 0 0 1 3.7 1.2 13.6 13.6 0 0 0-11.6 0A13 13 0 0 1 10.9 4.4L10.7 4a17 17 0 0 0-4.2 1.2C3.7 9.3 3 13.3 3.3 17.2a17 17 0 0 0 5.1 2.6l.6-1c-.6-.2-1.1-.5-1.6-.8l.4-.3a9.7 9.7 0 0 0 8.4 0l.4.3c-.5.3-1 .6-1.6.8l.6 1a17 17 0 0 0 5.1-2.6c.4-4.5-.6-8.5-2.8-12ZM9.5 14.7c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8Zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8Z" />
+              </svg>
+              Join the Discord
+            </a>
+          </div>
         </motion.div>
 
         <motion.form className="contact-form" onSubmit={onSubmit} noValidate {...right}>
