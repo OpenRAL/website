@@ -5,8 +5,20 @@ import CardMedia from "./CardMedia.jsx";
 import "./Capabilities.css";
 
 // Bento spans, matched to FEATURES order. c2 = 2 cols, c4 = 4 cols (wide).
-// The two list-heavy cards (policies, simulation) get the wide slots.
-const SPANS = ["c2", "c2", "c2", "c4", "c2", "c2", "c4", "c2", "c2", "c2"];
+// Tiles a 6-col grid into 4 clean rows; the two list-heavy cards (rSkills #7,
+// simulation #9) get the wide slots.
+const SPANS = ["c2", "c2", "c2", "c2", "c2", "c2", "c4", "c2", "c4", "c2"];
+
+// Renders a body string, turning **…** spans into <strong>.
+function richBody(text) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i}>{part.slice(2, -2)}</strong>
+    ) : (
+      part
+    )
+  );
+}
 
 export default function Capabilities() {
   const reveal = useReveal();
@@ -37,7 +49,7 @@ export default function Capabilities() {
               {f.title}
               {f.soon && <span className="soon">Soon</span>}
             </h3>
-            <p>{f.body}</p>
+            <p>{richBody(f.body)}</p>
             {f.items && (
               <ul className="feat-items">
                 {f.items.map((it) => (
