@@ -9,7 +9,19 @@
 <meta property="og:title" content="OpenRAL — the open harness for physical AI" />
 <meta property="og:description" content="A typed orchestration layer over ROS 2 for VLA-driven robots: perception, reasoning, swappable skills, and deny-by-default safety." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://openral.com" />
+<meta property="og:image" content="https://openral.com/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="OpenRAL — the open harness for physical AI" />
+<meta name="twitter:description" content="A typed orchestration layer over ROS 2 for VLA-driven robots: perception, reasoning, swappable skills, and deny-by-default safety." />
+<meta name="twitter:image" content="https://openral.com/assets/og.png" />
 <meta name="theme-color" content="#0a0c10" />
+
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,7 +39,7 @@
 <!-- NAV -->
 <header class="nav">
   <a class="brand" href="#top">
-    <span class="brand-mark" aria-hidden="true"></span>
+    <img class="brand-mark" src="assets/icon.svg" alt="" aria-hidden="true" />
     <span class="brand-name">OpenRAL</span>
   </a>
   <nav class="nav-links">
@@ -256,6 +268,11 @@
       </div>
 
       <form class="contact-form reveal" id="contact-form" novalidate>
+        <!-- honeypot: hidden from humans, bots fill it in and get dropped -->
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="field">
           <label for="audience">This is about</label>
           <div class="select-wrap">
@@ -286,7 +303,7 @@
 
 <footer class="footer">
   <div class="footer-brand">
-    <span class="brand-mark" aria-hidden="true"></span>
+    <img class="brand-mark" src="assets/icon.svg" alt="" aria-hidden="true" />
     <span>OpenRAL</span>
   </div>
   <div class="footer-links">

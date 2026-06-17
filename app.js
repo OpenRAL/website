@@ -172,6 +172,7 @@
         name: form.name.value.trim(),
         email: form.email.value.trim(),
         message: form.message.value.trim(),
+        company: form.company ? form.company.value.trim() : "", // honeypot
       };
       if (!data.name || !data.email || !data.message) {
         setStatus("Please fill in every field.", "err");
