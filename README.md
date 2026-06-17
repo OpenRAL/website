@@ -8,37 +8,34 @@ perception and reasoning into safe, runnable robot behavior.
 
 ## Stack
 
-- **Hand-built static site** — `index.html` + `styles.css` + `app.js`. No framework,
-  no build step. Fonts: Clash Display + Satoshi (Fontshare) and JetBrains Mono (Google Fonts).
+- **Vite + React + Framer Motion** — component-based single page under `src/`, built to
+  static assets. Refined-dark theme with a single muted-clay accent. Fonts: Clash Display +
+  Satoshi (Fontshare) and JetBrains Mono (Google Fonts).
 - **One serverless function** — `api/contact.js` (Vercel Node runtime) delivers the
   contact form to the right inbox via [Resend](https://resend.com).
 
 ## Sections
 
-Hero (a live agent-console illustration: bimanual robot, RGB + depth feeds, and an
-S2 reasoner trace that triggers rSkills — `vlm`, `recall`, `navigate`, `pick`,
-`robometer`, `place`, `safety`) → what it solves → capabilities → rSkills → team →
-contact → footer.
+Hero (floating L0–L7 layer stack) → **architecture diagram** (Helix-style dual-system
+S1 ⇄ S2 flow) → what it solves → capabilities → **terminal install** (`curl` installer) →
+rSkills → team → contact → footer (GitHub · Hugging Face · Discord).
 
 ## Local preview
 
-The page itself is fully static — open it with any static server:
-
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+npm install
+npm run dev      # Vite dev server on http://localhost:5173
+npm run build    # production build → dist/
+npm run preview  # serve the production build
 ```
 
-To exercise the `/api/contact` function locally, use the Vercel CLI:
-
-```bash
-npm i -g vercel
-vercel dev
-```
+To exercise the `/api/contact` function locally, use the Vercel CLI (`npm i -g vercel`
+then `vercel dev`) — it serves the Vite build and the serverless function together.
 
 ## Deploy (Vercel)
 
-1. Import this repo in Vercel (Framework preset: **Other** — it's static + serverless).
+1. Import this repo in Vercel (Framework preset: **Vite** — it builds `dist/` and serves
+   the `api/` function alongside).
 2. Add two environment variables (Project → Settings → Environment Variables):
    | Variable | Value |
    |---|---|

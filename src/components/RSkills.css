@@ -1,0 +1,72 @@
+.band-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.split-copy p {
+  color: var(--text-2);
+  margin: 18px 0 22px;
+}
+.ticks {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+}
+.ticks li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--text-2);
+  font-size: 14.5px;
+}
+.ticks li::before {
+  content: "▸";
+  position: absolute;
+  left: 4px;
+  color: var(--clay);
+  font-family: var(--mono);
+}
+.yaml {
+  background: var(--bg-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+.yaml-bar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--hair);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.015);
+}
+.yaml pre {
+  padding: 20px;
+  overflow-x: auto;
+}
+.yaml code {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--text-2);
+  background: none;
+  padding: 0;
+  display: block;
+  white-space: pre;
+}
+.yk {
+  color: var(--text);
+}
+.ys {
+  color: var(--clay);
+}
+.yn {
+  color: var(--green);
+}
+
+@media (max-width: 920px) {
+  .band-split {
+    grid-template-columns: 1fr;
+  }
+}

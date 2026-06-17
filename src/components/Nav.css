@@ -1,0 +1,59 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(20px, 5vw, 56px);
+  backdrop-filter: blur(12px);
+  background: rgba(14, 15, 19, 0.66);
+  border-bottom: 1px solid var(--hair);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: 19px;
+}
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: block;
+  object-fit: contain;
+  box-shadow: 0 0 16px rgba(192, 121, 90, 0.32);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+}
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-2);
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--text);
+}
+.nav-cta {
+  border: 1px solid var(--hair-2);
+  padding: 7px 16px;
+  border-radius: 7px;
+  color: var(--text) !important;
+}
+.nav-cta:hover {
+  border-color: var(--clay);
+  box-shadow: 0 0 16px var(--clay-soft);
+}
+
+@media (max-width: 920px) {
+  .nav-links a:not(.nav-cta) {
+    display: none;
+  }
+}

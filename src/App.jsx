@@ -1,0 +1,31 @@
+import Nav from "./components/Nav.jsx";
+import Hero from "./components/Hero.jsx";
+import ArchitectureDiagram from "./components/ArchitectureDiagram.jsx";
+import Solve from "./components/Solve.jsx";
+import Capabilities from "./components/Capabilities.jsx";
+import Terminal from "./components/Terminal.jsx";
+import RSkills from "./components/RSkills.jsx";
+import Team from "./components/Team.jsx";
+import Contact from "./components/Contact.jsx";
+import Footer from "./components/Footer.jsx";
+
+export default function App() {
+  return (
+    <>
+      <div className="bg-grid" aria-hidden="true" />
+      <div className="bg-glow" aria-hidden="true" />
+      <Nav />
+      <main id="top">
+        <Hero />
+        <ArchitectureDiagram />
+        <Solve />
+        <Capabilities />
+        <Terminal />
+        <RSkills />
+        <Team />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}

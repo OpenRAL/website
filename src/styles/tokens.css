@@ -1,0 +1,35 @@
+/* ============================================================
+   OpenRAL — refined dark + muted clay
+   ============================================================ */
+:root {
+  /* surfaces */
+  --bg: #0e0f13;
+  --bg-2: #121419;
+  --surface: #16181e;
+  --surface-2: #1c1f26;
+  --hair: #23262e;
+  --hair-2: #2c313b;
+
+  /* text */
+  --text: #e8e9ed;
+  --text-2: #a9aeb8;
+  --muted: #797f8b;
+
+  /* single accent — muted clay */
+  --clay: #c0795a;
+  --clay-tint: #d89a7e;
+  --clay-soft: rgba(192, 121, 90, 0.14);
+  --clay-line: rgba(192, 121, 90, 0.34);
+
+  /* status (desaturated) */
+  --green: #4fb58b;
+  --red: #d96a6e;
+
+  /* type */
+  --display: "Clash Display", "Satoshi", system-ui, sans-serif;
+  --body: "Satoshi", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --maxw: 1200px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
