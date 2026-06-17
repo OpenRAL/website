@@ -4,9 +4,8 @@ import { NODES, EDGES } from "../data/layers.js";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
 
-const VW = 1080;
-const VH = 560;
-const ARC_TOP = 30;
+const VW = 1120;
+const VH = 620;
 
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 const anchors = (n) => ({
@@ -21,41 +20,40 @@ const anchors = (n) => ({
 function edgePath(e) {
   const a = anchors(byId[e.from]);
   const b = anchors(byId[e.to]);
-  const obsTop = byId.obs.y;
 
-  // safety → reasoner: feedback loop arcing over the top
-  if (e.route === "over") {
+  // feedback: robot → world state, arcing over the top
+  if (e.route === "loopTop") {
     const [ax, ay] = a.top;
     const [bx, by] = b.top;
-    return `M ${ax} ${ay} C ${ax} ${ARC_TOP} ${bx} ${ARC_TOP} ${bx} ${by}`;
+    return `M ${ax} ${ay} C ${ax} 46 ${bx} 46 ${bx} ${by}`;
   }
-  // sensors → safety: gentle bow across the inter-row gap
+  // feedback: robot → sensors, arcing along the bottom
+  if (e.route === "loopBottom") {
+    const [ax, ay] = a.bottom;
+    const [bx, by] = b.bottom;
+    return `M ${ax} ${ay} C ${ax} 602 ${bx} 602 ${bx} ${by}`;
+  }
+  // sensors → safety, straight across the inter-row gap
   if (e.route === "cross") {
     const [ax, ay] = a.right;
     const [bx, by] = b.left;
-    return `M ${ax} ${ay} C ${ax + 180} ${ay + 32} ${bx - 180} ${by + 32} ${bx} ${by}`;
+    return `M ${ax} ${ay} C ${ax + 210} ${ay} ${bx - 210} ${by} ${bx} ${by}`;
   }
-  // node → observability card (dotted taps)
+  // node → observability card
   if (e.route === "tap") {
-    const obs = byId.obs;
+    const top = byId.obs.y;
     const [ax, ay] = a.bottom;
-    if (e.from === "reasoner") {
-      const tx = obs.x + 34; // enter obs top-left, routed down the memory/rSkill gap
-      return `M 545 ${ay} C 470 ${ay + 90} 470 ${obsTop - 46} ${tx} ${obsTop}`;
-    }
-    if (e.from === "safety") {
-      const tx = obs.x + obs.w - 34; // enter obs top-right, kept clear of rSkill
-      return `M ${ax} ${ay} C ${ax} ${ay + 120} ${tx + 34} ${obsTop - 30} ${tx} ${obsTop}`;
-    }
-    return `M ${ax} ${ay} C ${ax} ${ay + 24} ${ax} ${obsTop - 24} ${ax} ${obsTop}`; // skills, straight down
+    if (e.from === "reasoner") return `M 555 ${ay} C 467 300 467 452 525 ${top}`;
+    if (e.from === "safety") return `M ${ax} ${ay} C ${ax} 452 702 472 665 ${top}`;
+    return `M ${ax} ${ay} C ${ax} ${ay + 28} ${ax} ${top - 28} ${ax} ${top}`; // skills
   }
-  // vertically stacked (same column) → bottom → top
+  // vertically stacked (same column)
   if (Math.abs(a.cx - b.cx) < 60) {
     const [ax, ay] = a.bottom;
     const [bx, by] = b.top;
     return `M ${ax} ${ay} C ${ax} ${ay + 44} ${bx} ${by - 44} ${bx} ${by}`;
   }
-  // horizontal flow → right → left
+  // horizontal flow
   const [ax, ay] = a.right;
   const [bx, by] = b.left;
   const mid = (ax + bx) / 2;
@@ -98,9 +96,9 @@ export default function ArchitectureDiagram() {
         </h2>
         <p className="band-sub">
           A slow <strong>S2 reasoner</strong> plans in typed tool-calls; a fast <strong>S1 rSkill</strong> layer
-          executes action chunks. Perception lifts detections into spatial memory, both feed the reasoner, and a
-          deny-by-default supervisor watches sensors and gates every command — vetoes loop straight back into
-          replanning, and every step is traced.
+          executes action chunks. Perception lifts detections into spatial memory; both feed the reasoner and the
+          rSkills, and a deny-by-default supervisor gates every command before it reaches the robot — whose new
+          state flows straight back into perception and the next decision.
         </p>
       </motion.div>
 
@@ -116,9 +114,8 @@ export default function ArchitectureDiagram() {
             {EDGES.map((e, i) => {
               const d = edgePath(e);
               const hot = isEdgeHot(e);
-              const faint = e.route === "tap";
               return (
-                <g key={`${e.from}-${e.to}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}${faint ? " tap" : ""}${e.dashed ? " dashed" : ""}`}>
+                <g key={`${e.from}-${e.to}`} className={`edge${hot ? " hot" : ""}${hovered && !hot ? " dim" : ""}`}>
                   <motion.path
                     className="edge-base"
                     d={d}
@@ -126,32 +123,13 @@ export default function ArchitectureDiagram() {
                     initial={reduce ? false : { pathLength: 0, opacity: 0 }}
                     whileInView={{ pathLength: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.9, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    strokeDasharray={e.dashed ? "4 6" : faint ? "2 6" : undefined}
+                    transition={{ duration: 0.9, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                   />
-                  {!reduce && (
-                    <path
-                      className={`edge-flow${faint ? " flow-tap" : ""}${e.dashed ? " flow-dashed" : ""}`}
-                      d={d}
-                      fill="none"
-                      style={{ animationDelay: `${i * 0.22}s` }}
-                    />
-                  )}
+                  {!reduce && <path className="edge-flow" d={d} fill="none" style={{ animationDelay: `${i * 0.2}s` }} />}
                 </g>
               );
             })}
           </svg>
-
-          {EDGES.filter((e) => e.label).map((e) => {
-            const a = anchors(byId[e.from]);
-            const b = anchors(byId[e.to]);
-            const x = (a.top[0] + b.top[0]) / 2;
-            return (
-              <div key={e.label} className="edge-label" style={{ left: pct(x, VW), top: pct(ARC_TOP - 16, VH) }}>
-                {e.label}
-              </div>
-            );
-          })}
 
           {NODES.map((n) => (
             <div
@@ -173,7 +151,6 @@ export default function ArchitectureDiagram() {
         </div>
       </motion.div>
 
-      {/* run modes */}
       <motion.div
         className="modes"
         variants={container}

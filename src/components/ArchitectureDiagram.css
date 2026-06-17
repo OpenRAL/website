@@ -9,7 +9,7 @@
   position: relative;
   width: 100%;
   min-width: 760px;
-  aspect-ratio: 1080 / 560;
+  aspect-ratio: 1120 / 620;
 }
 
 .diagram-svg {
@@ -20,29 +20,19 @@
   overflow: visible;
 }
 
-/* edges */
+/* edges — every line shares the same weight */
 .edge-base {
   stroke: var(--hair-2);
   stroke-width: 1.6;
 }
 .edge-flow {
   stroke: var(--accent);
-  stroke-width: 2;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-dasharray: 5 16;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
   animation: edge-dash 1.5s linear infinite;
-  opacity: 0.8;
-}
-.edge-flow.flow-tap {
-  stroke-width: 1.4;
-  opacity: 0.5;
-  filter: none;
-}
-.edge-flow.flow-dashed {
-  stroke-width: 1.5;
-  opacity: 0.55;
-  filter: none;
+  opacity: 0.75;
 }
 @keyframes edge-dash {
   to {
@@ -54,27 +44,12 @@
 }
 .edge.hot .edge-flow {
   opacity: 1;
-  stroke-width: 2.6;
 }
 .edge.dim {
   opacity: 0.28;
 }
 .edge {
   transition: opacity 0.25s var(--ease);
-}
-/* dashed feedback (veto → replan) — subtle guide, motion comes from the flow */
-.edge.dashed .edge-base {
-  stroke: var(--accent-line);
-  opacity: 0.6;
-}
-/* dotted observability taps */
-.edge.tap .edge-base {
-  stroke: var(--accent-line);
-  opacity: 0.75;
-}
-.edge.tap.hot .edge-base {
-  stroke: var(--accent);
-  opacity: 1;
 }
 
 /* nodes */
@@ -141,28 +116,6 @@
 .node-obs {
   background: rgba(255, 255, 255, 0.014);
   border-style: dashed;
-}
-
-.dual-label {
-  position: absolute;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-2);
-}
-.edge-label {
-  position: absolute;
-  transform: translateX(-50%);
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  background: var(--bg);
-  padding: 1px 7px;
-  border: 1px solid var(--accent-line);
-  border-radius: 100px;
-  white-space: nowrap;
 }
 
 /* ---- run modes ---- */
