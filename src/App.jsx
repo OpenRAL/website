@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import Terminal from "./components/Terminal.jsx";
@@ -13,7 +14,12 @@ import DotField from "./components/DotField.jsx";
 
 export default function App() {
   const path = typeof window !== "undefined" ? window.location.pathname.replace(/\/+$/, "") : "";
-  if (path === "/privacy") return <Privacy />;
+  if (path === "/privacy") return (
+    <>
+      <Privacy />
+      <Analytics />
+    </>
+  );
 
   return (
     <>
@@ -30,6 +36,7 @@ export default function App() {
       </main>
       <Footer />
       <CookieNotice />
+      <Analytics />
     </>
   );
 }
