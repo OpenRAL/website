@@ -4,7 +4,6 @@ import "./Solve.css";
 
 const ITEMS = [
   {
-    n: "A",
     title: "Fragmentation, everywhere",
     body: (
       <>
@@ -14,7 +13,6 @@ const ITEMS = [
     ),
   },
   {
-    n: "B",
     title: "Safety bolted on last",
     body: (
       <>
@@ -24,7 +22,6 @@ const ITEMS = [
     ),
   },
   {
-    n: "C",
     title: "Models locked to vendors",
     body: (
       <>
@@ -34,7 +31,6 @@ const ITEMS = [
     ),
   },
   {
-    n: "D",
     title: "Nothing reproducible",
     body: (
       <>
@@ -58,17 +54,19 @@ export default function Solve() {
         </h2>
       </motion.div>
       <motion.div
-        className="solve-grid"
+        className="solve-list"
         variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {ITEMS.map((it) => (
-          <motion.article className="solve" key={it.n} variants={item}>
-            <div className="solve-n">{it.n}</div>
-            <h3>{it.title}</h3>
-            <p>{it.body}</p>
+        {ITEMS.map((it, i) => (
+          <motion.article className="solve-row" key={it.title} variants={item}>
+            <div className="solve-idx">{String(i + 1).padStart(2, "0")}</div>
+            <div className="solve-content">
+              <h3>{it.title}</h3>
+              <p>{it.body}</p>
+            </div>
           </motion.article>
         ))}
       </motion.div>

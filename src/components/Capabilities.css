@@ -1,26 +1,28 @@
 .feat-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: dense;
   gap: 14px;
 }
 .feat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--hair);
-  border-radius: 13px;
+  border-radius: 14px;
   padding: 24px;
-  position: relative;
   overflow: hidden;
   transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
 }
-.feat::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--accent);
-  opacity: 0.75;
+.feat.c2 {
+  grid-column: span 2;
+}
+.feat.c4 {
+  grid-column: span 4;
+}
+.feat.tall {
+  grid-row: span 2;
 }
 .feat:hover {
   transform: translateY(-4px);
@@ -45,28 +47,45 @@
 .feat p {
   color: var(--text-2);
   font-size: 14px;
+  max-width: 52ch;
 }
+
+/* featured tall card breathes a little more */
+.feat.tall {
+  justify-content: space-between;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+}
+.feat.tall h3 {
+  font-size: 20px;
+}
+.feat.tall p {
+  font-size: 14.5px;
+}
+
 .soon {
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid var(--accent-line);
+  color: var(--muted);
+  border: 1px solid var(--hair-2);
   border-radius: 100px;
   padding: 2px 8px;
 }
-.feat.is-soon::before {
-  background: var(--muted);
-  opacity: 0.5;
-}
 
-@media (max-width: 920px) {
+@media (max-width: 1024px) {
   .feat-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .feat.c2,
+  .feat.c4 {
+    grid-column: auto;
+  }
+  .feat.tall {
+    grid-row: auto;
+  }
 }
-@media (max-width: 620px) {
+@media (max-width: 560px) {
   .feat-grid {
     grid-template-columns: 1fr;
   }

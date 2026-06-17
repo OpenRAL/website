@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { NODES, EDGES } from "../data/layers.js";
-import { useReveal, useStagger } from "../hooks/useReveal.js";
+import { useReveal } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
 
 const VW = 1120;
@@ -81,8 +81,9 @@ const MODES = [
 export default function ArchitectureDiagram() {
   const reveal = useReveal();
   const reduce = useReducedMotion();
-  const { container, item } = useStagger();
   const [hovered, setHovered] = useState(null);
+  const [activeMode, setActiveMode] = useState(MODES[0].tag);
+  const curMode = MODES.find((m) => m.tag === activeMode);
 
   const isEdgeHot = (e) => hovered && (e.from === hovered || e.to === hovered);
   const pct = (v, total) => `${(v / total) * 100}%`;
@@ -151,20 +152,37 @@ export default function ArchitectureDiagram() {
         </div>
       </motion.div>
 
-      <motion.div
-        className="modes"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-40px" }}
-      >
-        {MODES.map((m) => (
-          <motion.article className="mode" key={m.tag} variants={item}>
-            <div className="mode-tag">{m.tag}</div>
-            <h3>{m.title}</h3>
-            <p>{m.body}</p>
-          </motion.article>
-        ))}
+      <motion.div className="modes" {...useReveal({ delay: 0.05 })}>
+        <div className="mode-head">
+          <span className="mode-label">Run it three ways</span>
+          <div className="mode-tabs" role="tablist" aria-label="Run modes">
+            {MODES.map((m) => (
+              <button
+                key={m.tag}
+                role="tab"
+                aria-selected={activeMode === m.tag}
+                className={`mode-tab${activeMode === m.tag ? " active" : ""}`}
+                onClick={() => setActiveMode(m.tag)}
+              >
+                {m.tag}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mode-panel">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeMode}
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? undefined : { opacity: 0, y: -8 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h3>{curMode.title}</h3>
+              <p>{curMode.body}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </motion.div>
     </section>
   );

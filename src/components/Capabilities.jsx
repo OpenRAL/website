@@ -3,6 +3,10 @@ import { FEATURES } from "../data/features.js";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./Capabilities.css";
 
+// Bento spans, matched to the FEATURES order. c2 = 2 cols, c4 = 4 cols (wide),
+// tall = 2 rows. Featured: VLA adapters (tall), Safety + Edge (wide).
+const SPANS = ["c2", "c2 tall", "c2", "c2", "c2", "c4", "c2", "c2", "c4"];
+
 export default function Capabilities() {
   const reveal = useReveal();
   const { container, item } = useStagger(0.05);
@@ -25,8 +29,12 @@ export default function Capabilities() {
         whileInView="show"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {FEATURES.map((f) => (
-          <motion.article className={`feat${f.soon ? " is-soon" : ""}`} key={f.title} variants={item}>
+        {FEATURES.map((f, i) => (
+          <motion.article
+            className={`feat ${SPANS[i]}${f.soon ? " is-soon" : ""}`}
+            key={f.title}
+            variants={item}
+          >
             <div className="feat-ico">{f.tag}</div>
             <h3>
               {f.title}
