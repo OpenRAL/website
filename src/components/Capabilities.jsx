@@ -9,10 +9,12 @@ export default function Capabilities() {
   return (
     <section id="features" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">02 — What's inside</div>
-        <h2>A full stack, composed — not reinvented.</h2>
+        <div className="eyebrow">04 — What's inside</div>
+        <h2>
+          A full <em>stack</em>, composed — not reinvented.
+        </h2>
         <p className="band-sub">
-          OpenRAL builds on tf2, MoveIt 2, Nav2 and ros2_control, and adds the typed VLA / Skill / reasoning /
+          OpenRAL builds on tf2, MoveIt 2, Nav2 and ros2_control, and adds the typed VLA / rSkill / reasoning /
           safety / observability layer ROS 2 doesn't have.
         </p>
       </motion.div>

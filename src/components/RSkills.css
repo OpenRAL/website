@@ -65,8 +65,63 @@
   color: var(--green);
 }
 
+.split-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+/* ---- kind tabs ---- */
+.kind-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.kind-tab {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-2);
+  background: var(--bg-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+  padding: 7px 13px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.kind-tab:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+.kind-tab.active {
+  color: #14100c;
+  background: var(--clay);
+  border-color: var(--clay);
+  font-weight: 500;
+}
+
+.yaml-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.yaml-kind {
+  color: var(--clay);
+  text-transform: none;
+}
+.yaml pre {
+  min-height: 312px;
+}
+.yrow {
+  min-height: 1.9em;
+}
+
 @media (max-width: 920px) {
   .band-split {
     grid-template-columns: 1fr;
+  }
+  .yaml pre {
+    min-height: 0;
   }
 }

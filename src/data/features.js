@@ -5,9 +5,9 @@ export const FEATURES = [
     body: "SO-100/101, Franka, UR5e/10e, ALOHA, OpenArm, Rizon4, Unitree H1 & G1, panda_mobile — a typed HAL over ros2_control plus a generalizable sensor catalog (RGB-D, LiDAR, F/T, tactile).",
   },
   {
-    tag: "L3 · Skill (S1)",
+    tag: "L3 · rSkill (S1)",
     title: "Swappable VLA adapters",
-    body: "SmolVLA, π0.5, ACT, Diffusion Policy, xVLA, MolmoAct2, GR00T N1.7 and RLDX-1 behind one Skill interface — quantized, action-chunked, latency-budgeted.",
+    body: "SmolVLA, π0.5, ACT, Diffusion Policy, xVLA, MolmoAct2, GR00T N1.7 and RLDX-1 behind one rSkill interface — quantized, action-chunked, latency-budgeted.",
   },
   {
     tag: "L1–L2 · perception",
@@ -27,8 +27,7 @@ export const FEATURES = [
   {
     tag: "L6 · Safety",
     title: "Deny-by-default safety",
-    body: "Python proposes, a separate safety process disposes. Deadman + E-stop forwarders ship today; the allocation-free C++ kernel is hardening toward the EU AI Act 2027 safety-case deadline.",
-    soon: true,
+    body: "Python proposes, a separate C++ safety process disposes. Deadman + E-stop forwarders, deny-by-default supervision, and a certifiable kernel hardening toward the EU AI Act 2027 safety-case deadline.",
   },
   {
     tag: "L7 · Observability",

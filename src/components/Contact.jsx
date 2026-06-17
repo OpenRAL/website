@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import "./Contact.css";
 
-const TO = "hello@openral.com";
-
 export default function Contact() {
   const left = useReveal();
   const right = useReveal({ delay: 0.08 });
@@ -36,15 +34,15 @@ export default function Contact() {
       });
       const out = await res.json().catch(() => ({}));
       if (res.ok) {
-        setStatus({ msg: `Message sent to ${TO}. We'll be in touch.`, kind: "ok" });
+        setStatus({ msg: "Message sent. We'll be in touch.", kind: "ok" });
         form.reset();
       } else if (res.status === 503 && out.code === "not_configured") {
-        setStatus({ msg: `Email isn't wired up yet — please reach us directly at ${TO}.`, kind: "info" });
+        setStatus({ msg: "Email isn't wired up yet — please reach us on Discord.", kind: "info" });
       } else {
-        setStatus({ msg: out.error || "Something went wrong. Please email us directly.", kind: "err" });
+        setStatus({ msg: out.error || "Something went wrong. Please try again.", kind: "err" });
       }
     } catch {
-      setStatus({ msg: `Network error. Please email us directly at ${TO}.`, kind: "err" });
+      setStatus({ msg: "Network error. Please try again.", kind: "err" });
     } finally {
       setSending(false);
     }
@@ -55,17 +53,13 @@ export default function Contact() {
       <div className="contact-grid">
         <motion.div className="contact-copy" {...left}>
           <div className="eyebrow">06 — Get in touch</div>
-          <h2>Let's talk.</h2>
+          <h2>
+            Let's <em>talk</em>.
+          </h2>
           <p>
             Building a robot, a fleet, or a model you want to run on OpenRAL? Researching the harness layer?
-            Looking to partner? Reach out — everything lands at <code>hello@openral.com</code>. Pick the topic in
-            the form so we can route it.
+            Looking to partner? Pick the topic in the form and send — we'll route it to the right place.
           </p>
-          <div className="contact-rails">
-            <a className="rail" href="mailto:hello@openral.com">
-              <span>General &amp; partnerships</span>hello@openral.com
-            </a>
-          </div>
         </motion.div>
 
         <motion.form className="contact-form" onSubmit={onSubmit} noValidate {...right}>

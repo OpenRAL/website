@@ -1,35 +1,16 @@
 import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
-import { useCountUp } from "../hooks/useCountUp.js";
 import "./Hero.css";
 
-const STATS = [
-  { count: 8, label: "typed layers" },
-  { count: 16, label: "robot manifests" },
-  { count: 30, label: "+ rSkills" },
-  { count: 63, label: "ADRs on record" },
+// The control loop, top → bottom: sense → model → reason → act → guard → trace.
+const LOOP = [
+  { tag: "L1", name: "Sensors", spec: "RGB-D · lidar · tactile", group: "io" },
+  { tag: "L2", name: "World State", spec: "tf2 snapshot · 30 Hz · detections", group: "io" },
+  { tag: "L4", name: "Reasoning · S2", spec: "LLM planner · typed tool-calls", group: "s2" },
+  { tag: "L3", name: "rSkill · S1", spec: "VLA policy · 30–200 Hz chunks", group: "s1" },
+  { tag: "L6", name: "Safety", spec: "C++ · deny-by-default · E-stop", group: "safety" },
+  { tag: "L7", name: "Observability", spec: "OpenTelemetry · Foxglove", group: "io" },
 ];
-
-const LAYERS = [
-  { tag: "L7", name: "Observability" },
-  { tag: "L6", name: "Safety supervisor" },
-  { tag: "L4", name: "S2 · Reasoner" },
-  { tag: "L3", name: "S1 · Skills / VLA" },
-  { tag: "L1", name: "Perception" },
-  { tag: "L0", name: "HAL · ros2_control" },
-];
-
-function Stat({ count, label }) {
-  const { ref, value } = useCountUp(count);
-  return (
-    <div className="stat">
-      <span className="stat-num" ref={ref}>
-        {value}
-      </span>
-      <span className="stat-lbl">{label}</span>
-    </div>
-  );
-}
 
 export default function Hero() {
   const reveal = useReveal();
@@ -58,35 +39,51 @@ export default function Hero() {
             Install
           </a>
         </div>
-        <div className="hero-stats">
-          {STATS.map((s) => (
-            <Stat key={s.label} {...s} />
-          ))}
-        </div>
       </motion.div>
 
       <motion.div
         className="hero-vis"
-        initial={{ opacity: 0, scale: 0.96 }}
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
         aria-hidden="true"
       >
-        <div className="stack">
-          {LAYERS.map((l, i) => (
-            <motion.div
-              className="stack-card"
-              key={l.tag}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <span className="stack-tag">{l.tag}</span>
-              <span className="stack-name">{l.name}</span>
-              <span className="stack-bar" />
-            </motion.div>
-          ))}
-          <div className="stack-flow" />
+        <div className="loop">
+          <div className="loop-bar">
+            <span className="loop-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="loop-title">openral · control loop</span>
+            <span className="loop-live">
+              <span className="loop-pulse" />
+              LIVE
+            </span>
+          </div>
+          <div className="loop-rows">
+            <span className="loop-spine" />
+            {LOOP.map((r, i) => (
+              <motion.div
+                className={`loop-row group-${r.group}`}
+                key={r.tag + r.name}
+                style={{ "--i": i }}
+                initial={{ opacity: 0, x: 14 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: 0.25 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="loop-node" />
+                <span className="loop-tag">{r.tag}</span>
+                <span className="loop-main">
+                  <b>{r.name}</b>
+                  <i>{r.spec}</i>
+                </span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="loop-foot">
+            S2 plans · S1 acts · safety vetoes · every step traced
+          </div>
         </div>
       </motion.div>
     </section>

@@ -33,11 +33,10 @@ const SOCIAL = [
 ];
 
 const NAV = [
+  { href: "#install", label: "Install" },
   { href: "#architecture", label: "Architecture" },
   { href: "#features", label: "Capabilities" },
-  { href: "#install", label: "Install" },
   { href: "#rskills", label: "rSkills" },
-  { href: "#team", label: "Team" },
 ];
 
 export default function Footer() {
@@ -49,12 +48,11 @@ export default function Footer() {
             <img className="brand-mark" src="/assets/icon.svg" alt="" aria-hidden="true" />
             <span className="brand-name">OpenRAL</span>
           </a>
-          <p>The open, typed harness for physical AI — a single safety boundary over many robots and models.</p>
+          <p>One typed contract and one safety boundary for every robot, model and rSkill — open source, built on ROS 2.</p>
           <div className="footer-social">
             {SOCIAL.map(({ href, label, icon: Icon }) => (
-              <a key={label} href={href} target="_blank" rel="noopener" aria-label={label}>
+              <a key={label} href={href} target="_blank" rel="noopener" aria-label={label} title={label}>
                 <Icon />
-                <span>{label}</span>
               </a>
             ))}
           </div>
@@ -71,23 +69,14 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Resources</h4>
-          <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">Documentation</a>
-          <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">Source code</a>
-          <a href="https://huggingface.co/OpenRAL" target="_blank" rel="noopener">rSkills on the Hub</a>
+          <a href="https://openral.github.io/openral/" target="_blank" rel="noopener">Documentation</a>
+          <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">rSkills on the Hub</a>
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
-        </div>
-
-        <div className="footer-col">
-          <h4>Contact</h4>
-          <a href="mailto:hello@openral.com">hello@openral.com</a>
-          <a href="https://discord.gg/3paXT2bVyB" target="_blank" rel="noopener">Join the Discord</a>
-          <a href="#contact">Send a message</a>
         </div>
       </div>
 
       <div className="footer-meta">
-        <span>Apache-2.0 · Built on ROS 2 · © 2026 OpenRAL</span>
-        <span className="footer-tag">The robot agent harness</span>
+        <span>© 2026 OpenRAL</span>
       </div>
     </footer>
   );

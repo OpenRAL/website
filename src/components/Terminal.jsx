@@ -66,8 +66,10 @@ export default function Terminal() {
   return (
     <section id="install" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">03 — Install</div>
-        <h2>One command. The whole harness.</h2>
+        <div className="eyebrow">01 — Install</div>
+        <h2>
+          One <em>command</em>. The whole harness.
+        </h2>
         <p className="band-sub">
           OpenRAL installs on top of a ROS 2 + Python environment. The script pulls the typed harness, the
           skill loader and the safety forwarders — then <code>openral doctor</code> checks your stack.

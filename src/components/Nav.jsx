@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import "./Nav.css";
 
 const LINKS = [
+  { href: "#install", label: "Install" },
   { href: "#architecture", label: "Architecture" },
   { href: "#solve", label: "Why" },
   { href: "#features", label: "Capabilities" },
-  { href: "#install", label: "Install" },
-  { href: "#team", label: "Team" },
+  { href: "#rskills", label: "rSkills" },
 ];
 
 export default function Nav() {

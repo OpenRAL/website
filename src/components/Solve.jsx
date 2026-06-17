@@ -29,7 +29,7 @@ const ITEMS = [
     body: (
       <>
         Swap SmolVLA, π0.5, ACT, Diffusion Policy, MolmoAct2, GR00T N1.7 or RLDX-1 behind one{" "}
-        <code>Skill</code> interface — embodiment tags, license posture and latency budgets enforced at load.
+        <code>rSkill</code> interface — embodiment tags, license posture and latency budgets enforced at load.
       </>
     ),
   },
@@ -51,8 +51,11 @@ export default function Solve() {
   return (
     <section id="solve" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">01 — The problem</div>
-        <h2>Robots, models and sensors don't speak the same language. OpenRAL is the contract that makes them.</h2>
+        <div className="eyebrow">03 — The problem</div>
+        <h2>
+          Robots, models and sensors don't speak the same language. OpenRAL is the <em>contract</em> that
+          makes them.
+        </h2>
       </motion.div>
       <motion.div
         className="solve-grid"

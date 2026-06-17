@@ -49,19 +49,28 @@ strong {
 
 h2 {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(28px, 4vw, 46px);
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: #f4f5f7;
 }
 
 h3 {
   font-family: var(--display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 19px;
   letter-spacing: -0.01em;
   color: #fff;
+}
+
+/* headings emphasise only one or two words */
+h1 em,
+h2 em,
+h3 em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--clay);
 }
 
 /* ---- atmosphere ---- */

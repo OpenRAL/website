@@ -1,11 +1,10 @@
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
+import Terminal from "./components/Terminal.jsx";
 import ArchitectureDiagram from "./components/ArchitectureDiagram.jsx";
 import Solve from "./components/Solve.jsx";
 import Capabilities from "./components/Capabilities.jsx";
-import Terminal from "./components/Terminal.jsx";
 import RSkills from "./components/RSkills.jsx";
-import Team from "./components/Team.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 
@@ -17,12 +16,11 @@ export default function App() {
       <Nav />
       <main id="top">
         <Hero />
+        <Terminal />
         <ArchitectureDiagram />
         <Solve />
         <Capabilities />
-        <Terminal />
         <RSkills />
-        <Team />
         <Contact />
       </main>
       <Footer />
