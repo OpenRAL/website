@@ -21,8 +21,9 @@
   --accent-soft: rgba(255, 255, 255, 0.1);
   --accent-line: rgba(255, 255, 255, 0.22);
 
-  /* status — white for success/live; muted red kept only for form errors */
+  /* status — white for success; muted red for form errors; green for live/open-source signal */
   --green: #ffffff;
+  --live: #4fb58b;
   --red: #d98a8e;
 
   /* type */

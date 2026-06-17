@@ -24,8 +24,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green);
+  background: var(--live);
+  box-shadow: 0 0 10px var(--live);
 }
 .hero h1 {
   font-family: var(--display);

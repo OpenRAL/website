@@ -112,7 +112,7 @@ export default function Terminal() {
         </div>
       </motion.div>
       <p className="term-note">
-        Prerequisites: ROS 2 (Humble+) · Python 3.10+ · a CUDA GPU for VLA inference. Full guide in the{" "}
+        Prerequisites: ROS 2 Jazzy · Python 3.12+ · a CUDA GPU for VLA inference. Full guide in the{" "}
         <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">
           repository
         </a>

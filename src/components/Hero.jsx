@@ -18,9 +18,10 @@ export default function Hero() {
           for <em>physical AI</em>.
         </h1>
         <p className="lede">
-          OpenRAL is the typed orchestration layer that turns vision-language-action
-          models, perception and reasoning into <strong>safe, runnable robot behavior</strong> —
-          on real hardware and in simulation. One contract over many robots, many models, one safety boundary.
+          OpenRAL is the open-source <strong>Robot Agentic Layer</strong> (harness) for embodied AI. It unifies
+          fast policies, slow reasoning, reward signals, perceptual AI and classical control into a{" "}
+          <strong>typed, traceable, safety-first runtime</strong> — on real hardware and in simulation. One
+          contract over many robots, many models and one safety boundary.
         </p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">
