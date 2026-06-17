@@ -5,7 +5,7 @@ import { useReveal, useStagger } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
 
 const VW = 1120;
-const VH = 620;
+const VH = 648;
 
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 const anchors = (n) => ({
@@ -27,11 +27,11 @@ function edgePath(e) {
     const [bx, by] = b.top;
     return `M ${ax} ${ay} C ${ax} 46 ${bx} 46 ${bx} ${by}`;
   }
-  // feedback: robot → sensors, arcing along the bottom
+  // feedback: robot → sensors, arcing along the bottom, clear of Observability
   if (e.route === "loopBottom") {
     const [ax, ay] = a.bottom;
     const [bx, by] = b.bottom;
-    return `M ${ax} ${ay} C ${ax} 602 ${bx} 602 ${bx} ${by}`;
+    return `M ${ax} ${ay} C ${ax} 706 ${bx} 706 ${bx} ${by}`;
   }
   // sensors → safety, straight across the inter-row gap
   if (e.route === "cross") {
