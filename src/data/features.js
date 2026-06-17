@@ -5,31 +5,29 @@ export const FEATURES = [
   {
     title: "Robot manifests",
     body: "One typed HAL over ros2_control — 16 embodiments, one contract, hand-eye calibration built in.",
-    items: ["SO-101", "Franka", "UR5e", "ALOHA", "OpenArm", "Unitree G1", "Fourier GR-2", "WidowX"],
+    items: ["SO-100", "SO-101", "Franka Panda", "UR5e", "UR10e", "ALOHA", "OpenArm v2", "Unitree G1", "Unitree H1", "Fourier GR1", "Sawyer", "WidowX"],
     media: [],
   },
   {
     title: "Sensors",
     body: "RGB-D, force-torque and UVC adapters stream straight onto typed ROS 2 topics.",
-    items: ["RealSense D435", "OAK-D Pro", "Robotiq FT-300", "USB-UVC"],
+    items: ["RealSense D435", "D435i", "D415", "OAK-D Pro", "Robotiq FT-300", "USB-UVC"],
     media: [],
   },
   {
     title: "Perception",
     body: "Open-vocab AI detectors and a scene VLM lift 2D→3D into a tf2-aware, 30 Hz world state.",
     items: ["RT-DETR", "LocateAnything", "Qwen3.5-4B VLM"],
-    viz: "pointcloud",
     media: [],
   },
   {
     title: "Spatial memory",
-    body: "An advisory scene graph the reasoner queries to recall where things are.",
-    viz: "scenegraph",
+    body: "An advisory 3D scene graph of object poses the reasoner queries to recall where things are.",
     media: [],
   },
   {
     title: "Reasoner (S2)",
-    body: "A slow LLM runs the plan→act→observe loop, emitting typed tool-calls — ExecuteSkill, LifecycleTransition, EmitPrompt — over the live skill registry, never free-form JSON.",
+    body: "A slow LLM runs the plan→act→observe loop, emitting typed tool-calls — ExecuteRSkill, LifecycleTransition, EmitPrompt — over the live skill registry, never free-form JSON.",
     items: ["Anthropic", "OpenAI", "Ollama", "vLLM", "local"],
     media: [],
   },
@@ -41,7 +39,7 @@ export const FEATURES = [
   {
     title: "rSkills",
     body: "Every kind behind one typed manifest — quantized, action-chunked, latency-budgeted. Policies, detectors, VLMs and reward models, all swappable.",
-    items: ["π0.5", "SmolVLA", "ACT", "Diffusion Policy", "xVLA", "MolmoAct2", "GR00T N1.7", "RLDX-1", "Detectors", "VLMs", "Robometer", "WAM · soon"],
+    items: ["π0.5", "SmolVLA", "ACT", "Diffusion Policy", "xVLA", "MolmoAct2", "GR00T N1.7", "RLDX-1", "Detectors", "VLMs", "Robometer", "SARM · soon", "WAM · soon"],
     media: [],
   },
   {

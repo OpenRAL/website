@@ -1,17 +1,10 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { FEATURES } from "../data/features.js";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
+import { useMasonry } from "../hooks/useMasonry.js";
 import CardMedia from "./CardMedia.jsx";
-import PointcloudViz from "./PointcloudViz.jsx";
-import SceneGraphViz from "./SceneGraphViz.jsx";
 import "./Capabilities.css";
-
-const VIZ = { pointcloud: PointcloudViz, scenegraph: SceneGraphViz };
-
-// Bento spans, matched to FEATURES order. c2 = 2 cols, c4 = 4 cols (wide).
-// Tiles a 6-col grid into 4 clean rows; the two list-heavy cards (rSkills #7,
-// simulation #9) get the wide slots.
-const SPANS = ["c2", "c2", "c2", "c2", "c2", "c2", "c4", "c2", "c4", "c2"];
 
 // Renders a body string, turning **…** spans into <strong>.
 function richBody(text) {
@@ -27,6 +20,9 @@ function richBody(text) {
 export default function Capabilities() {
   const reveal = useReveal();
   const { container, item } = useStagger(0.05);
+  const gridRef = useRef(null);
+  useMasonry(gridRef, [FEATURES.length]);
+
   return (
     <section id="features" className="band">
       <motion.div className="band-head" {...reveal}>
@@ -41,16 +37,15 @@ export default function Capabilities() {
       </motion.div>
       <motion.div
         className="feat-grid"
+        ref={gridRef}
         variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {FEATURES.map((f, i) => {
-          const Viz = f.viz && VIZ[f.viz];
-          return (
-          <motion.article className={`feat ${SPANS[i]}${f.soon ? " is-soon" : ""}`} key={f.title} variants={item}>
-            {Viz ? <Viz /> : <CardMedia paths={f.media} />}
+        {FEATURES.map((f) => (
+          <motion.article className={`feat${f.soon ? " is-soon" : ""}`} key={f.title} variants={item}>
+            <CardMedia paths={f.media} />
             <h3>
               {f.title}
               {f.soon && <span className="soon">Soon</span>}
@@ -64,8 +59,7 @@ export default function Capabilities() {
               </ul>
             )}
           </motion.article>
-          );
-        })}
+        ))}
       </motion.div>
     </section>
   );
