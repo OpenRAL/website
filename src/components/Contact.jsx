@@ -102,6 +102,7 @@ export default function Contact() {
             <li>Partnerships &amp; integrations</li>
             <li>Research &amp; new rSkills</li>
             <li>Hardware bring-up &amp; deployments</li>
+            <li>Policy evaluations on sim and real</li>
           </ul>
           <div className="contact-community">
             <span>Prefer real-time?</span>
