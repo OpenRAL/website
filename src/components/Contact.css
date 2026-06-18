@@ -24,11 +24,15 @@
   font-size: 15px;
 }
 .contact-points li::before {
-  content: "▸";
+  content: "";
   position: absolute;
   left: 2px;
-  color: var(--accent);
-  font-family: var(--mono);
+  top: 0.62em;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 .contact-community {
   display: flex;
