@@ -37,7 +37,17 @@ function parseClip(path, url) {
   return { id: path, url, category, benchmark, rskill, status };
 }
 
-const ALL = Object.entries(FILES).map(([path, url]) => parseClip(path, url));
+// Randomise clip order once per page load (Fisher–Yates).
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const ALL = shuffle(Object.entries(FILES).map(([path, url]) => parseClip(path, url)));
 
 const TABS = [
   { id: "benchmarks", label: "Benchmarks" },
@@ -68,15 +78,18 @@ function ClipCard({ clip, reduce, onOpen }) {
         autoPlay={!reduce} preload="metadata" tabIndex={-1} />
       <span className="show-grad" aria-hidden="true" />
 
-      <span className="show-chip show-chip-tl">{clip.benchmark}</span>
-      <span className="show-chip show-chip-tr">{clip.rskill}</span>
-
-      {clip.status && (
-        <span className={`show-status show-status-${clip.status}`}>
-          <i className="show-dot" />
-          {clip.status === "success" ? "SUCCESS" : "FAIL"}
-        </span>
-      )}
+      <div className="show-top">
+        <span className="show-chip show-chip-bench">{clip.benchmark}</span>
+        {clip.status ? (
+          <span className={`show-status show-status-${clip.status}`}>
+            <i className="show-dot" />
+            {clip.status === "success" ? "SUCCESS" : "FAIL"}
+          </span>
+        ) : (
+          <span aria-hidden="true" />
+        )}
+        <span className="show-chip show-chip-rskill">{clip.rskill}</span>
+      </div>
 
       <span className="show-expand" aria-hidden="true">
         <ExpandIcon />
@@ -85,10 +98,38 @@ function ClipCard({ clip, reduce, onOpen }) {
   );
 }
 
-/* Seamless horizontal marquee. Two copies of the track translate -50%;
-   the row pauses when any card is hovered/focused or the modal is open.
-   Under reduced-motion it becomes a plain horizontal scroll region. */
+/* Horizontal autoscroll. Each clip is rendered once; a second, aria-hidden
+   copy is added ONLY when the strip overflows its container — so the loop is
+   seamless yet the duplicate is always off-screen (a clip is never visible
+   twice at once). If the clips fit, they're shown once, centered, no scroll.
+   The row pauses on hover/focus or while the modal is open; under
+   reduced-motion it's a plain, manually-scrollable strip. */
 function Marquee({ clips, reverse, paused, reduce, onOpen }) {
+  const wrapRef = useRef(null);
+  const seqRef = useRef(null);
+  // px to shift per loop; 0 means the clips fit and shouldn't scroll
+  const [shift, setShift] = useState(0);
+
+  useEffect(() => {
+    if (reduce) {
+      setShift(0);
+      return;
+    }
+    const measure = () => {
+      const wrap = wrapRef.current;
+      const seq = seqRef.current;
+      if (!wrap || !seq) return;
+      const gap = parseFloat(getComputedStyle(seq).columnGap) || 0;
+      const seqW = seq.scrollWidth;
+      setShift(seqW > wrap.clientWidth + 1 ? seqW + gap : 0);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    if (seqRef.current) ro.observe(seqRef.current);
+    return () => ro.disconnect();
+  }, [clips, reduce]);
+
   if (!clips.length) {
     return (
       <div className="show-empty">
@@ -98,21 +139,29 @@ function Marquee({ clips, reverse, paused, reduce, onOpen }) {
     );
   }
 
-  const loop = reduce ? clips : [...clips, ...clips];
-  const duration = Math.max(18, clips.length * 7);
+  const animate = shift > 0 && !reduce;
+  const duration = Math.max(14, shift / 70); // ~70px/s, constant feel
+
+  const seq = (ref, hidden) => (
+    <ul className="show-seq" ref={ref} aria-hidden={hidden || undefined}>
+      {clips.map((clip, i) => (
+        <li className="show-item" key={`${clip.id}-${i}`}>
+          <ClipCard clip={clip} reduce={reduce} onOpen={onOpen} />
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
-    <div className={`show-marquee${reduce ? " is-static" : ""}`} data-reverse={reverse || undefined}>
-      <ul
-        className={`show-track${paused ? " is-paused" : ""}`}
-        style={reduce ? undefined : { "--marquee-dur": `${duration}s` }}
+    <div className={`show-marquee${reduce ? " is-static" : ""}`} ref={wrapRef}>
+      <div
+        className={`show-track${animate ? " is-animated" : " is-centered"}${paused ? " is-paused" : ""}`}
+        data-reverse={reverse || undefined}
+        style={animate ? { "--marquee-dur": `${duration}s`, "--marquee-shift": `${shift}px` } : undefined}
       >
-        {loop.map((clip, i) => (
-          <li className="show-item" key={`${clip.id}-${i}`} aria-hidden={i >= clips.length || undefined}>
-            <ClipCard clip={clip} reduce={reduce} onOpen={onOpen} />
-          </li>
-        ))}
-      </ul>
+        {seq(seqRef, false)}
+        {animate && seq(null, true)}
+      </div>
     </div>
   );
 }
