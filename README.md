@@ -16,9 +16,40 @@ perception and reasoning into safe, runnable robot behavior.
 
 ## Sections
 
-Hero (floating L0–L7 layer stack) → **architecture diagram** (Helix-style dual-system
-S1 ⇄ S2 flow) → what it solves → capabilities → **terminal install** (`curl` installer) →
-rSkills → team → contact → footer (GitHub · Hugging Face · Discord).
+Hero (floating L0–L7 layer stack) → **terminal install** (`curl` installer) →
+**architecture diagram** (Helix-style dual-system S1 ⇄ S2 flow) → **showcase**
+(autoscrolling benchmark / simulation / deployment clips) → what it solves →
+capabilities → rSkills → contact → footer (GitHub · Hugging Face · Discord).
+
+## Showcase videos
+
+The **"See it run"** section is an autoscrolling strip of benchmark, simulation
+and deployment clips. Videos are **not** committed to this repo — they're hosted
+on the public [`OpenRAL/website-media`](https://huggingface.co/datasets/OpenRAL/website-media)
+Hugging Face dataset (CDN-backed) and listed in `src/videos/manifest.json`.
+
+**To make a video show up on the site:**
+
+```bash
+# 1. Drop the raw clip (any size/format) into the gitignored media/ folder.
+#    The sub-folder picks the tab; the filename fills the on-clip labels:
+#    <benchmark>_<rskill>_<success|fail>.<ext>
+media/benchmarks/libero-spatial_pi05_success.mp4
+media/simulation/warehouse-pick_rtdetr-v2_fail.mp4
+media/deployment/franka-stack_qwen35_success.mp4
+
+# 2. Encode (poster + square preview + full clip), upload to HF, refresh manifest:
+npm run media
+
+# 3. Commit the updated src/videos/manifest.json — that's the only tracked change.
+git add src/videos/manifest.json && git commit -m "Add showcase clip"
+```
+
+Use hyphens *inside* a name (`libero-spatial`); underscores only separate the
+three parts, and the last must be `success` or `fail`. Adding clips needs
+`ffmpeg` and the `hf` CLI signed in with write access to the `OpenRAL` org
+(`hf auth whoami`); `npm run media -- --no-upload` encodes + updates the
+manifest locally without publishing. Full reference: [`src/videos/README.md`](./src/videos/README.md).
 
 ## Local preview
 
