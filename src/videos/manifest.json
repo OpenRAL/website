@@ -1,0 +1,25 @@
+{
+  "base": "https://huggingface.co/datasets/OpenRAL/website-media/resolve/main",
+  "clips": [
+    {
+      "id": "benchmarks/libero-spatial_gr00t-n17_success",
+      "category": "benchmarks",
+      "benchmark": "libero-spatial",
+      "rskill": "gr00t-n17",
+      "status": "success",
+      "poster": "benchmarks/libero-spatial_gr00t-n17_success/poster.jpg",
+      "preview": "benchmarks/libero-spatial_gr00t-n17_success/preview.mp4",
+      "full": "benchmarks/libero-spatial_gr00t-n17_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/robocasa_pi05-rc365-nf4_fail",
+      "category": "benchmarks",
+      "benchmark": "robocasa",
+      "rskill": "pi05-rc365-nf4",
+      "status": "fail",
+      "poster": "benchmarks/robocasa_pi05-rc365-nf4_fail/poster.jpg",
+      "preview": "benchmarks/robocasa_pi05-rc365-nf4_fail/preview.mp4",
+      "full": "benchmarks/robocasa_pi05-rc365-nf4_fail/full.mp4"
+    }
+  ]
+}

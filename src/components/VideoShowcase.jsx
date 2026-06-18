@@ -2,40 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
+import manifest from "../videos/manifest.json";
 import "./VideoShowcase.css";
 
 /* ------------------------------------------------------------------
-   Auto-discovery.
-
-   Drop a clip into one of:
-     src/videos/benchmarks/   src/videos/simulation/   src/videos/deployment/
-
-   Name it  <benchmark>_<rskill>_<success|fail>.mp4  — e.g.
-     libero-spatial_pi05_success.mp4
-     warehouse-pick_rtdetr-v2_fail.mp4
-
-   The category comes from the folder; the overlays (benchmark name,
-   rSkill name, SUCCESS/FAIL) are parsed from the filename. Use hyphens
-   inside a name, underscores only as the three separators. No code
-   change is needed to add a clip — Vite globs the folders at build time.
+   Clips are hosted on the OpenRAL/website-media HF dataset (public CDN)
+   and listed in src/videos/manifest.json. Each entry carries a poster, a
+   light square `preview` (the autoscroll strip) and a `full` clip (the
+   modal). To add one: drop a raw file into media/<category>/ named
+   <benchmark>_<rskill>_<success|fail>.<ext> and run `npm run media`,
+   which encodes it, uploads it, and refreshes the manifest. See
+   src/videos/README.md.
    ------------------------------------------------------------------ */
-const FILES = import.meta.glob("/src/videos/*/*.{mp4,webm,mov,m4v}", {
-  eager: true,
-  query: "?url",
-  import: "default",
-});
-
-function parseClip(path, url) {
-  const seg = path.split("/");
-  const category = seg[seg.length - 2]; // folder name
-  const base = seg[seg.length - 1].replace(/\.[^.]+$/, "");
-  const parts = base.split("_");
-  const tail = parts[parts.length - 1] || "";
-  const status = /^succ/i.test(tail) ? "success" : /^fail/i.test(tail) ? "fail" : null;
-  const benchmark = parts[0] || base;
-  const rskill = parts.slice(1, status ? -1 : undefined).join("_") || "—";
-  return { id: path, url, category, benchmark, rskill, status };
-}
+const BASE = manifest.base;
 
 // Randomise clip order once per page load (Fisher–Yates).
 function shuffle(arr) {
@@ -47,7 +26,14 @@ function shuffle(arr) {
   return a;
 }
 
-const ALL = shuffle(Object.entries(FILES).map(([path, url]) => parseClip(path, url)));
+const ALL = shuffle(
+  manifest.clips.map((c) => ({
+    ...c,
+    poster: `${BASE}/${c.poster}`,
+    preview: `${BASE}/${c.preview}`,
+    full: `${BASE}/${c.full}`,
+  }))
+);
 
 const TABS = [
   { id: "benchmarks", label: "Benchmarks" },
@@ -108,7 +94,7 @@ function ClipCard({ clip, reduce, onOpen }) {
       <video
         ref={videoRef}
         className="show-video"
-        src={load ? clip.url : undefined}
+        src={load ? clip.preview : undefined}
         poster={clip.poster || undefined}
         muted
         loop
@@ -173,8 +159,9 @@ function Marquee({ clips, reverse, paused, reduce, onOpen }) {
   if (!clips.length) {
     return (
       <div className="show-empty">
-        Drop a clip into <code>src/videos/{clips.category}</code> named{" "}
-        <code>&lt;benchmark&gt;_&lt;rskill&gt;_&lt;success|fail&gt;.mp4</code> and it appears here.
+        Drop a clip into <code>media/{clips.category}</code> named{" "}
+        <code>&lt;benchmark&gt;_&lt;rskill&gt;_&lt;success|fail&gt;.mp4</code>, then run{" "}
+        <code>npm run media</code> — it appears here.
       </div>
     );
   }
@@ -258,7 +245,7 @@ function ClipModal({ clip, onClose }) {
             <CloseIcon />
           </button>
         </div>
-        <video className="show-dialog-video" src={clip.url} autoPlay loop playsInline controls />
+        <video className="show-dialog-video" src={clip.full} poster={clip.poster} autoPlay loop playsInline controls />
       </motion.div>
     </motion.div>,
     document.body

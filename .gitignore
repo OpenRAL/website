@@ -6,5 +6,10 @@ node_modules/
 *.log
 dist/
 
+# Local video sources & encoded outputs — hosted on HF, never committed.
+# (Drop raw clips in media/, run `npm run media`; only manifest.json is tracked.)
+media/
+media-dist/
+
 # Claude Code worktrees and local state
 .claude/
