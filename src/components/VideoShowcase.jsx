@@ -69,13 +69,53 @@ const CloseIcon = (props) => (
   </svg>
 );
 
-/* One square, rounded, looping clip with its overlays. */
+/* One square, rounded, looping clip with its overlays.
+   Lazy: the file isn't fetched until the card scrolls into view; it then
+   plays while visible and pauses when it leaves — so only the handful of
+   on-screen clips ever load or play, regardless of how many exist. */
 function ClipCard({ clip, reduce, onOpen }) {
+  const videoRef = useRef(null);
+  const [load, setLoad] = useState(false); // src set on first reveal, then kept
+  const [visible, setVisible] = useState(false);
+
+  // Track visibility; start ~120px early so a clip is ready as it enters view.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setLoad(true);
+      },
+      { rootMargin: "120px", threshold: 0.1 }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  // Play when visible (calling play() also triggers the load under preload=none);
+  // pause when off-screen. Runs after src is set, so the file exists to play.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !load) return;
+    if (visible && !reduce) v.play().catch(() => {});
+    else v.pause();
+  }, [load, visible, reduce]);
+
   return (
     <button type="button" className="show-card" onClick={() => onOpen(clip)}
       aria-label={`${clip.benchmark} · ${clip.rskill} · ${clip.status || "result"} — open full size`}>
-      <video className="show-video" src={clip.url} muted loop playsInline
-        autoPlay={!reduce} preload="metadata" tabIndex={-1} />
+      <video
+        ref={videoRef}
+        className="show-video"
+        src={load ? clip.url : undefined}
+        poster={clip.poster || undefined}
+        muted
+        loop
+        playsInline
+        preload="none"
+        tabIndex={-1}
+      />
       <span className="show-grad" aria-hidden="true" />
 
       <div className="show-top">
