@@ -5,3 +5,6 @@ node_modules/
 .DS_Store
 *.log
 dist/
+
+# Claude Code worktrees and local state
+.claude/

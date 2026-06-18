@@ -1,5 +1,13 @@
 import "./Footer.css";
 
+function DocsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+      <path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H17a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6.5A1.5 1.5 0 0 1 5 19.5v-15Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M8.5 7.5h7M8.5 11h7M8.5 14.5h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 function GitHubIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -27,6 +35,7 @@ function DiscordIcon() {
 }
 
 const SOCIAL = [
+  { href: "https://docs.openral.com", label: "Documentation", icon: DocsIcon },
   { href: "https://github.com/OpenRAL/openral", label: "GitHub", icon: GitHubIcon },
   { href: "https://huggingface.co/OpenRAL", label: "Hugging Face", icon: HuggingFaceIcon },
   { href: "https://discord.gg/3paXT2bVyB", label: "Discord", icon: DiscordIcon },
@@ -70,7 +79,7 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Resources</h4>
-          <a href="https://openral.github.io/openral/" target="_blank" rel="noopener">Documentation</a>
+          <a href="https://docs.openral.com" target="_blank" rel="noopener">Documentation</a>
           <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">Browse rSkills</a>
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
           <a href="/privacy">Privacy</a>

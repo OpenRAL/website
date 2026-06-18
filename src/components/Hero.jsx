@@ -5,6 +5,14 @@ import "./Hero.css";
 
 export default function Hero() {
   const reveal = useReveal();
+  // center the Install section in the viewport instead of pinning it to the top
+  const scrollToInstall = (e) => {
+    const el = document.getElementById("install");
+    if (!el) return; // fall back to default hash navigation
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    history.replaceState(null, "", "/#install");
+  };
   return (
     <section className="hero">
       <motion.div className="hero-copy" {...reveal}>
@@ -24,10 +32,13 @@ export default function Hero() {
           contract over many robots, many models and one safety boundary.
         </p>
         <div className="hero-actions">
+          <a className="btn btn-ghost" href="https://docs.openral.com" target="_blank" rel="noopener">
+            Documentation <span className="arr">↗</span>
+          </a>
           <a className="btn btn-primary" href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">
             View the code <span className="arr">↗</span>
           </a>
-          <a className="btn btn-ghost" href="#install">
+          <a className="btn btn-ghost" href="/#install" onClick={scrollToInstall}>
             Install
           </a>
         </div>
