@@ -71,7 +71,7 @@ export default function ArchitectureDiagram() {
   return (
     <section id="architecture" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">02 — Architecture</div>
+        <div className="eyebrow">03 — Architecture</div>
         <h2>
           One typed <em>contract</em>, two coupled <em>systems</em>.
         </h2>

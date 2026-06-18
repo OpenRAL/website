@@ -264,7 +264,7 @@ export default function VideoShowcase() {
   return (
     <section id="showcase" className="band">
       <motion.div className="band-head" {...head}>
-        <div className="eyebrow">03 — See it run</div>
+        <div className="eyebrow">06 — See it run</div>
         <h2>
           Every clip is a <em>real run</em>, scored and labelled.
         </h2>

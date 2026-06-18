@@ -29,11 +29,11 @@ export default function App() {
       <main id="top">
         <Hero />
         <Terminal />
-        <ArchitectureDiagram />
-        <VideoShowcase />
         <Solve />
+        <ArchitectureDiagram />
         <Capabilities />
         <RSkills />
+        <VideoShowcase />
         <Contact />
       </main>
       <Footer />

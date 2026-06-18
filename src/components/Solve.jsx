@@ -39,7 +39,7 @@ export default function Solve() {
   return (
     <section id="solve" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">04 — The problem &amp; our answer</div>
+        <div className="eyebrow">02 — The problem &amp; our answer</div>
         <h2>
           Robots, models and sensors don't speak the same language. OpenRAL is the <em>contract</em> that
           makes them.

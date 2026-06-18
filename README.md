@@ -17,9 +17,9 @@ perception and reasoning into safe, runnable robot behavior.
 ## Sections
 
 Hero (floating L0–L7 layer stack) → **terminal install** (`curl` installer) →
-**architecture diagram** (Helix-style dual-system S1 ⇄ S2 flow) → **showcase**
-(autoscrolling benchmark / simulation / deployment clips) → what it solves →
-capabilities → rSkills → contact → footer (GitHub · Hugging Face · Discord).
+what it solves → **architecture diagram** (Helix-style dual-system S1 ⇄ S2 flow) →
+capabilities → rSkills → **showcase** (autoscrolling benchmark / simulation /
+deployment clips) → contact → footer (GitHub · Hugging Face · Discord).
 
 ## Showcase videos
 
