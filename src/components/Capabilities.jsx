@@ -55,7 +55,7 @@ export default function Capabilities() {
   return (
     <section id="features" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">04 — What's inside</div>
+        <div className="eyebrow">05 — What's inside</div>
         <h2>
           A full <em>stack</em>, composed — not reinvented.
         </h2>

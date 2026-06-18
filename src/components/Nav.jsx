@@ -5,6 +5,7 @@ import "./Nav.css";
 const LINKS = [
   { href: "/#install", label: "Install" },
   { href: "/#architecture", label: "Architecture" },
+  { href: "/#showcase", label: "Showcase" },
   { href: "/#solve", label: "Why" },
   { href: "/#features", label: "Capabilities" },
   { href: "/#rskills", label: "rSkills" },

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { NODES, EDGES } from "../data/layers.js";
 import { useReveal } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
@@ -60,30 +60,10 @@ function edgePath(e) {
   return `M ${ax} ${ay} C ${mid} ${ay} ${mid} ${by} ${bx} ${by}`;
 }
 
-const MODES = [
-  {
-    tag: "Benchmark",
-    title: "Reproduce the score",
-    body: "12 reproducible eval configs — LIBERO, MetaWorld, ManiSkill3, SimplerEnv, RoboCasa, gym-aloha, gym-pusht. Every rSkill ships its score.",
-  },
-  {
-    tag: "Simulate",
-    title: "Roll out in sim",
-    body: "Run any rSkill headless in its sim backend — validate a policy before it touches hardware.",
-  },
-  {
-    tag: "Deploy",
-    title: "Run the harness",
-    body: "One typed manifest drives sim and real — perception, reasoning, rSkills and safety, end to end.",
-  },
-];
-
 export default function ArchitectureDiagram() {
   const reveal = useReveal();
   const reduce = useReducedMotion();
   const [hovered, setHovered] = useState(null);
-  const [activeMode, setActiveMode] = useState(MODES[0].tag);
-  const curMode = MODES.find((m) => m.tag === activeMode);
 
   const isEdgeHot = (e) => hovered && (e.from === hovered || e.to === hovered);
   const pct = (v, total) => `${(v / total) * 100}%`;
@@ -149,39 +129,6 @@ export default function ArchitectureDiagram() {
               <span className="node-sub">{n.sub}</span>
             </div>
           ))}
-        </div>
-      </motion.div>
-
-      <motion.div className="modes" {...useReveal({ delay: 0.05 })}>
-        <div className="mode-head">
-          <span className="mode-label">Run it three ways</span>
-          <div className="mode-tabs" role="tablist" aria-label="Run modes">
-            {MODES.map((m) => (
-              <button
-                key={m.tag}
-                role="tab"
-                aria-selected={activeMode === m.tag}
-                className={`mode-tab${activeMode === m.tag ? " active" : ""}`}
-                onClick={() => setActiveMode(m.tag)}
-              >
-                {m.tag}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="mode-panel">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={activeMode}
-              initial={reduce ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? undefined : { opacity: 0, y: -8 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <h3>{curMode.title}</h3>
-              <p>{curMode.body}</p>
-            </motion.div>
-          </AnimatePresence>
         </div>
       </motion.div>
     </section>
