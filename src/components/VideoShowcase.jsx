@@ -106,16 +106,15 @@ function ClipCard({ clip, reduce, onOpen }) {
 
       <div className="show-top">
         <span className="show-chip show-chip-bench">{clip.benchmark}</span>
-        {clip.status ? (
-          <span className={`show-status show-status-${clip.status}`}>
-            <i className="show-dot" />
-            {clip.status === "success" ? "SUCCESS" : "FAIL"}
-          </span>
-        ) : (
-          <span aria-hidden="true" />
-        )}
         <span className="show-chip show-chip-rskill">{clip.rskill}</span>
       </div>
+
+      {clip.status && (
+        <span className={`show-status show-status-${clip.status}`}>
+          <i className="show-dot" />
+          {clip.status === "success" ? "SUCCESS" : "FAIL"}
+        </span>
+      )}
 
       <span className="show-expand" aria-hidden="true">
         <ExpandIcon />
