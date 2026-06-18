@@ -38,9 +38,15 @@ jobs:
 
       - name: Open and merge promote PR
         env:
-          GH_TOKEN: ${{ github.token }}
+          # Fine-grained PAT (Contents + Pull requests: read/write) — the built-in
+          # GITHUB_TOKEN is blocked from creating PRs by org policy, so we use a PAT.
+          GH_TOKEN: ${{ secrets.PROMOTE_TOKEN }}
         run: |
           set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::Repo secret PROMOTE_TOKEN is not set. Create a fine-grained PAT scoped to this repo with Contents + Pull requests (read & write) and add it as the PROMOTE_TOKEN secret."
+            exit 1
+          fi
           git fetch origin main dev --quiet
 
           if [ -z "$(git rev-list origin/main..origin/dev)" ]; then
