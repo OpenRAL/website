@@ -9,11 +9,10 @@ import "./Dashboard.css";
    alternating sides — each a filled dot on the window edge, a connector line,
    and a card (header + subtitle) naming one region of the live operator view.
 
-   MEDIA: a static screenshot for now. The recorded walkthrough
-   (_deploy_videos/dashvid_nav_cmd/dashboard_navigation.webm) is the SAME
-   1280×3564 frame, so swapping <img> for a <video> here keeps every callout
-   position valid — host the clip on the website-media CDN like the showcase
-   clips and render it in place of .dash-img. */
+   MEDIA: the recorded walkthrough plays in the console; the still WebP is its
+   poster (instant paint, zero layout shift) and the reduced-motion fallback.
+   Both are the SAME 1280×3564 frame, so every callout position stays valid. */
+const VIDEO = "/assets/dashboard-navigation.webm";
 const MEDIA = "/assets/dashboard-view.webp";
 const ALT =
   "OpenRAL mission-control dashboard — deployment identity, alarms, operator prompt, multi-modal camera feeds, SLAM map and point cloud, reasoner output, live skill/inference/safety signals, robot joint state and action chunk, telemetry sparklines and the activity log.";
@@ -142,28 +141,47 @@ function DashboardModal({ onClose }) {
 export default function Dashboard() {
   const head = useReveal();
   const frame = useReveal({ delay: 0.05 });
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const stageRef = useRef(null);
-  const imgRef = useRef(null);
+  const mediaRef = useRef(null);
 
-  /* Anchor the callouts to the IMAGE (not the stage) so the window title bar
-     and padding don't shift them. Publish the image's top offset + height as
+  /* Anchor the callouts to the MEDIA (not the stage) so the window title bar
+     and padding don't shift them. Publish the media's top offset + height as
      CSS vars the notes read in their `top: calc(...)`. */
   useEffect(() => {
     const stage = stageRef.current;
-    const img = imgRef.current;
-    if (!stage || !img) return;
+    const media = mediaRef.current;
+    if (!stage || !media) return;
     const measure = () => {
-      const top = img.getBoundingClientRect().top - stage.getBoundingClientRect().top;
+      const top = media.getBoundingClientRect().top - stage.getBoundingClientRect().top;
       stage.style.setProperty("--dash-img-top", `${top}px`);
-      stage.style.setProperty("--dash-img-h", `${img.offsetHeight}px`);
+      stage.style.setProperty("--dash-img-h", `${media.offsetHeight}px`);
     };
     measure();
     const ro = new ResizeObserver(measure);
-    ro.observe(img);
+    ro.observe(media);
     ro.observe(stage);
     return () => ro.disconnect();
-  }, []);
+  }, [reduce]);
+
+  /* Play the walkthrough only while it's on screen (preload="none", so the
+     ~4 MB clip isn't fetched until it scrolls into view), pause when it
+     leaves. Skipped under reduced motion, where we render the still poster. */
+  useEffect(() => {
+    if (reduce) return;
+    const video = mediaRef.current;
+    if (!video || video.tagName !== "VIDEO") return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { rootMargin: "200px", threshold: 0.01 }
+    );
+    io.observe(video);
+    return () => io.disconnect();
+  }, [reduce]);
 
   return (
     <section id="dashboard" className="band">
@@ -197,7 +215,23 @@ export default function Dashboard() {
               <span>expand</span>
             </button>
           </header>
-          <img ref={imgRef} className="dash-img" src={MEDIA} alt={ALT} width={1280} height={3564} loading="lazy" />
+          {reduce ? (
+            <img ref={mediaRef} className="dash-img" src={MEDIA} alt={ALT} width={1280} height={3564} loading="lazy" />
+          ) : (
+            <video
+              ref={mediaRef}
+              className="dash-img"
+              src={VIDEO}
+              poster={MEDIA}
+              width={1280}
+              height={3564}
+              muted
+              loop
+              playsInline
+              preload="none"
+              aria-label={ALT}
+            />
+          )}
         </motion.div>
 
         {NOTES.map((note) => (
