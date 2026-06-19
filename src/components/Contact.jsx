@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
+import Select from "./Select.jsx";
 import "./Contact.css";
+
+const AUDIENCE = [
+  { value: "hello", label: "A general question" },
+  { value: "partner", label: "A partnership / collaboration" },
+  { value: "rskill", label: "A new rSkill" },
+  { value: "deployment", label: "A real deployment" },
+  { value: "evaluation", label: "An evaluation on sim and real environments" },
+];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -90,7 +99,7 @@ export default function Contact() {
     <section id="contact" className="band band-contact">
       <div className="contact-grid">
         <motion.div className="contact-copy" {...left}>
-          <div className="eyebrow">07 — Get in touch</div>
+          <div className="eyebrow">08 — Get in touch</div>
           <h2>
             Let's <em>talk</em>.
           </h2>
@@ -121,13 +130,8 @@ export default function Contact() {
             <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
           </div>
           <div className="field">
-            <label htmlFor="audience">This is about</label>
-            <div className="select-wrap">
-              <select id="audience" name="audience" required defaultValue="hello">
-                <option value="hello">A general question</option>
-                <option value="partner">A partnership / collaboration</option>
-              </select>
-            </div>
+            <label id="audience-label" htmlFor="audience">This is about</label>
+            <Select id="audience" name="audience" labelId="audience-label" options={AUDIENCE} defaultValue="hello" required />
           </div>
 
           {FIELDS.map((f) => (

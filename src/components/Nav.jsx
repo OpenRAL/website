@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/#features", label: "Capabilities" },
   { href: "/#rskills", label: "rSkills" },
   { href: "/#showcase", label: "Showcase" },
+  { href: "/#dashboard", label: "Dashboard" },
 ];
 
 export default function Nav() {

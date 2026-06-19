@@ -65,7 +65,7 @@ export default function Footer() {
               </a>
             ))}
           </div>
-          <p className="footer-copy">© 2026 OpenRAL · Apache-2.0</p>
+          <p className="footer-copy">© 2026 OpenRAL</p>
         </div>
 
         <div className="footer-col">
@@ -81,7 +81,7 @@ export default function Footer() {
           <h4>Resources</h4>
           <a href="https://docs.openral.com" target="_blank" rel="noopener">Documentation</a>
           <a href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">Browse rSkills</a>
-          <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License · Apache-2.0</a>
+          <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">License</a>
           <a href="/privacy">Privacy</a>
         </div>
       </div>

@@ -1,0 +1,182 @@
+/* ============================================================
+   Dashboard — the deployment "mission control" console window
+   Reuses the OpenRAL framed-window language (see .diff-console,
+   .term): gradient surface, hairline-strong border, traffic-light
+   dots, mono title, white LIVE pulse. The console holds ONLY the
+   dashboard; scroll-revealed callout bubbles flank it in the
+   gutters, each tied to a window-edge dot by a connector line.
+   ============================================================ */
+
+.dash-stage {
+  position: relative;
+}
+
+/* ---- console window (holds only the dashboard) ---- */
+.dash-window {
+  width: 56%;
+  margin: 0 auto;
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+.dash-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.015);
+}
+.dash-dots {
+  display: flex;
+  gap: 8px;
+}
+.dash-dots i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--hair);
+}
+.dash-dots i:first-child {
+  background: var(--hair-2);
+}
+.dash-file {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-2);
+  margin-left: 10px;
+}
+.dash-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #fff;
+}
+.dash-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--live);
+  box-shadow: 0 0 8px rgba(79, 181, 139, 0.75);
+  animation: dash-blink 1.6s ease-in-out infinite;
+}
+@keyframes dash-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.dash-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- callout bubbles (outside the window, in the gutters) ----
+   Outer node positions (and can go static on mobile); inner node
+   lays out dot · line · card and runs the edge-inward reveal.
+   The window is 56% wide and centered, so each 22% gutter holds a
+   bubble and its dot lands exactly on the window edge. */
+.dash-note {
+  position: absolute;
+  width: 22%;
+  transform: translateY(-50%);
+}
+.dash-note.left {
+  left: 0;
+}
+.dash-note.right {
+  right: 0;
+}
+.dash-note-in {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+.dash-note.right .dash-note-in {
+  flex-direction: row;
+  text-align: left;
+}
+.dash-note.left .dash-note-in {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.dash-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.07);
+}
+/* connector line: reaches all the way from the dot to the bubble */
+.dash-line {
+  flex: 1 1 auto;
+  min-width: 16px;
+  height: 2px;
+  background: var(--accent-line);
+}
+.dash-card {
+  flex: 0 0 auto;
+  width: clamp(118px, 13.5vw, 168px);
+  background: var(--surface);
+  border: 1px solid var(--hair-2);
+  border-radius: 11px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+}
+.dash-card-h {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+  color: #f4f5f7;
+}
+.dash-card-s {
+  margin-top: 5px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* stacked layout once the gutters get too tight for bubbles */
+@media (max-width: 860px) {
+  .dash-window {
+    width: 100%;
+  }
+  .dash-note {
+    position: static;
+    width: 100%;
+    transform: none;
+    margin-top: 16px;
+  }
+  .dash-note .dash-note-in {
+    flex-direction: row;
+    text-align: left;
+  }
+  .dash-dot,
+  .dash-line {
+    display: none;
+  }
+  .dash-card {
+    width: 100%;
+    padding: 14px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-pulse {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -85,8 +85,7 @@
   color: var(--muted);
 }
 .field input,
-.field textarea,
-.field select {
+.field textarea {
   width: 100%;
   background: var(--bg-2);
   border: 1px solid var(--hair-2);
@@ -111,8 +110,7 @@
   min-height: 96px;
 }
 .field input:focus,
-.field textarea:focus,
-.field select:focus {
+.field textarea:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
@@ -120,23 +118,6 @@
 .field input::placeholder,
 .field textarea::placeholder {
   color: var(--muted);
-}
-.select-wrap {
-  position: relative;
-}
-.select-wrap::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  pointer-events: none;
-  font-size: 12px;
-}
-.field select {
-  appearance: none;
-  cursor: pointer;
 }
 .hp {
   position: absolute;
