@@ -54,7 +54,7 @@ const TRACE = [
   { tok: "ExecuteRSkill",       val: "navigate_to_pose · fridge",            skill: "navigate" },
   { tok: "ExecuteRSkill",       val: 'open_door("fridge")',                   skill: "open_door" },
   { tok: "ExecuteRSkill",       val: 'place("CocaCola") · fridge',           skill: "place" },
-  { tok: "ExecuteRSkill",       val: 'close_door("fridge")',                  skill: "open_door" },
+  { tok: "ExecuteRSkill",       val: 'close_door("fridge")',                  skill: "close_door" },
   { tok: "safety.check",        val: "fridge sealed ✓",                      skill: "safety", ok: true },
   // Deliver to user
   { tok: "spatial_mem.recall",  val: "glass → countertop · pose ✓",         skill: "recall", ok: true },
@@ -70,7 +70,7 @@ const TRACE = [
   { tok: "dataset.append",      val: "episode +1 ↗",                         skill: null },
   { tok: "otel.span",           val: "trace flushed",                        skill: null },
 ];
-const CHIPS = ["detect", "vlm", "locate", "navigate", "grasp", "open_door", "pour", "place", "recall", "robometer", "safety", "handover"];
+const CHIPS = ["detect", "vlm", "locate", "navigate", "grasp", "open_door", "close_door", "pour", "place", "recall", "robometer", "safety", "handover"];
 const MAX = 6;
 
 export default function AgentConsole() {
