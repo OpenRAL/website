@@ -126,6 +126,9 @@ export default function Contact() {
               <select id="audience" name="audience" required defaultValue="hello">
                 <option value="hello">A general question</option>
                 <option value="partner">A partnership / collaboration</option>
+                <option value="rskill">A new rSkill</option>
+                <option value="deployment">A real deployment</option>
+                <option value="evaluation">An evaluation on sim and real environments</option>
               </select>
             </div>
           </div>

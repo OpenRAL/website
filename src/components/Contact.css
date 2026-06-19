@@ -137,6 +137,18 @@
 .field select {
   appearance: none;
   cursor: pointer;
+  /* clear the custom ▾ arrow, and render the native option popup dark */
+  padding-right: 38px;
+  color-scheme: dark;
+}
+/* style the option list where the browser allows it (Chromium, Firefox) */
+.field select option {
+  background: var(--surface);
+  color: var(--text);
+}
+.field select option:checked {
+  background: var(--surface-2);
+  color: #fff;
 }
 .hp {
   position: absolute;
