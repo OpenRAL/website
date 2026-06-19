@@ -12,7 +12,7 @@ const TRACE = [
   { tok: "s2.subtask[2]",       val: "locate · CocaCola bottle",             skill: null },
   { tok: "s2.subtask[3]",       val: "ExecuteRSkill(grasp) · bottle",        skill: null },
   { tok: "s2.subtask[4]",       val: "locate glass · ExecuteRSkill(pour)",   skill: null },
-  { tok: "s2.subtask[5]",       val: "return bottle → fridge",               skill: null },
+  { tok: "s2.subtask[5]",       val: "ExecuteRSkill(open_door, place, close_door) · fridge", skill: null },
   { tok: "s2.subtask[6]",       val: "recall glass · navigate user",         skill: null },
   { tok: "s2.subtask[7]",       val: "ExecuteRSkill(handover) · glass",      skill: null },
   // Navigate to kitchen
@@ -52,9 +52,9 @@ const TRACE = [
   { tok: "detect.stream",       val: "scene · [fridge, counter, door]",      skill: "detect" },
   { tok: "query_scene",         val: 'vlm · "fridge · east wall"',           skill: "vlm" },
   { tok: "ExecuteRSkill",       val: "navigate_to_pose · fridge",            skill: "navigate" },
-  { tok: "ExecuteRSkill",       val: 'open_door("fridge")',                   skill: "grasp" },
+  { tok: "ExecuteRSkill",       val: 'open_door("fridge")',                   skill: "open_door" },
   { tok: "ExecuteRSkill",       val: 'place("CocaCola") · fridge',           skill: "place" },
-  { tok: "ExecuteRSkill",       val: 'close_door("fridge")',                  skill: "grasp" },
+  { tok: "ExecuteRSkill",       val: 'close_door("fridge")',                  skill: "open_door" },
   { tok: "safety.check",        val: "fridge sealed ✓",                      skill: "safety", ok: true },
   // Deliver to user
   { tok: "spatial_mem.recall",  val: "glass → countertop · pose ✓",         skill: "recall", ok: true },
@@ -70,7 +70,7 @@ const TRACE = [
   { tok: "dataset.append",      val: "episode +1 ↗",                         skill: null },
   { tok: "otel.span",           val: "trace flushed",                        skill: null },
 ];
-const CHIPS = ["detect", "vlm", "locate", "navigate", "grasp", "pour", "place", "recall", "robometer", "safety", "handover"];
+const CHIPS = ["detect", "vlm", "locate", "navigate", "grasp", "open_door", "pour", "place", "recall", "robometer", "safety", "handover"];
 const MAX = 6;
 
 export default function AgentConsole() {
