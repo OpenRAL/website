@@ -7,6 +7,7 @@ import Solve from "./components/Solve.jsx";
 import Capabilities from "./components/Capabilities.jsx";
 import RSkills from "./components/RSkills.jsx";
 import VideoShowcase from "./components/VideoShowcase.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import Privacy from "./components/Privacy.jsx";
@@ -34,6 +35,7 @@ export default function App() {
         <Capabilities />
         <RSkills />
         <VideoShowcase />
+        <Dashboard />
         <Contact />
       </main>
       <Footer />
