@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import "./Dashboard.css";
 
@@ -40,20 +39,6 @@ const NOTES = [
     s: "A chronological stream of spans, safety events and bridged logs, filtered by severity." },
 ];
 
-const ExpandIcon = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
-    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-    <path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4" />
-  </svg>
-);
-
-const CloseIcon = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
-    strokeLinecap="round" aria-hidden="true" {...props}>
-    <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-);
-
 /* One scroll-revealed callout bubble. Outer node owns positioning (so it can
    go static on mobile); inner motion node owns the edge-inward reveal. */
 function Note({ note }) {
@@ -82,67 +67,10 @@ function Note({ note }) {
   );
 }
 
-/* Full-resolution lightbox — the whole panel, scrollable, Esc to close. */
-function DashboardModal({ onClose }) {
-  const closeRef = useRef(null);
-
-  useEffect(() => {
-    closeRef.current?.focus();
-    const onKey = (e) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [onClose]);
-
-  return createPortal(
-    <motion.div
-      className="dash-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-label="OpenRAL mission-control dashboard, full view"
-      onClick={onClose}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-    >
-      <motion.div
-        className="dash-dialog"
-        onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.96, y: 8 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.97, y: 6 }}
-        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="dash-dialog-bar">
-          <span className="dash-dialog-meta">
-            <span className="dash-dialog-title">openral · mission-control</span>
-            <span className="dash-live">
-              <i className="dash-live-dot" />LIVE
-            </span>
-          </span>
-          <button ref={closeRef} type="button" className="dash-close" onClick={onClose} aria-label="Close">
-            <CloseIcon />
-          </button>
-        </div>
-        <div className="dash-dialog-scroll">
-          <img className="dash-dialog-img" src={MEDIA} alt={ALT} width={1280} height={3564} />
-        </div>
-      </motion.div>
-    </motion.div>,
-    document.body
-  );
-}
-
 export default function Dashboard() {
   const head = useReveal();
   const frame = useReveal({ delay: 0.05 });
   const reduce = useReducedMotion();
-  const [open, setOpen] = useState(false);
   const stageRef = useRef(null);
   const mediaRef = useRef(null);
 
@@ -209,11 +137,6 @@ export default function Dashboard() {
             <span className="dash-status">
               <span className="dash-pulse" />LIVE
             </span>
-            <button type="button" className="dash-expand" onClick={() => setOpen(true)}
-              aria-label="Expand dashboard to full size">
-              <ExpandIcon />
-              <span>expand</span>
-            </button>
           </header>
           {reduce ? (
             <img ref={mediaRef} className="dash-img" src={MEDIA} alt={ALT} width={1280} height={3564} loading="lazy" />
@@ -238,8 +161,6 @@ export default function Dashboard() {
           <Note key={note.h} note={note} />
         ))}
       </div>
-
-      <AnimatePresence>{open && <DashboardModal onClose={() => setOpen(false)} />}</AnimatePresence>
     </section>
   );
 }
