@@ -4,10 +4,12 @@ import "./Nav.css";
 
 const LINKS = [
   { href: "/#install", label: "Install" },
-  { href: "/#architecture", label: "Architecture" },
   { href: "/#solve", label: "Why" },
+  { href: "/#architecture", label: "Architecture" },
   { href: "/#features", label: "Capabilities" },
   { href: "/#rskills", label: "rSkills" },
+  { href: "/#showcase", label: "Showcase" },
+  { href: "/#dashboard", label: "Dashboard" },
 ];
 
 export default function Nav() {

@@ -1,0 +1,367 @@
+/* ============================================================
+   VideoShowcase — tabbed autoscroll of scored run clips
+   ============================================================ */
+
+/* ---- category tabs (same language as .kind-tab) ---- */
+.show-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.show-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-2);
+  background: var(--bg-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 9px;
+  padding: 11px 17px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.show-tab:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+.show-tab.active {
+  color: #14100c;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+.show-tab-count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 1px 7px;
+  min-width: 20px;
+  text-align: center;
+}
+.show-tab.active .show-tab-count {
+  color: rgba(20, 16, 12, 0.7);
+  background: rgba(20, 16, 12, 0.12);
+}
+
+/* ---- marquee ---- */
+.show-marquee {
+  position: relative;
+  overflow: hidden;
+  /* fade the two edges into the canvas */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.show-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 6px 0;
+}
+.show-track.is-centered {
+  justify-content: center;
+  width: 100%;
+}
+/* Always scrolls right-to-left (content translates leftward); every tab
+   shares the same direction. */
+.show-track.is-animated {
+  animation: show-scroll var(--marquee-dur, 40s) linear infinite;
+}
+.show-track.is-paused,
+.show-marquee:hover .show-track.is-animated,
+.show-marquee:focus-within .show-track.is-animated {
+  animation-play-state: paused;
+}
+@keyframes show-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--marquee-shift) * -1), 0, 0);
+  }
+}
+.show-seq {
+  display: flex;
+  gap: 16px;
+  flex: 0 0 auto;
+  list-style: none;
+}
+.show-item {
+  flex: 0 0 auto;
+}
+
+/* reduced-motion: a plain, manually-scrollable strip */
+.show-marquee.is-static {
+  overflow-x: auto;
+}
+.show-marquee.is-static .show-track {
+  animation: none;
+  justify-content: flex-start;
+  width: max-content;
+}
+
+/* ---- a clip card (square, rounded, with overlays) ---- */
+.show-card {
+  position: relative;
+  display: block;
+  width: clamp(220px, 24vw, 300px);
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.show-card:hover,
+.show-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--accent-line);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+.show-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* legibility wash behind the top bar and the bottom status, clean in the middle */
+.show-grad {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(14, 15, 19, 0.66) 0%, rgba(14, 15, 19, 0) 30%),
+    linear-gradient(0deg, rgba(14, 15, 19, 0.5) 0%, rgba(14, 15, 19, 0) 26%);
+}
+
+/* top bar: benchmark (left) · rskill (right) */
+.show-top {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+.show-chip {
+  min-width: 0;
+  max-width: 60%;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: rgba(14, 15, 19, 0.55);
+  border: 1px solid var(--accent-line);
+  border-radius: 6px;
+  padding: 5px 8px;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.show-chip-bench {
+  color: #fff;
+}
+.show-chip-rskill {
+  color: var(--text-2);
+}
+
+/* SUCCESS / FAIL pill — bottom-right of the clip */
+.show-status {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #fff;
+  background: rgba(14, 15, 19, 0.62);
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+/* inside the modal header the pill flows inline, not pinned to a corner */
+.show-status.is-inline {
+  position: static;
+  right: auto;
+  bottom: auto;
+}
+.show-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  animation: show-blink 1.6s ease-in-out infinite;
+}
+.show-status-success {
+  border-color: rgba(79, 181, 139, 0.5);
+}
+.show-status-success .show-dot {
+  background: var(--live);
+  box-shadow: 0 0 10px rgba(79, 181, 139, 0.7);
+}
+.show-status-fail {
+  border-color: rgba(217, 138, 142, 0.5);
+}
+.show-status-fail .show-dot {
+  background: var(--red);
+  box-shadow: 0 0 10px rgba(217, 138, 142, 0.6);
+}
+@keyframes show-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* expand affordance — centered, only on hover/focus of the card */
+.show-expand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(14, 15, 19, 0.6);
+  border: 1px solid var(--accent-line);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+  pointer-events: none;
+}
+.show-expand svg {
+  width: 22px;
+  height: 22px;
+}
+.show-card:hover .show-expand,
+.show-card:focus-visible .show-expand {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ---- empty state ---- */
+.show-empty {
+  border: 1px dashed var(--hair-2);
+  border-radius: 14px;
+  padding: 40px 28px;
+  text-align: center;
+  color: var(--text-2);
+  font-size: 14.5px;
+  background: var(--bg-2);
+}
+.show-empty code {
+  font-size: 0.85em;
+}
+
+/* ---- modal ---- */
+.show-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(8, 9, 12, 0.74);
+  backdrop-filter: blur(8px);
+}
+.show-dialog {
+  width: min(1100px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+.show-dialog-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px 12px 18px;
+  border-bottom: 1px solid var(--hair);
+}
+.show-dialog-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  min-width: 0;
+  overflow: hidden;
+}
+.show-dialog-bench {
+  color: #fff;
+  white-space: nowrap;
+}
+.show-dialog-sep {
+  color: var(--muted);
+}
+.show-dialog-rskill {
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.show-close {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  background: var(--bg-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.show-close:hover {
+  color: #fff;
+  border-color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+.show-close svg {
+  width: 20px;
+  height: 20px;
+}
+.show-dialog-video {
+  display: block;
+  width: 100%;
+  max-height: calc(90vh - 65px);
+  object-fit: contain;
+  background: #000;
+}
+
+@media (max-width: 600px) {
+  .show-card {
+    width: clamp(200px, 70vw, 260px);
+  }
+}

@@ -63,12 +63,16 @@ white** used sparingly.
 - **White Line** `rgba(255,255,255,0.22)` (`--accent-line`) — emphasized 1px
   borders (active nodes, tabs, pills).
 
-### Status — the only permitted non-neutral
-- **Success / Live** → **white** (`--green` is `#FFFFFF`). The "LIVE" dot, the
-  `✓` ticks, a sent-message confirmation are all white. No green.
+### Status — the only permitted non-neutrals
+- **Live** → a **green blinking dot** (`--live` `#4FB58B`, the live / open-source
+  signal) paired with the word **"LIVE" set in white**. The pulsing green dot is
+  a sanctioned status light — it reads as "the system is running." Everything
+  around it stays monochrome: the **"LIVE" label itself is white** (never green),
+  as are the `✓` ticks and a sent-message confirmation.
 - **Error** `#D98A8E` (`--red`) — **form-validation errors only**, paired with
-  text and an invalid border. This desaturated rose is the *single* sanctioned
-  chroma in the system, and it must never appear decoratively.
+  text and an invalid border. This desaturated rose and the green live-dot are
+  the *only two* sanctioned chromas in the system; neither may ever appear
+  decoratively.
 
 **Banned:** any colored accent (the old clay/orange and cyan are gone for good),
 purple/blue "AI neon," outer-glow shadows, gradient text, pure `#000000`.
@@ -199,8 +203,10 @@ Universal AI tells **and** OpenRAL-specific bans:
 
 - **No colored accent of any kind.** No clay/orange, no cyan, no purple/blue AI
   neon, no gradient text. Emphasis is white + weight + opacity, period.
-- **No green/red as decoration.** Success and "live" are white; the lone
-  desaturated `--red` is reserved for form errors paired with text.
+- **No green/red as decoration.** The only sanctioned chromas are the **green
+  blinking live-dot** (`--live`, always paired with a *white* "LIVE" label) and
+  the desaturated `--red` for form errors paired with text. Success ticks and
+  confirmations stay white; never use green for text, fills or borders.
 - No outer-glow / neon shadows (CTA shadows are dark, not white halos).
 - No pure black `#000000` — the canvas is Ink `#0E0F13`.
 - No emojis as UI — SVG icons only (GitHub / Hugging Face / Discord marks,
