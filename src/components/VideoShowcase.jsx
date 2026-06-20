@@ -129,7 +129,7 @@ function ClipCard({ clip, reduce, onOpen }) {
    twice at once). If the clips fit, they're shown once, centered, no scroll.
    The row pauses on hover/focus or while the modal is open; under
    reduced-motion it's a plain, manually-scrollable strip. */
-function Marquee({ clips, reverse, paused, reduce, onOpen }) {
+function Marquee({ clips, paused, reduce, onOpen }) {
   const wrapRef = useRef(null);
   const seqRef = useRef(null);
   // px to shift per loop; 0 means the clips fit and shouldn't scroll
@@ -182,7 +182,6 @@ function Marquee({ clips, reverse, paused, reduce, onOpen }) {
     <div className={`show-marquee${reduce ? " is-static" : ""}`} ref={wrapRef}>
       <div
         className={`show-track${animate ? " is-animated" : " is-centered"}${paused ? " is-paused" : ""}`}
-        data-reverse={reverse || undefined}
         style={animate ? { "--marquee-dur": `${duration}s`, "--marquee-shift": `${shift}px` } : undefined}
       >
         {seq(seqRef, false)}
@@ -192,9 +191,13 @@ function Marquee({ clips, reverse, paused, reduce, onOpen }) {
   );
 }
 
-/* Full-resolution modal — native aspect ratio, controls, sound. */
+/* Full-resolution modal — native aspect ratio, controls, sound.
+   The dialog sizes itself to the clip's real aspect ratio (read from the
+   loaded metadata) so wide deployment composites open at full width instead
+   of being squeezed into a square-ish box — i.e. genuinely high-res. */
 function ClipModal({ clip, onClose }) {
   const closeRef = useRef(null);
+  const [aspect, setAspect] = useState(null); // intrinsic width / height
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -223,6 +226,7 @@ function ClipModal({ clip, onClose }) {
       <motion.div
         className="show-dialog"
         onClick={(e) => e.stopPropagation()}
+        style={aspect ? { width: `min(96vw, calc((90vh - 64px) * ${aspect}))` } : undefined}
         initial={{ opacity: 0, scale: 0.96, y: 8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.97, y: 6 }}
@@ -244,7 +248,19 @@ function ClipModal({ clip, onClose }) {
             <CloseIcon />
           </button>
         </div>
-        <video className="show-dialog-video" src={clip.full} poster={clip.poster} autoPlay loop playsInline controls />
+        <video
+          className="show-dialog-video"
+          src={clip.full}
+          poster={clip.poster}
+          autoPlay
+          loop
+          playsInline
+          controls
+          onLoadedMetadata={(e) => {
+            const { videoWidth: w, videoHeight: h } = e.currentTarget;
+            if (w && h) setAspect(w / h);
+          }}
+        />
       </motion.div>
     </motion.div>,
     document.body
@@ -257,7 +273,6 @@ export default function VideoShowcase() {
   const [active, setActive] = useState(TABS[0].id);
   const [open, setOpen] = useState(null);
 
-  const tabIndex = TABS.findIndex((t) => t.id === active);
   const clips = ALL.filter((c) => c.category === active);
   clips.category = active; // for the empty-state hint
 
@@ -303,7 +318,6 @@ export default function VideoShowcase() {
         >
           <Marquee
             clips={clips}
-            reverse={tabIndex % 2 === 1}
             paused={!!open}
             reduce={reduce}
             onOpen={setOpen}

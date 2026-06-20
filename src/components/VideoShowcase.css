@@ -67,11 +67,10 @@
   justify-content: center;
   width: 100%;
 }
+/* Always scrolls right-to-left (content translates leftward); every tab
+   shares the same direction. */
 .show-track.is-animated {
   animation: show-scroll var(--marquee-dur, 40s) linear infinite;
-}
-.show-track.is-animated[data-reverse] {
-  animation-direction: reverse;
 }
 .show-track.is-paused,
 .show-marquee:hover .show-track.is-animated,
