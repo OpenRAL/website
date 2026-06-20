@@ -50,15 +50,21 @@ function parseName(file) {
   return { base, benchmark, rskill, status };
 }
 
-function encode(input, dir) {
+function encode(input, dir, category) {
   mkdirSync(dir, { recursive: true });
   const preview = join(dir, "preview.mp4");
   const full = join(dir, "full.mp4");
   const poster = join(dir, "poster.jpg");
 
-  // strip preview: center-cropped square, 640px, muted, web-optimised
+  // strip preview: 640px square, muted, web-optimised.
+  // benchmarks/simulation are center-cropped to a square; deployment clips are
+  // wide side-by-side (sim | dashboard) composites, so a center crop would only
+  // show the seam — letterbox the whole frame into the square instead.
+  const previewVf = category === "deployment"
+    ? "scale=640:-2:flags=lanczos,pad=640:640:(ow-iw)/2:(oh-ih)/2:color=black,fps=30"
+    : "crop='min(iw,ih)':'min(iw,ih)',scale=640:640:flags=lanczos,fps=30";
   sh("ffmpeg", ["-y", "-i", input,
-    "-vf", "crop='min(iw,ih)':'min(iw,ih)',scale=640:640:flags=lanczos,fps=30",
+    "-vf", previewVf,
     "-an", "-c:v", "libx264", "-profile:v", "main", "-pix_fmt", "yuv420p",
     "-crf", "28", "-preset", "veryfast", "-movflags", "+faststart", preview]);
 
@@ -95,7 +101,7 @@ for (const category of CATEGORIES) {
     }
     const id = `${category}/${base}`;
     process.stdout.write(`• ${id} … `);
-    const { sizes } = encode(join(dir, file), join(OUT, id));
+    const { sizes } = encode(join(dir, file), join(OUT, id), category);
     console.log(`poster ${sizes.poster}kB · preview ${sizes.preview}kB · full ${sizes.full}kB`);
     clips.push({
       id, category, benchmark, rskill, status,
