@@ -232,24 +232,24 @@
       "full": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/full.mp4"
     },
     {
-      "id": "deployment/navigatekitchen_nav2_success",
+      "id": "deployment/robocasa-navigation_ros2-nav_success",
       "category": "deployment",
-      "benchmark": "navigatekitchen",
-      "rskill": "nav2",
+      "benchmark": "robocasa-navigation",
+      "rskill": "ros2-nav",
       "status": "success",
-      "poster": "deployment/navigatekitchen_nav2_success/poster.jpg",
-      "preview": "deployment/navigatekitchen_nav2_success/preview.mp4",
-      "full": "deployment/navigatekitchen_nav2_success/full.mp4"
+      "poster": "deployment/robocasa-navigation_ros2-nav_success/poster.jpg",
+      "preview": "deployment/robocasa-navigation_ros2-nav_success/preview.mp4",
+      "full": "deployment/robocasa-navigation_ros2-nav_success/full.mp4"
     },
     {
-      "id": "deployment/openarm_charger_fail",
+      "id": "deployment/tabletop-charger_openarm_fail",
       "category": "deployment",
-      "benchmark": "openarm",
-      "rskill": "charger",
+      "benchmark": "tabletop-charger",
+      "rskill": "openarm",
       "status": "fail",
-      "poster": "deployment/openarm_charger_fail/poster.jpg",
-      "preview": "deployment/openarm_charger_fail/preview.mp4",
-      "full": "deployment/openarm_charger_fail/full.mp4"
+      "poster": "deployment/tabletop-charger_openarm_fail/poster.jpg",
+      "preview": "deployment/tabletop-charger_openarm_fail/preview.mp4",
+      "full": "deployment/tabletop-charger_openarm_fail/full.mp4"
     }
   ]
 }
