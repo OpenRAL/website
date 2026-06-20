@@ -2,6 +2,56 @@
   "base": "https://huggingface.co/datasets/OpenRAL/website-media/resolve/main",
   "clips": [
     {
+      "id": "benchmarks/aloha-cube_act_fail",
+      "category": "benchmarks",
+      "benchmark": "aloha-cube",
+      "rskill": "act",
+      "status": "fail",
+      "poster": "benchmarks/aloha-cube_act_fail/poster.jpg",
+      "preview": "benchmarks/aloha-cube_act_fail/preview.mp4",
+      "full": "benchmarks/aloha-cube_act_fail/full.mp4"
+    },
+    {
+      "id": "benchmarks/aloha-cube_act_success",
+      "category": "benchmarks",
+      "benchmark": "aloha-cube",
+      "rskill": "act",
+      "status": "success",
+      "poster": "benchmarks/aloha-cube_act_success/poster.jpg",
+      "preview": "benchmarks/aloha-cube_act_success/preview.mp4",
+      "full": "benchmarks/aloha-cube_act_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/aloha-insertion_act_fail",
+      "category": "benchmarks",
+      "benchmark": "aloha-insertion",
+      "rskill": "act",
+      "status": "fail",
+      "poster": "benchmarks/aloha-insertion_act_fail/poster.jpg",
+      "preview": "benchmarks/aloha-insertion_act_fail/preview.mp4",
+      "full": "benchmarks/aloha-insertion_act_fail/full.mp4"
+    },
+    {
+      "id": "benchmarks/libero-object_smolvla_success",
+      "category": "benchmarks",
+      "benchmark": "libero-object",
+      "rskill": "smolvla",
+      "status": "success",
+      "poster": "benchmarks/libero-object_smolvla_success/poster.jpg",
+      "preview": "benchmarks/libero-object_smolvla_success/preview.mp4",
+      "full": "benchmarks/libero-object_smolvla_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/libero-spatial_act_fail",
+      "category": "benchmarks",
+      "benchmark": "libero-spatial",
+      "rskill": "act",
+      "status": "fail",
+      "poster": "benchmarks/libero-spatial_act_fail/poster.jpg",
+      "preview": "benchmarks/libero-spatial_act_fail/preview.mp4",
+      "full": "benchmarks/libero-spatial_act_fail/full.mp4"
+    },
+    {
       "id": "benchmarks/libero-spatial_gr00t-n17_success",
       "category": "benchmarks",
       "benchmark": "libero-spatial",
@@ -12,14 +62,174 @@
       "full": "benchmarks/libero-spatial_gr00t-n17_success/full.mp4"
     },
     {
-      "id": "benchmarks/robocasa_pi05-rc365-nf4_fail",
+      "id": "benchmarks/libero-spatial_molmoact2-nf4_success",
       "category": "benchmarks",
-      "benchmark": "robocasa",
-      "rskill": "pi05-rc365-nf4",
+      "benchmark": "libero-spatial",
+      "rskill": "molmoact2-nf4",
+      "status": "success",
+      "poster": "benchmarks/libero-spatial_molmoact2-nf4_success/poster.jpg",
+      "preview": "benchmarks/libero-spatial_molmoact2-nf4_success/preview.mp4",
+      "full": "benchmarks/libero-spatial_molmoact2-nf4_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/metaworld-button_smolvla_success",
+      "category": "benchmarks",
+      "benchmark": "metaworld-button",
+      "rskill": "smolvla",
+      "status": "success",
+      "poster": "benchmarks/metaworld-button_smolvla_success/poster.jpg",
+      "preview": "benchmarks/metaworld-button_smolvla_success/preview.mp4",
+      "full": "benchmarks/metaworld-button_smolvla_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/metaworld-door_smolvla_success",
+      "category": "benchmarks",
+      "benchmark": "metaworld-door",
+      "rskill": "smolvla",
+      "status": "success",
+      "poster": "benchmarks/metaworld-door_smolvla_success/poster.jpg",
+      "preview": "benchmarks/metaworld-door_smolvla_success/preview.mp4",
+      "full": "benchmarks/metaworld-door_smolvla_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/metaworld-drawer_smolvla_success",
+      "category": "benchmarks",
+      "benchmark": "metaworld-drawer",
+      "rskill": "smolvla",
+      "status": "success",
+      "poster": "benchmarks/metaworld-drawer_smolvla_success/poster.jpg",
+      "preview": "benchmarks/metaworld-drawer_smolvla_success/preview.mp4",
+      "full": "benchmarks/metaworld-drawer_smolvla_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/metaworld-pick-place_smolvla_success",
+      "category": "benchmarks",
+      "benchmark": "metaworld-pick-place",
+      "rskill": "smolvla",
+      "status": "success",
+      "poster": "benchmarks/metaworld-pick-place_smolvla_success/poster.jpg",
+      "preview": "benchmarks/metaworld-pick-place_smolvla_success/preview.mp4",
+      "full": "benchmarks/metaworld-pick-place_smolvla_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/pusht_diffusion_success",
+      "category": "benchmarks",
+      "benchmark": "pusht",
+      "rskill": "diffusion",
+      "status": "success",
+      "poster": "benchmarks/pusht_diffusion_success/poster.jpg",
+      "preview": "benchmarks/pusht_diffusion_success/preview.mp4",
+      "full": "benchmarks/pusht_diffusion_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/rlbench-drawer_3d-diffuser_success",
+      "category": "benchmarks",
+      "benchmark": "rlbench-drawer",
+      "rskill": "3d-diffuser",
+      "status": "success",
+      "poster": "benchmarks/rlbench-drawer_3d-diffuser_success/poster.jpg",
+      "preview": "benchmarks/rlbench-drawer_3d-diffuser_success/preview.mp4",
+      "full": "benchmarks/rlbench-drawer_3d-diffuser_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/rlbench-jar_3d-diffuser_success",
+      "category": "benchmarks",
+      "benchmark": "rlbench-jar",
+      "rskill": "3d-diffuser",
+      "status": "success",
+      "poster": "benchmarks/rlbench-jar_3d-diffuser_success/poster.jpg",
+      "preview": "benchmarks/rlbench-jar_3d-diffuser_success/preview.mp4",
+      "full": "benchmarks/rlbench-jar_3d-diffuser_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/rlbench-meat_3d-diffuser_success",
+      "category": "benchmarks",
+      "benchmark": "rlbench-meat",
+      "rskill": "3d-diffuser",
+      "status": "success",
+      "poster": "benchmarks/rlbench-meat_3d-diffuser_success/poster.jpg",
+      "preview": "benchmarks/rlbench-meat_3d-diffuser_success/preview.mp4",
+      "full": "benchmarks/rlbench-meat_3d-diffuser_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success",
+      "category": "benchmarks",
+      "benchmark": "robocasa-pick",
+      "rskill": "rldx1-rc365-nf4",
+      "status": "success",
+      "poster": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success/poster.jpg",
+      "preview": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success/preview.mp4",
+      "full": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/robotwin_smolvla_fail",
+      "category": "benchmarks",
+      "benchmark": "robotwin",
+      "rskill": "smolvla",
       "status": "fail",
-      "poster": "benchmarks/robocasa_pi05-rc365-nf4_fail/poster.jpg",
-      "preview": "benchmarks/robocasa_pi05-rc365-nf4_fail/preview.mp4",
-      "full": "benchmarks/robocasa_pi05-rc365-nf4_fail/full.mp4"
+      "poster": "benchmarks/robotwin_smolvla_fail/poster.jpg",
+      "preview": "benchmarks/robotwin_smolvla_fail/preview.mp4",
+      "full": "benchmarks/robotwin_smolvla_fail/full.mp4"
+    },
+    {
+      "id": "benchmarks/simpler-env_openvla-widowx-nf4_success",
+      "category": "benchmarks",
+      "benchmark": "simpler-env",
+      "rskill": "openvla-widowx-nf4",
+      "status": "success",
+      "poster": "benchmarks/simpler-env_openvla-widowx-nf4_success/poster.jpg",
+      "preview": "benchmarks/simpler-env_openvla-widowx-nf4_success/preview.mp4",
+      "full": "benchmarks/simpler-env_openvla-widowx-nf4_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/simpler-env_rldx1-widowx-nf4_fail",
+      "category": "benchmarks",
+      "benchmark": "simpler-env",
+      "rskill": "rldx1-widowx-nf4",
+      "status": "fail",
+      "poster": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/poster.jpg",
+      "preview": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/preview.mp4",
+      "full": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/full.mp4"
+    },
+    {
+      "id": "simulation/isaac-pick_act-libero_fail",
+      "category": "simulation",
+      "benchmark": "isaac-pick",
+      "rskill": "act-libero",
+      "status": "fail",
+      "poster": "simulation/isaac-pick_act-libero_fail/poster.jpg",
+      "preview": "simulation/isaac-pick_act-libero_fail/preview.mp4",
+      "full": "simulation/isaac-pick_act-libero_fail/full.mp4"
+    },
+    {
+      "id": "simulation/rc-nav_rldx1-rc365-nf4_success",
+      "category": "simulation",
+      "benchmark": "rc-nav",
+      "rskill": "rldx1-rc365-nf4",
+      "status": "success",
+      "poster": "simulation/rc-nav_rldx1-rc365-nf4_success/poster.jpg",
+      "preview": "simulation/rc-nav_rldx1-rc365-nf4_success/preview.mp4",
+      "full": "simulation/rc-nav_rldx1-rc365-nf4_success/full.mp4"
+    },
+    {
+      "id": "simulation/rc-pick-cup_rldx1-gr1-nf4_success",
+      "category": "simulation",
+      "benchmark": "rc-pick-cup",
+      "rskill": "rldx1-gr1-nf4",
+      "status": "success",
+      "poster": "simulation/rc-pick-cup_rldx1-gr1-nf4_success/poster.jpg",
+      "preview": "simulation/rc-pick-cup_rldx1-gr1-nf4_success/preview.mp4",
+      "full": "simulation/rc-pick-cup_rldx1-gr1-nf4_success/full.mp4"
+    },
+    {
+      "id": "simulation/tabletop_pnp_pi05-openarm-nf4_fail",
+      "category": "simulation",
+      "benchmark": "tabletop",
+      "rskill": "pnp_pi05-openarm-nf4",
+      "status": "fail",
+      "poster": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/poster.jpg",
+      "preview": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/preview.mp4",
+      "full": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/full.mp4"
     }
   ]
 }
