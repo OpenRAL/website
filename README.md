@@ -86,6 +86,12 @@ Until `RESEND_API_KEY` and `CONTACT_FROM` are set, the endpoint returns
 `503 { code: "not_configured" }` and the form tells the visitor to email us
 directly — it never silently drops a message.
 
+The endpoint sanitises input, drops bots via a honeypot, and applies a
+best-effort per-instance rate limit (5 requests/minute/IP → `429`). Because
+Vercel functions are ephemeral and horizontally scaled, that limit is not a
+hard global cap; if abuse becomes a concern, back it with a durable store
+(Vercel KV / Upstash Redis) for a true cross-instance limit.
+
 ## License
 
 Apache-2.0.

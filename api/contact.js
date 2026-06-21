@@ -20,8 +20,30 @@ const ROUTES = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Best-effort, per-instance rate limit. Vercel functions are ephemeral and
+// horizontally scaled, so this is not a hard global cap — it just blunts a
+// trivial single-source flood that would burn the Resend quota or spam the
+// inbox. A durable limiter (Vercel KV / Upstash) would be the real fix; see
+// the security note in the README.
+const RATE_LIMIT = { max: 5, windowMs: 60_000 };
+const hits = new Map(); // ip -> number[] (timestamps within the window)
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < RATE_LIMIT.windowMs);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear(); // bound memory on a long-lived instance
+  return recent.length > RATE_LIMIT.max;
+}
+
 function clamp(s, n) {
-  return String(s == null ? "" : s).slice(0, n).trim();
+  // Strip control chars (incl. CR/LF) so user input can't smuggle structure
+  // into the email subject/headers, then bound length.
+  return String(s == null ? "" : s)
+    .replace(/[\x00-\x1F\x7F]/g, " ")
+    .slice(0, n)
+    .trim();
 }
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) =>
@@ -33,6 +55,13 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  // Per-instance throttle to blunt floods (see rateLimited above).
+  const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
+  if (rateLimited(ip)) {
+    res.setHeader("Retry-After", "60");
+    return res.status(429).json({ error: "Too many requests. Please try again in a minute." });
   }
 
   // Body may arrive parsed (object) or raw (string) depending on runtime.
