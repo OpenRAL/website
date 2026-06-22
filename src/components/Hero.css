@@ -47,6 +47,10 @@
   flex-wrap: wrap;
 }
 
+.hero-copy,
+.hero-vis {
+  min-width: 0;
+}
 .hero-vis {
   display: flex;
   justify-content: center;

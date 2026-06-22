@@ -4,6 +4,10 @@
   gap: clamp(32px, 5vw, 64px);
   align-items: center;
 }
+.split-copy,
+.split-vis {
+  min-width: 0;
+}
 .split-copy p {
   color: var(--text-2);
   margin: 18px 0 22px;
@@ -43,7 +47,7 @@
 }
 .yaml pre {
   padding: 20px;
-  overflow-x: auto;
+  overflow: hidden;
 }
 .yaml code {
   font-family: var(--mono);
@@ -53,7 +57,8 @@
   background: none;
   padding: 0;
   display: block;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 .yk {
   color: var(--text-2);

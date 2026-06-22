@@ -7,14 +7,14 @@ import "./AgentConsole.css";
 const TRACE = [
   // S2 planning
   { tok: "audio.transcribe",    val: '"bring me a coke"',                    skill: null },
-  { tok: "s2.reason",           val: "building plan · 7 subtasks",           skill: null },
-  { tok: "s2.subtask[1]",       val: "navigate → kitchen",                   skill: null },
-  { tok: "s2.subtask[2]",       val: "locate · CocaCola bottle",             skill: null },
-  { tok: "s2.subtask[3]",       val: "ExecuteRSkill(grasp) · bottle",        skill: null },
-  { tok: "s2.subtask[4]",       val: "locate glass · ExecuteRSkill(pour)",   skill: null },
-  { tok: "s2.subtask[5]",       val: "ExecuteRSkill(open_door, place, close_door) · fridge", skill: null },
-  { tok: "s2.subtask[6]",       val: "recall glass · navigate user",         skill: null },
-  { tok: "s2.subtask[7]",       val: "ExecuteRSkill(handover) · glass",      skill: null },
+  { tok: "s2.reason",           val: "building plan · 7 subtasks",           skill: "plan" },
+  { tok: "s2.subtask[1]",       val: "navigate → kitchen",                   skill: "plan" },
+  { tok: "s2.subtask[2]",       val: "locate · CocaCola bottle",             skill: "plan" },
+  { tok: "s2.subtask[3]",       val: "ExecuteRSkill(grasp) · bottle",        skill: "plan" },
+  { tok: "s2.subtask[4]",       val: "locate glass · ExecuteRSkill(pour)",   skill: "plan" },
+  { tok: "s2.subtask[5]",       val: "ExecuteRSkill(open_door, place, close_door) · fridge", skill: "plan" },
+  { tok: "s2.subtask[6]",       val: "recall glass · navigate user",         skill: "plan" },
+  { tok: "s2.subtask[7]",       val: "ExecuteRSkill(handover) · glass",      skill: "plan" },
   // Navigate to kitchen
   { tok: "spatial_mem.recall",  val: "kitchen → pose (12.3, 4.1) ✓",        skill: "recall", ok: true },
   { tok: "LifecycleTransition", val: "navigate → ACTIVE",                    skill: "navigate" },
@@ -33,7 +33,7 @@ const TRACE = [
   { tok: "ExecuteRSkill",       val: 'grasp("CocaCola")',                     skill: "grasp" },
   { tok: "robometer",           val: "0.61 ↑ · grip unstable",               skill: "robometer" },
   { tok: "failure.bus",         val: "grasp slipped · grip=0.21",            skill: null },
-  { tok: "s2.reason",           val: "replan · grip angle +15°",             skill: null },
+  { tok: "s2.reason",           val: "replan · grip angle +15°",             skill: "plan" },
   { tok: "ExecuteRSkill",       val: 'grasp("CocaCola") · retry',            skill: "grasp" },
   { tok: "robometer",           val: "0.89 ↑ · grip stable ✓",               skill: "robometer", ok: true },
   // Find glass + pour
@@ -70,7 +70,7 @@ const TRACE = [
   { tok: "dataset.append",      val: "episode +1 ↗",                         skill: null },
   { tok: "otel.span",           val: "trace flushed",                        skill: null },
 ];
-const CHIPS = ["detect", "vlm", "locate", "navigate", "grasp", "open_door", "close_door", "pour", "place", "recall", "robometer", "safety", "handover"];
+const CHIPS = ["plan", "detect", "vlm", "locate", "navigate", "grasp", "open_door", "close_door", "pour", "place", "recall", "robometer", "safety", "handover"];
 const MAX = 6;
 
 export default function AgentConsole() {
@@ -141,8 +141,10 @@ export default function AgentConsole() {
           <div className={`tr-line${l.ok ? " ok" : ""}`} key={idx}>
             <span className="tr-tok">{l.tok}</span>
             <span className="tr-arrow">▸</span>
-            <span className="tr-val">{l.typed}</span>
-            {cur && idx === rows.length - 1 && <span className="tr-cursor" />}
+            <span className="tr-val">
+              {l.typed}
+              {cur && idx === rows.length - 1 && <span className="tr-cursor" />}
+            </span>
           </div>
         ))}
       </div>
