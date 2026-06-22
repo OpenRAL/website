@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 430px;
+  min-width: 0;
   margin: 0 auto;
   background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
   border: 1px solid var(--hair-2);
@@ -69,18 +70,22 @@
   display: flex;
   align-items: baseline;
   gap: 9px;
-  white-space: nowrap;
+  min-width: 0;
 }
 .tr-tok {
   color: var(--text-2);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .tr-arrow {
   color: var(--muted);
+  flex-shrink: 0;
 }
 .tr-val {
   color: #fff;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .tr-line.ok .tr-val {
   color: var(--text);
@@ -114,12 +119,13 @@
   border: 1px solid var(--hair-2);
   border-radius: 6px;
   padding: 4px 9px;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 .chip.on {
   color: #0b0c10;
   background: #fff;
   border-color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
 }
 
 @media (max-width: 920px) {

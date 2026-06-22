@@ -8,13 +8,13 @@ const TRACE = [
   // S2 planning
   { tok: "audio.transcribe",    val: '"bring me a coke"',                    skill: null },
   { tok: "s2.reason",           val: "building plan · 7 subtasks",           skill: null },
-  { tok: "s2.subtask[1]",       val: "navigate → kitchen",                   skill: null },
-  { tok: "s2.subtask[2]",       val: "locate · CocaCola bottle",             skill: null },
-  { tok: "s2.subtask[3]",       val: "ExecuteRSkill(grasp) · bottle",        skill: null },
-  { tok: "s2.subtask[4]",       val: "locate glass · ExecuteRSkill(pour)",   skill: null },
-  { tok: "s2.subtask[5]",       val: "ExecuteRSkill(open_door, place, close_door) · fridge", skill: null },
-  { tok: "s2.subtask[6]",       val: "recall glass · navigate user",         skill: null },
-  { tok: "s2.subtask[7]",       val: "ExecuteRSkill(handover) · glass",      skill: null },
+  { tok: "s2.subtask[1]",       val: "navigate → kitchen",                   skill: "navigate" },
+  { tok: "s2.subtask[2]",       val: "locate · CocaCola bottle",             skill: "locate" },
+  { tok: "s2.subtask[3]",       val: "ExecuteRSkill(grasp) · bottle",        skill: "grasp" },
+  { tok: "s2.subtask[4]",       val: "locate glass · ExecuteRSkill(pour)",   skill: "pour" },
+  { tok: "s2.subtask[5]",       val: "ExecuteRSkill(open_door, place, close_door) · fridge", skill: "open_door" },
+  { tok: "s2.subtask[6]",       val: "recall glass · navigate user",         skill: "recall" },
+  { tok: "s2.subtask[7]",       val: "ExecuteRSkill(handover) · glass",      skill: "handover" },
   // Navigate to kitchen
   { tok: "spatial_mem.recall",  val: "kitchen → pose (12.3, 4.1) ✓",        skill: "recall", ok: true },
   { tok: "LifecycleTransition", val: "navigate → ACTIVE",                    skill: "navigate" },
@@ -141,8 +141,10 @@ export default function AgentConsole() {
           <div className={`tr-line${l.ok ? " ok" : ""}`} key={idx}>
             <span className="tr-tok">{l.tok}</span>
             <span className="tr-arrow">▸</span>
-            <span className="tr-val">{l.typed}</span>
-            {cur && idx === rows.length - 1 && <span className="tr-cursor" />}
+            <span className="tr-val">
+              {l.typed}
+              {cur && idx === rows.length - 1 && <span className="tr-cursor" />}
+            </span>
           </div>
         ))}
       </div>
