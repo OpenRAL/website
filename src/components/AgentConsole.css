@@ -57,7 +57,8 @@
 
 .agent-trace {
   padding: 16px 18px;
-  min-height: 224px;
+  height: 224px;
+  overflow: hidden;
   font-family: var(--mono);
   font-size: 12.5px;
   line-height: 1.55;
@@ -65,6 +66,8 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 6px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 28px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 28px);
 }
 .tr-line {
   display: flex;
