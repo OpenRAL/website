@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import "./RSkills.css";
 
-// Each kind maps to a real rSkill manifest from huggingface.co/OpenRAL/models.
+// Each kind maps to a real rSkill manifest from github.com/OpenRAL/openral.
 const KINDS = [
   {
     kind: "vla",
@@ -12,68 +12,88 @@ const KINDS = [
 kind: "vla"
 role: "s1"
 model_family: "pi05"
-license: "gemma"
-embodiment_tags: ["franka"]
-actions: [PICK, PLACE, TRANSFER]
-quantization: "nf4"
+license: "permissive_research"
+embodiment_tags: ["franka_panda"]
+quantization:
+  dtype: "int4"
+  backend: "pytorch"
 latency_budget:
-  warm_chunk_ms: 120
-eval:
-  libero_spatial: 0.972`,
+  per_chunk_ms: 200.0`,
   },
   {
     kind: "detector",
-    what: "Open-vocab perception",
+    what: "Real-time detector · S1",
     yaml: `name: "OpenRAL/rskill-rtdetr-v2-r50vd"
 kind: "detector"
-role: "perception"
-model_family: "rt-detr-v2"
+role: "s1"
 license: "apache-2.0"
-engine: "tensorrt"
-classes: "coco-80"
+detector:
+  mode: "continuous"
+  labels: ["person", "cup", "bowl", ...]  # 80 COCO classes
+  input_size: [640, 640]
+  score_threshold: 0.5
 latency_budget:
-  infer_ms: 8
-eval:
-  coco_map: 0.532`,
+  per_chunk_ms: 50.0`,
   },
   {
     kind: "vlm",
-    what: "Scene understanding",
+    what: "Scene VLM · S2",
     yaml: `name: "OpenRAL/rskill-qwen35-4b-nf4"
 kind: "vlm"
-role: "perception"
-model_family: "qwen3.5"
+role: "s2"
 license: "apache-2.0"
-tool: "query_scene"
-quantization: "nf4"
-capabilities: ["scene", "spatial"]
+actions: ["query"]
+quantization:
+  dtype: "int4"
+  backend: "pytorch"
 latency_budget:
-  answer_ms: 450`,
+  per_chunk_ms: 3000.0`,
   },
   {
     kind: "reward",
-    what: "Task-progress scoring",
+    what: "Reward monitor · S2",
     yaml: `name: "OpenRAL/rskill-robometer-4b-nf4"
 kind: "reward"
-role: "critic"
-model_family: "robometer"
-base_model: "robometer/Robometer-4B"
+role: "s2"
 license: "apache-2.0"
-tool: "query_task_progress"
-output: "progress in [0, 1]"
-quantization: "nf4"`,
+actions: ["monitor"]
+reward:
+  progress_range: [0.0, 1.0]
+  success_threshold: 0.5
+  frame_window_s: 8.0
+  target_fps: 3.0`,
   },
   {
     kind: "ros_action",
-    what: "ROS 2 action wrappers",
+    what: "ROS 2 action wrapper · S1",
     yaml: `name: "OpenRAL/rskill-nav2-navigate-to-pose"
 kind: "ros_action"
 role: "s1"
-backend: "nav2"
 license: "apache-2.0"
-action: "navigate_to_pose"
-inputs: ["target_pose"]
-weights: none`,
+embodiment_tags: ["mobile_base"]
+actions: ["navigate"]
+ros_integration:
+  package: "nav2_msgs"
+  interface_type: "NavigateToPose"
+  interface_name: "/navigate_to_pose"`,
+  },
+  {
+    kind: "playbook",
+    what: "Reasoner playbook · S2",
+    yaml: `name: "OpenRAL/rskill-find-object"
+kind: "playbook"
+role: "s2"
+license: "apache-2.0"
+embodiment_tags: ["any"]
+capabilities_required:
+  has_vision: true
+actions: ["plan"]
+playbook:
+  trigger: "goal names an object whose location is unknown"
+  body_uri: "./PLAYBOOK.md"
+  composes_tools: ["recall_object", "locate_in_view", "execute_rskill"]
+  done_predicate: "target confirmed in view at a known pose"
+  max_steps: 12`,
   },
 ];
 
@@ -125,8 +145,26 @@ export default function RSkills() {
   const left = useReveal();
   const right = useReveal({ delay: 0.1 });
   const reduce = useReducedMotion();
-  const [active, setActive] = useState("vla");
+  const [active, setActive] = useState(KINDS[0].kind);
+  // Auto-cycle through the kinds every 3s until the user picks a tab.
+  const [autoplay, setAutoplay] = useState(true);
   const current = KINDS.find((k) => k.kind === active);
+
+  useEffect(() => {
+    if (!autoplay || reduce) return;
+    const id = setInterval(() => {
+      setActive((cur) => {
+        const i = KINDS.findIndex((k) => k.kind === cur);
+        return KINDS[(i + 1) % KINDS.length].kind;
+      });
+    }, 3000);
+    return () => clearInterval(id);
+  }, [autoplay, reduce]);
+
+  const pickKind = (kind) => {
+    setActive(kind);
+    setAutoplay(false);
+  };
 
   return (
     <section id="rskills" className="band band-split">
@@ -138,7 +176,7 @@ export default function RSkills() {
         <p>
           An <strong>rSkill</strong> is a <strong>standardized robot skill</strong> — one capability packaged as
           a Hugging Face Hub repo: a typed <code>rskill.yaml</code> manifest, the weights, an optional engine
-          plan, and a reproducible <code>eval/&lt;benchmark&gt;.json</code>. Five kinds, one contract — pick a kind
+          plan, and a reproducible <code>eval/&lt;benchmark&gt;.json</code>. Six kinds, one contract — pick a kind
           to see a real manifest.
         </p>
         <ul className="ticks">
@@ -170,7 +208,7 @@ export default function RSkills() {
               role="tab"
               aria-selected={active === k.kind}
               className={`kind-tab${active === k.kind ? " active" : ""}`}
-              onClick={() => setActive(k.kind)}
+              onClick={() => pickKind(k.kind)}
             >
               {k.kind}
             </button>
