@@ -71,19 +71,13 @@
 .node:focus-visible {
   border-color: var(--accent);
 }
-.node-layer {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  text-transform: uppercase;
-}
 .node-title {
   font-family: var(--display);
   font-weight: 600;
   font-size: clamp(14px, 1.5vw, 17px);
   color: #fff;
   line-height: 1.1;
+  white-space: pre-line;
 }
 .node-sub {
   font-family: var(--mono);
