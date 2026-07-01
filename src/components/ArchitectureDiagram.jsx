@@ -41,10 +41,16 @@ function edgePath(e) {
   }
   // node → observability card
   if (e.route === "tap") {
-    const top = byId.obs.y;
+    const o = byId.obs;
+    const top = o.y;
     const [ax, ay] = a.bottom;
-    if (e.from === "reasoner") return `M 555 ${ay} C 467 300 467 452 525 ${top}`;
-    if (e.from === "safety") return `M ${ax} ${ay} C ${ax} 452 702 472 665 ${top}`;
+    // reasoner sits directly above obs with skills between — bow left around the skills box
+    if (e.from === "reasoner") {
+      const bow = byId.skills.x - 33;
+      return `M ${byId.reasoner.x + 55} ${ay} C ${bow} ${ay + 86} ${bow} ${top - 36} ${o.x + 25} ${top}`;
+    }
+    // safety taps in from the right, curving down past obs's right edge
+    if (e.from === "safety") return `M ${ax} ${ay} C ${ax} ${ay + 118} ${o.x + o.w + 12} ${top - 16} ${o.x + o.w - 25} ${top}`;
     return `M ${ax} ${ay} C ${ax} ${ay + 28} ${ax} ${top - 28} ${ax} ${top}`; // skills
   }
   // vertically stacked (same column)
@@ -76,7 +82,7 @@ export default function ArchitectureDiagram() {
           One typed <em>contract</em>, two coupled <em>systems</em>.
         </h2>
         <p className="band-sub">
-          A slow <strong>S2 reasoner</strong> plans in typed tool-calls; a fast <strong>S1 rSkill</strong> layer
+          A slow <strong>reasoner</strong> plans in typed tool-calls; a fast <strong>rSkill</strong> layer
           executes action chunks. Perception lifts detections into spatial memory; both feed the reasoner and the
           rSkills, and a deny-by-default supervisor gates every command before it reaches the robot — whose new
           state flows straight back into perception and the next decision.
@@ -124,7 +130,6 @@ export default function ArchitectureDiagram() {
               onBlur={() => setHovered(null)}
               tabIndex={0}
             >
-              <span className="node-layer">{n.layer}</span>
               <span className="node-title">{n.title}</span>
               <span className="node-sub">{n.sub}</span>
             </div>
