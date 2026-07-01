@@ -108,7 +108,7 @@
   background: var(--bg-2);
 }
 .node-obs {
-  background: rgba(255, 255, 255, 0.014);
+  background: var(--surface);
   border-style: dashed;
 }
 
