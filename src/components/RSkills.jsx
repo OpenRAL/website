@@ -125,6 +125,7 @@ function colorize(text) {
 }
 function colorVal(s) {
   const out = [];
+  // Match either a double-quoted string (group 1) or a number (integer/decimal, group 2).
   const re = /("[^"]*")|(\b\d+\.\d+\b|\b\d+\b)/g;
   let last = 0;
   let mm;
