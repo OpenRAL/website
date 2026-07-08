@@ -18,7 +18,7 @@ const ROUTES = {
   partner: "hello@openral.com",
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,63}$/;
 
 // Best-effort, per-instance rate limit. Vercel functions are ephemeral and
 // horizontally scaled, so this is not a hard global cap — it just blunts a
