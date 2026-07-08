@@ -6,6 +6,7 @@ import "./ArchitectureDiagram.css";
 
 const VW = 1120;
 const VH = 648;
+const CROSS_ROUTE_OFFSET = 210;
 
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 const anchors = (n) => ({
@@ -37,7 +38,7 @@ function edgePath(e) {
   if (e.route === "cross") {
     const [ax, ay] = a.right;
     const [bx, by] = b.left;
-    return `M ${ax} ${ay} C ${ax + 210} ${ay} ${bx - 210} ${by} ${bx} ${by}`;
+    return `M ${ax} ${ay} C ${ax + CROSS_ROUTE_OFFSET} ${ay} ${bx - CROSS_ROUTE_OFFSET} ${by} ${bx} ${by}`;
   }
   // node → observability card
   if (e.route === "tap") {
