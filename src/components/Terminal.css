@@ -33,6 +33,45 @@
   color: var(--muted);
   flex: 1;
 }
+.term-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+.term-tab {
+  position: relative;
+  min-width: 96px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--hair-2);
+  border-radius: 8px;
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.term-tab:hover {
+  color: var(--text-2);
+}
+.term-tab.active {
+  color: var(--text);
+  border-color: var(--accent-line);
+  background: rgba(255, 255, 255, 0.05);
+}
+.term-tab-curl {
+  min-width: 144px;
+  text-align: left;
+}
+.term-tab .soon {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 7px;
+  padding: 1px 5px;
+}
 .term-copy {
   font-family: var(--mono);
   font-size: 12px;
@@ -52,18 +91,48 @@
   padding: 22px 20px 26px;
   font-family: var(--mono);
   font-size: clamp(12px, 1.4vw, 14.5px);
-  line-height: 1.9;
+  line-height: 1.7;
+  height: 460px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hair-2) transparent;
+}
+.term-body::-webkit-scrollbar {
+  width: 8px;
+}
+.term-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.term-body::-webkit-scrollbar-thumb {
+  background-color: var(--hair-2);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+.term-body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-2);
+}
+.term-body > * + * {
+  margin-top: 3px;
 }
 .term-cmd {
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  margin-top: 10px;
+}
+.term-cmd:first-child {
+  margin-top: 0;
 }
 .term-prompt {
   color: var(--accent);
   user-select: none;
 }
 .term-cmd code {
+  /* same UA-stylesheet override as .term-pre: `code { font-family: monospace }`
+     beats the inherited --mono unless restated here. */
+  font-family: inherit;
+  font-size: inherit;
   background: none;
   color: var(--text);
   padding: 0;
@@ -83,14 +152,53 @@
     opacity: 0;
   }
 }
-.term-out {
-  margin-top: 6px;
-  min-height: 116px;
-}
 .term-line {
   color: var(--text-2);
 }
 .term-line.ok {
+  color: var(--green);
+}
+
+.term-pre {
+  margin: 10px 0;
+  color: var(--text-2);
+  /* the UA stylesheet sets `pre { font-family: monospace }`, which beats
+     inheriting --mono from .term-body — restate it explicitly here. */
+  font-family: var(--mono);
+  font-size: inherit;
+  white-space: pre;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hair-2) transparent;
+}
+.term-pre::-webkit-scrollbar {
+  height: 8px;
+}
+.term-pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.term-pre::-webkit-scrollbar-thumb {
+  background-color: var(--hair-2);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+.term-pre::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-2);
+}
+.term-banner,
+.term-doctor {
+  /* Tighter than the 1.7 used for prose-like output, so box-drawing borders sit flush. */
+  line-height: 1.35;
+}
+.term-banner {
+  /* The banner is 127 real terminal columns — at the shared 14.5px body size it's
+     wider than the terminal box. 10.2px is the largest size that still fits the
+     900px-wide box without a horizontal scrollbar (measured empirically); the
+     inherited overflow-x: auto from .term-pre stays as a fallback on narrow viewports. */
+  font-size: 10.2px;
+}
+.term-ok {
   color: var(--green);
 }
 
