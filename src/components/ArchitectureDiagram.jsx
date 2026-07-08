@@ -46,8 +46,13 @@ function edgePath(e) {
     const [ax, ay] = a.bottom;
     // reasoner sits directly above obs with skills between — bow left around the skills box
     if (e.from === "reasoner") {
-      const bow = byId.skills.x - 33;
-      return `M ${byId.reasoner.x + 55} ${ay} C ${bow} ${ay + 86} ${bow} ${top - 36} ${o.x + 25} ${top}`;
+      const REASONER_START_X_INSET = 55;
+      const SKILLS_BOW_LEFT_OFFSET = 33;
+      const BOW_CTRL1_Y_OFFSET = 86;
+      const BOW_CTRL2_Y_OFFSET = 36;
+      const OBS_ENTRY_X_INSET = 25;
+      const bow = byId.skills.x - SKILLS_BOW_LEFT_OFFSET;
+      return `M ${byId.reasoner.x + REASONER_START_X_INSET} ${ay} C ${bow} ${ay + BOW_CTRL1_Y_OFFSET} ${bow} ${top - BOW_CTRL2_Y_OFFSET} ${o.x + OBS_ENTRY_X_INSET} ${top}`;
     }
     // safety taps in from the right, curving down past obs's right edge
     if (e.from === "safety") return `M ${ax} ${ay} C ${ax} ${ay + 118} ${o.x + o.w + 12} ${top - 16} ${o.x + o.w - 25} ${top}`;
