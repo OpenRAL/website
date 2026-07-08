@@ -75,9 +75,9 @@ export default async function handler(req, res) {
   const name = clamp(body.name, 120);
   const email = clamp(body.email, 200);
   const message = clamp(body.message, 5000);
-  const honeypot = clamp(body.company, 100); // optional anti-spam trap
+  const companyField = clamp(body.company, 100); // honeypot (anti-spam trap) field
 
-  if (honeypot) return res.status(200).json({ ok: true }); // silently drop bots
+  if (companyField) return res.status(200).json({ ok: true }); // silently drop bots
   if (!name || !email || !message) {
     return res.status(400).json({ error: "Name, email and message are required." });
   }
