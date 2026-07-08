@@ -34,7 +34,7 @@ function rateLimited(ip) {
   recent.push(now);
   hits.set(ip, recent);
   if (hits.size > 5000) hits.clear(); // bound memory on a long-lived instance
-  return recent.length > RATE_LIMIT.max;
+  return recent.length >= RATE_LIMIT.max;
 }
 
 function clamp(s, n) {
