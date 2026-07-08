@@ -148,7 +148,7 @@ export default function RSkills() {
   const [active, setActive] = useState(KINDS[0].kind);
   // Auto-cycle through the kinds every 3s until the user picks a tab.
   const [autoplay, setAutoplay] = useState(true);
-  const current = KINDS.find((k) => k.kind === active);
+  const current = KINDS.find((k) => k.kind === active) || KINDS[0];
 
   useEffect(() => {
     if (!autoplay || reduce) return;
