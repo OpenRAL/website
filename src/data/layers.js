@@ -3,16 +3,37 @@
 // Forward flow reads left→right; the loop closes via two feedback paths
 // (robot → world state over the top, robot → sensors along the bottom).
 
+const VIEWBOX_WIDTH = 1120;
+const VIEWBOX_HEIGHT = 648;
+
+// Common x anchors in the viewBox.
+const X_LEFT = 36;
+const X_IO = 194;
+const X_CENTER = 534;
+const X_RIGHT = 950;
+
+// Common y anchors in the viewBox.
+const Y_TOP = 118;
+const Y_MID = 230;
+const Y_BOTTOM = 330;
+
+// Reused node dimensions.
+const NODE_W_SM = 120;
+const NODE_W_MD = 132;
+const NODE_W_LG = 190;
+const NODE_H_MD = 96;
+const NODE_H_LG = 104;
+
 export const NODES = [
-  { id: "sensors", x: 36, y: 230, w: 120, h: 104, group: "io", title: "Sensors", sub: "RGB-D · lidar · tactile" },
-  { id: "perception", x: 194, y: 118, w: 132, h: 96, group: "io", title: "Perception AI", sub: "detections → spatial" },
-  { id: "world", x: 364, y: 118, w: 132, h: 96, group: "io", title: "World State", sub: "tf2 · 30 Hz · detections" },
-  { id: "memory", x: 364, y: 330, w: 132, h: 96, group: "io", title: "Spatial Memory", sub: "advisory scene graph" },
-  { id: "reasoner", x: 534, y: 118, w: 190, h: 96, group: "s2", title: "Reasoner", sub: "LLM planner · tool-calls" },
-  { id: "skills", x: 534, y: 330, w: 190, h: 96, group: "s1", title: "rSkills\n(robot skills)", sub: "VLA · VLM · reward · ROS" },
-  { id: "safety", x: 762, y: 230, w: 150, h: 104, group: "safety", title: "Safety", sub: "C++ · deny-by-default" },
-  { id: "robot", x: 950, y: 230, w: 134, h: 104, group: "robot", title: "Robot", sub: "Edge · Fleet · Cloud · Sim" },
-  { id: "obs", x: 534, y: 488, w: 190, h: 96, group: "obs", title: "Observability\nTraceability", sub: "OTel · Foxglove" },
+  { id: "sensors", x: X_LEFT, y: Y_MID, w: NODE_W_SM, h: NODE_H_LG, group: "io", title: "Sensors", sub: "RGB-D · lidar · tactile" },
+  { id: "perception", x: X_IO, y: Y_TOP, w: NODE_W_MD, h: NODE_H_MD, group: "io", title: "Perception AI", sub: "detections → spatial" },
+  { id: "world", x: 364, y: Y_TOP, w: NODE_W_MD, h: NODE_H_MD, group: "io", title: "World State", sub: "tf2 · 30 Hz · detections" },
+  { id: "memory", x: 364, y: Y_BOTTOM, w: NODE_W_MD, h: NODE_H_MD, group: "io", title: "Spatial Memory", sub: "advisory scene graph" },
+  { id: "reasoner", x: X_CENTER, y: Y_TOP, w: NODE_W_LG, h: NODE_H_MD, group: "s2", title: "Reasoner", sub: "LLM planner · tool-calls" },
+  { id: "skills", x: X_CENTER, y: Y_BOTTOM, w: NODE_W_LG, h: NODE_H_MD, group: "s1", title: "rSkills\n(robot skills)", sub: "VLA · VLM · reward · ROS" },
+  { id: "safety", x: 762, y: Y_MID, w: 150, h: NODE_H_LG, group: "safety", title: "Safety", sub: "C++ · deny-by-default" },
+  { id: "robot", x: X_RIGHT, y: Y_MID, w: 134, h: NODE_H_LG, group: "robot", title: "Robot", sub: "Edge · Fleet · Cloud · Sim" },
+  { id: "obs", x: X_CENTER, y: 488, w: NODE_W_LG, h: NODE_H_MD, group: "obs", title: "Observability\nTraceability", sub: "OTel · Foxglove" },
 ];
 
 export const EDGES = [
