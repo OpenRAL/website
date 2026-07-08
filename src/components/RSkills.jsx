@@ -125,6 +125,7 @@ function colorize(text) {
 }
 function colorVal(s) {
   const out = [];
+  // Match either a double-quoted string (group 1) or a number (integer/decimal, group 2).
   const re = /("[^"]*")|(\b\d+\.\d+\b|\b\d+\b)/g;
   let last = 0;
   let mm;
@@ -148,7 +149,7 @@ export default function RSkills() {
   const [active, setActive] = useState(KINDS[0].kind);
   // Auto-cycle through the kinds every 3s until the user picks a tab.
   const [autoplay, setAutoplay] = useState(true);
-  const current = KINDS.find((k) => k.kind === active);
+  const current = KINDS.find((k) => k.kind === active) || KINDS[0];
 
   useEffect(() => {
     if (!autoplay || reduce) return;
