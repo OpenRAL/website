@@ -162,6 +162,16 @@
       "full": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success/full.mp4"
     },
     {
+      "id": "benchmarks/robotwin_lingbotv1_success",
+      "category": "benchmarks",
+      "benchmark": "robotwin",
+      "rskill": "lingbotv1",
+      "status": "success",
+      "poster": "benchmarks/robotwin_lingbotv1_success/poster.jpg",
+      "preview": "benchmarks/robotwin_lingbotv1_success/preview.mp4",
+      "full": "benchmarks/robotwin_lingbotv1_success/full.mp4"
+    },
+    {
       "id": "benchmarks/robotwin_smolvla_fail",
       "category": "benchmarks",
       "benchmark": "robotwin",
