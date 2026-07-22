@@ -39,23 +39,6 @@
   gap: 6px;
   flex: 1;
 }
-.term-tab {
-  position: relative;
-  min-width: 96px;
-  font-family: var(--mono);
-  font-size: 13.5px;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  background: transparent;
-  border: 1px solid var(--hair-2);
-  border-radius: 8px;
-  padding: 9px 20px;
-}
-.term-tab.active {
-  color: var(--text);
-  border-color: var(--accent-line);
-  background: rgba(255, 255, 255, 0.05);
-}
 .term-copy {
   font-family: var(--mono);
   font-size: 12px;

@@ -244,9 +244,7 @@ export default function Terminal() {
             <i />
             <i />
           </span>
-          <div className="term-tabs">
-            <span className="term-tab active">curl</span>
-          </div>
+          <div className="term-tabs" />
           <button className="term-copy" type="button" onClick={copy} aria-label="Copy install command">
             {copied ? "Copied ✓" : "Copy"}
           </button>
