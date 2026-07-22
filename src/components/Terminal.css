@@ -50,27 +50,11 @@
   border: 1px solid var(--hair-2);
   border-radius: 8px;
   padding: 9px 20px;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.term-tab:hover {
-  color: var(--text-2);
 }
 .term-tab.active {
   color: var(--text);
   border-color: var(--accent-line);
   background: rgba(255, 255, 255, 0.05);
-}
-.term-tab-curl {
-  min-width: 144px;
-  text-align: left;
-}
-.term-tab .soon {
-  position: absolute;
-  top: 4px;
-  right: 8px;
-  font-size: 7px;
-  padding: 1px 5px;
 }
 .term-copy {
   font-family: var(--mono);
