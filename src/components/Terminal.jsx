@@ -32,48 +32,26 @@ const DOCTOR_TEXT = `                    openral doctor
 │ USB devices  │ ok     │ so101, realsense            │
 └──────────────┴────────┴─────────────────────────────┘`;
 
-// Real openral ROS 2 package names (~/openral), one per product pillar — observability,
-// safety, perception, reasoning, skill execution — interleaved like colcon's parallel build.
-const CLI_CLONE_CMD = "git clone git@github.com:OpenRAL/openral.git";
-const CLI_SCRIPT = [
-  { cmd: CLI_CLONE_CMD },
-  { cmd: "just quickstart" },
-  {
-    out: [
-      { t: "Starting >>> opentelemetry_cpp_vendor" },
-      { t: "Starting >>> openral_safety_kernel" },
-      { t: "Finished <<< opentelemetry_cpp_vendor [17.9s]", k: "ok" },
-      { t: "Starting >>> openral_perception_ros" },
-      { t: "Finished <<< openral_safety_kernel [9.2s]", k: "ok" },
-      { t: "Starting >>> openral_reasoner_ros" },
-      { t: "Finished <<< openral_perception_ros [14.1s]", k: "ok" },
-      { t: "Starting >>> openral_rskill_ros" },
-      { t: "Finished <<< openral_reasoner_ros [11.6s]", k: "ok" },
-      { t: "Finished <<< openral_rskill_ros [20.9s]", k: "ok" },
-    ],
-  },
-  { banner: true },
-  { cmd: "doctor" },
-  { table: true },
-];
-const CLI_COPY = `${CLI_CLONE_CMD} && cd openral && just quickstart`;
-
-// Tier-0 (ADR-0021): installs uv + CPython 3.12 + openral-cli only — no ROS 2,
-// no colcon build, no REPL launch — so no Starting/Finished lines here, and the
-// ending below is the real "next steps" text from scripts/install.sh, condensed.
+// Tier-0 (ADR-0021): `curl … | bash` installs uv + CPython 3.12 + openral-cli
+// (user-local, no sudo/ROS 2). The `out` lines mirror scripts/install.sh's real
+// `==> …` info output, condensed; then `openral` drops into the REPL (banner) and
+// `doctor` prints the host table — the same banner + doctor the REPL shows.
 const CURL_CMD = "curl -fsSL https://raw.githubusercontent.com/OpenRAL/openral/master/scripts/install.sh | bash";
 const CURL_SCRIPT = [
   { cmd: CURL_CMD },
   {
     out: [
-      { t: "▸ installing uv + CPython 3.12…" },
-      { t: "▸ installing openral-cli (uv tool install)…" },
-      { t: "✓ openral installed: ~/.local/bin/openral", k: "ok" },
+      { t: "==> detected platform: linux x86_64" },
+      { t: "==> installing uv + CPython 3.12 (uv-managed)…" },
+      { t: "==> installing openral-cli (uv tool install)" },
+      { t: "==> openral installed: ~/.local/bin/openral", k: "ok" },
       { t: "==> Tier-0 install complete.", k: "ok" },
-      { t: "openral doctor — diagnose the host (Python, OS, GPU, USB)" },
-      { t: "openral install ros — ROS 2 + libusb + udev (sudo, opt-in)" },
     ],
   },
+  { cmd: "openral" },
+  { banner: true },
+  { cmd: "doctor" },
+  { table: true },
 ];
 
 function flattenReduced(script) {
@@ -233,12 +211,11 @@ export default function Terminal() {
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
-  const [tab, setTab] = useState("cli");
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(tab === "cli" ? CLI_COPY : CURL_CMD);
+      await navigator.clipboard.writeText(CURL_CMD);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -254,8 +231,9 @@ export default function Terminal() {
           One <em>command</em>. The whole harness.
         </h2>
         <p className="band-sub">
-          OpenRAL installs on top of a ROS 2 + Python environment. The script pulls the typed harness, the
-          skill loader and the safety forwarders — then <code>openral doctor</code> checks your stack.
+          One curl command installs uv, CPython 3.12 and the <code>openral</code> CLI — user-local, no sudo.
+          Then <code>openral doctor</code> checks your stack and <code>openral install ros</code> pulls the
+          heavier ROS 2 stack when you want it.
         </p>
       </motion.div>
 
@@ -266,35 +244,16 @@ export default function Terminal() {
             <i />
             <i />
           </span>
-          <div className="term-tabs">
-            <button
-              className={`term-tab${tab === "cli" ? " active" : ""}`}
-              type="button"
-              onClick={() => setTab("cli")}
-            >
-              CLI
-            </button>
-            <button
-              className={`term-tab term-tab-curl${tab === "curl" ? " active" : ""}`}
-              type="button"
-              onClick={() => setTab("curl")}
-            >
-              <span className="soon">Coming soon</span>
-              CURL
-            </button>
-          </div>
+          <div className="term-tabs" />
           <button className="term-copy" type="button" onClick={copy} aria-label="Copy install command">
             {copied ? "Copied ✓" : "Copy"}
           </button>
         </div>
-        {tab === "cli" ? (
-          <ScriptPane key="cli" script={CLI_SCRIPT} active={inView} reduce={reduce} />
-        ) : (
-          <ScriptPane key="curl" script={CURL_SCRIPT} active={inView} reduce={reduce} />
-        )}
+        <ScriptPane key="curl" script={CURL_SCRIPT} active={inView} reduce={reduce} />
       </motion.div>
       <p className="term-note">
-        Prerequisites: ROS 2 Jazzy · Python 3.12+ · a CUDA GPU for VLA inference. Full guide in the{" "}
+        Tier-0 needs only Linux or macOS · no sudo. ROS 2 Jazzy and a CUDA GPU come with{" "}
+        <code>openral install ros</code> for VLA inference. Full guide in the{" "}
         <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">
           repository
         </a>
