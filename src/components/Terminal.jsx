@@ -61,7 +61,7 @@ const CLI_COPY = `${CLI_CLONE_CMD} && cd openral && just quickstart`;
 // Tier-0 (ADR-0021): installs uv + CPython 3.12 + openral-cli only — no ROS 2,
 // no colcon build, no REPL launch — so no Starting/Finished lines here, and the
 // ending below is the real "next steps" text from scripts/install.sh, condensed.
-const CURL_CMD = "curl -fsSL https://raw.githubusercontent.com/OpenRAL/openral/master/scripts/install.sh | sh";
+const CURL_CMD = "curl -fsSL https://raw.githubusercontent.com/OpenRAL/openral/master/scripts/install.sh | bash";
 const CURL_SCRIPT = [
   { cmd: CURL_CMD },
   {
