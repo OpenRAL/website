@@ -192,6 +192,16 @@
       "full": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/full.mp4"
     },
     {
+      "id": "simulation/g1-walking_mujoco-playground-s0_success",
+      "category": "simulation",
+      "benchmark": "g1-walking",
+      "rskill": "mujoco-playground-s0",
+      "status": "success",
+      "poster": "simulation/g1-walking_mujoco-playground-s0_success/poster.jpg",
+      "preview": "simulation/g1-walking_mujoco-playground-s0_success/preview.mp4",
+      "full": "simulation/g1-walking_mujoco-playground-s0_success/full.mp4"
+    },
+    {
       "id": "simulation/isaac-pick_act-libero_fail",
       "category": "simulation",
       "benchmark": "isaac-pick",
