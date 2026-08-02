@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useReveal, useStagger } from "../hooks/useReveal.js";
 import Nav from "./Nav.jsx";
@@ -44,14 +43,6 @@ const TRACE = [
 ];
 
 export default function Pipeline() {
-  // the browser's native hash jump fires before React mounts the sections,
-  // so /pipeline#rskills lands at the top — re-run the jump once we exist
-  useEffect(() => {
-    const id = window.location.hash.slice(1);
-    if (!id) return;
-    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
-  }, []);
-
   const head = useReveal();
   const cmdReveal = useReveal({ delay: 0.08 });
   const traceReveal = useReveal();
