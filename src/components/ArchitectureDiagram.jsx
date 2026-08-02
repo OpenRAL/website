@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { NODES, EDGES } from "../data/layers.js";
 import { useReveal } from "../hooks/useReveal.js";
 import "./ArchitectureDiagram.css";
@@ -66,26 +66,78 @@ function edgePath(e) {
   return `M ${ax} ${ay} C ${mid} ${ay} ${mid} ${by} ${bx} ${by}`;
 }
 
+/* A cartridge that auto-swaps (randomly, on its own clock) through the real,
+   interchangeable implementations of one harness slot. Static under
+   reduced motion. */
+function SwapChip({ items }) {
+  const reduce = useReducedMotion();
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    let t;
+    const tick = () => {
+      setI((cur) => {
+        if (items.length < 2) return cur;
+        let n;
+        do n = Math.floor(Math.random() * items.length);
+        while (n === cur);
+        return n;
+      });
+      t = setTimeout(tick, 1700 + Math.random() * 1800);
+    };
+    // random initial phase so the slots never tick in unison
+    t = setTimeout(tick, 600 + Math.random() * 2400);
+    return () => clearTimeout(t);
+  }, [items, reduce]);
+
+  return (
+    <span className="node-swap">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={i}
+          className="node-swap-chip"
+          initial={reduce ? false : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? undefined : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {items[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 export default function ArchitectureDiagram() {
   const reveal = useReveal();
+  const detailReveal = useReveal({ delay: 0.1 });
   const reduce = useReducedMotion();
   const [hovered, setHovered] = useState(null);
+  // the detail panel keeps showing the last hovered/tapped node
+  const [sel, setSel] = useState("skills");
+  const selNode = byId[sel];
 
   const isEdgeHot = (e) => hovered && (e.from === hovered || e.to === hovered);
   const pct = (v, total) => `${(v / total) * 100}%`;
+  const focusNode = (id) => {
+    setHovered(id);
+    setSel(id);
+  };
 
   return (
     <section id="architecture" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">03 — Architecture</div>
+        <div className="eyebrow">01 — The harness</div>
         <h2>
-          One typed <em>contract</em>, two coupled <em>systems</em>.
+          One fixed <em>harness</em>. Swappable <em>rSkills</em>.
         </h2>
         <p className="band-sub">
-          A slow <strong>reasoner</strong> plans in typed tool-calls; a fast <strong>rSkill</strong> layer
-          executes action chunks. Perception lifts detections into spatial memory; both feed the reasoner and the
-          rSkills, and a deny-by-default supervisor gates every command before it reaches the robot — whose new
-          state flows straight back into perception and the next decision.
+          A VLA alone is not an agent. OpenRAL wraps it in the loop it needs: a <strong>reasoner</strong> planning
+          in typed tool-calls, perception keeping it honest, a deny-by-default C++ kernel gating every command.
+          Every capability is an <strong>rSkill</strong> — VLA, detector, VLM, reward monitor, MoveIt 2 / Nav2
+          action or playbook — behind one typed manifest. The names in each card <strong>swap live</strong>; the
+          contract never changes. Hover a layer to look inside.
         </p>
       </motion.div>
 
@@ -123,19 +175,52 @@ export default function ArchitectureDiagram() {
               key={n.id}
               className={`node node-${n.group}${hovered === n.id ? " active" : ""}${
                 hovered && hovered !== n.id ? " dim" : ""
-              }`}
+              }${sel === n.id ? " sel" : ""}`}
               style={{ left: pct(n.x, VW), top: pct(n.y, VH), width: pct(n.w, VW), height: pct(n.h, VH) }}
-              onMouseEnter={() => setHovered(n.id)}
-              onFocus={() => setHovered(n.id)}
+              onMouseEnter={() => focusNode(n.id)}
+              onClick={() => focusNode(n.id)}
+              onFocus={() => focusNode(n.id)}
               onBlur={() => setHovered(null)}
               tabIndex={0}
             >
               <span className="node-title">{n.title}</span>
-              <span className="node-sub">{n.sub}</span>
+              {n.swap ? <SwapChip items={n.swap} /> : <span className="node-sub">{n.sub}</span>}
             </div>
           ))}
         </div>
       </motion.div>
+
+      <motion.div className="diagram-detail" {...detailReveal}>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={sel}
+            className="detail-in"
+            initial={reduce ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="detail-copy">
+              <h3>{selNode.title.replace("\n", " ")}</h3>
+              <p>{selNode.detail.body}</p>
+            </div>
+            <ul className="detail-items">
+              {selNode.detail.items.map((it) => (
+                <li key={it}>{it}</li>
+              ))}
+            </ul>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+
+      <div className="diagram-actions">
+        <a className="btn btn-primary" href="/pipeline#rskills">
+          What's an rSkill? <span className="arr">→</span>
+        </a>
+        <a className="btn btn-ghost" href="https://huggingface.co/OpenRAL/models" target="_blank" rel="noopener">
+          Browse rSkills <span className="arr">↗</span>
+        </a>
+      </div>
     </section>
   );
 }

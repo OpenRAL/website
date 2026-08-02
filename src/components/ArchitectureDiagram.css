@@ -58,8 +58,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 3px;
-  padding: 0 16px;
+  padding: 0 14px;
   background: var(--surface);
   border: 1px solid var(--hair-2);
   border-radius: 13px;
@@ -115,5 +117,92 @@
 @media (prefers-reduced-motion: reduce) {
   .edge-flow {
     display: none;
+  }
+}
+
+/* ---- swappable cartridges ---- */
+.node-swap {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+}
+.node-swap-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--text-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 6px;
+  padding: 4px 7px;
+  background: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.node.active .node-swap-chip {
+  color: #fff;
+  border-color: var(--accent-line);
+}
+
+/* ---- detail panel (what's inside the hovered layer) ---- */
+.diagram-detail {
+  margin-top: 26px;
+  border: 1px solid var(--hair-2);
+  border-radius: 13px;
+  background: var(--surface);
+  padding: 18px 26px;
+  overflow: hidden;
+  /* fixed height — the tallest node (rSkills) sets it, so the CTAs below never move */
+  min-height: 172px;
+  display: grid;
+  align-items: center;
+}
+.detail-in {
+  display: grid;
+  grid-template-columns: minmax(240px, 360px) 1fr;
+  gap: 12px 36px;
+  align-items: center;
+}
+.detail-copy h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 17px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.detail-copy p {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.detail-items {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+.detail-items li {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 999px;
+  padding: 5px 11px;
+  white-space: nowrap;
+}
+.diagram-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+@media (max-width: 760px) {
+  .detail-in {
+    grid-template-columns: 1fr;
   }
 }

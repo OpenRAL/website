@@ -170,7 +170,7 @@ export default function RSkills() {
   return (
     <section id="rskills" className="band band-split">
       <motion.div className="split-copy" {...left}>
-        <div className="eyebrow">05 — rSkills</div>
+        <div className="eyebrow">02 — What's an rSkill</div>
         <h2>
           <em>rSkills</em> you can publish, score and share.
         </h2>

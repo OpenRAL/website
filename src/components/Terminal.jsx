@@ -45,7 +45,6 @@ const CURL_SCRIPT = [
       { t: "==> installing uv + CPython 3.12 (uv-managed)…" },
       { t: "==> installing openral-cli (uv tool install)" },
       { t: "==> openral installed: ~/.local/bin/openral", k: "ok" },
-      { t: "==> Tier-0 install complete.", k: "ok" },
     ],
   },
   { cmd: "openral" },
@@ -226,14 +225,12 @@ export default function Terminal() {
   return (
     <section id="install" className="band">
       <motion.div className="band-head" {...reveal}>
-        <div className="eyebrow">01 — Install</div>
+        <div className="eyebrow">03 — Install</div>
         <h2>
           One <em>command</em>. The whole harness.
         </h2>
         <p className="band-sub">
-          One curl command installs uv, CPython 3.12 and the <code>openral</code> CLI — user-local, no sudo.
-          Then <code>openral doctor</code> checks your stack and <code>openral install ros</code> pulls the
-          heavier ROS 2 stack when you want it.
+          Install OpenRAL with a single command — everything else comes when you need it.
         </p>
       </motion.div>
 
@@ -251,14 +248,6 @@ export default function Terminal() {
         </div>
         <ScriptPane key="curl" script={CURL_SCRIPT} active={inView} reduce={reduce} />
       </motion.div>
-      <p className="term-note">
-        Tier-0 needs only Linux or macOS · no sudo. ROS 2 Jazzy and a CUDA GPU come with{" "}
-        <code>openral install ros</code> for VLA inference. Full guide in the{" "}
-        <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener">
-          repository
-        </a>
-        .
-      </p>
     </section>
   );
 }

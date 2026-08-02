@@ -279,14 +279,14 @@ export default function VideoShowcase() {
   return (
     <section id="showcase" className="band">
       <motion.div className="band-head" {...head}>
-        <div className="eyebrow">06 — See it run</div>
+        <div className="eyebrow">02 — See it run</div>
         <h2>
           Every clip is a <em>real run</em>, scored and labelled.
         </h2>
         <p className="band-sub">
           Benchmarks, simulation and on-hardware deployment — each video is one rSkill on one
           benchmark, marked <strong>SUCCESS</strong> or <strong>FAIL</strong> exactly as the eval
-          recorded it. Hover to pause; click any clip to watch it full size.
+          recorded it.
         </p>
       </motion.div>
 

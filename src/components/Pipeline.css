@@ -1,0 +1,132 @@
+/* one-agent-three-arenas console ------------------------------------------ */
+.pipe-console {
+  max-width: 900px;
+  border: 1px solid var(--hair-2);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+.pipe-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hair);
+  background: rgba(255, 255, 255, 0.015);
+}
+.pipe-dots {
+  display: flex;
+  gap: 8px;
+}
+.pipe-dots i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--hair);
+}
+.pipe-dots i:first-child {
+  background: var(--hair-2);
+}
+.pipe-file {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-2);
+  margin-left: 10px;
+}
+.pipe-lines {
+  padding: 20px 22px;
+  display: grid;
+  gap: 12px;
+  overflow-x: auto;
+}
+.pipe-line {
+  display: flex;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+.pipe-prompt {
+  color: var(--muted);
+}
+.pipe-cmd {
+  color: #fff;
+}
+.pipe-note {
+  color: var(--muted);
+}
+
+/* arenas ------------------------------------------------------------------ */
+.arena-grid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.arena-card {
+  padding: 26px 26px 22px;
+  border: 1px solid var(--hair-2);
+  border-radius: 13px;
+  background: var(--surface);
+}
+.arena-card h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 19px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.arena-card p {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.arena-items {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.arena-items li {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-2);
+  border: 1px solid var(--hair-2);
+  border-radius: 999px;
+  padding: 5px 11px;
+  white-space: nowrap;
+}
+
+/* traceability ------------------------------------------------------------ */
+.trace-ticks {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  max-width: 760px;
+}
+.trace-ticks li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--text-2);
+  font-size: 14.5px;
+}
+.trace-ticks li::before {
+  content: "▸";
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-family: var(--mono);
+}
+.trace-actions {
+  margin-top: 26px;
+}
+
+@media (max-width: 860px) {
+  .arena-grid {
+    grid-template-columns: 1fr;
+  }
+}

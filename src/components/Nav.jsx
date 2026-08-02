@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 import "./Nav.css";
 
 const LINKS = [
+  { href: "/#architecture", label: "Harness" },
+  { href: "/pipeline#rskills", label: "rSkills" },
   { href: "/#install", label: "Install" },
-  { href: "/#solve", label: "Why" },
-  { href: "/#architecture", label: "Architecture" },
-  { href: "/#features", label: "Capabilities" },
-  { href: "/#rskills", label: "rSkills" },
-  { href: "/#showcase", label: "Showcase" },
-  { href: "/#dashboard", label: "Dashboard" },
+  { href: "/pipeline", label: "Pipeline" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Nav() {
   const [active, setActive] = useState("");
+  const path = typeof window !== "undefined" ? window.location.pathname.replace(/\/+$/, "") : "";
 
-  // scroll-spy: highlight the nav item for the section in view
+  // scroll-spy: highlight the nav item for the section in view (home only —
+  // on subpages the hash targets don't exist and the observer is empty)
   useEffect(() => {
     const sections = LINKS.map((l) => document.getElementById(l.href.split("#")[1])).filter(Boolean);
     if (!sections.length) return;
@@ -30,6 +30,8 @@ export default function Nav() {
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
   }, []);
+
+  const isActive = (l) => l.href === path || (!!active && l.href.endsWith("#" + active));
 
   return (
     <motion.header
@@ -47,14 +49,14 @@ export default function Nav() {
           <a
             key={l.href}
             href={l.href}
-            className={active && l.href.endsWith("#" + active) ? "active" : undefined}
-            aria-current={active && l.href.endsWith("#" + active) ? "true" : undefined}
+            className={isActive(l) ? "active" : undefined}
+            aria-current={isActive(l) ? "true" : undefined}
           >
             {l.label}
           </a>
         ))}
-        <a href="/#contact" className="nav-cta">
-          Contact
+        <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener" className="nav-cta">
+          GitHub ↗
         </a>
       </nav>
     </motion.header>

@@ -1,0 +1,84 @@
+.comm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.comm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 26px 22px;
+  border: 1px solid var(--hair-2);
+  border-radius: 13px;
+  background: var(--surface);
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+}
+.comm-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+.comm-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 19px;
+  color: #fff;
+}
+.comm-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--hair-2);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-2);
+}
+.comm-card:hover .comm-icon {
+  color: #fff;
+  border-color: var(--accent-line);
+}
+.comm-card p {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.6;
+  flex: 1;
+}
+.comm-cta {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.comm-card:hover .comm-cta {
+  color: #fff;
+}
+.comm-more {
+  margin-top: 28px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.comm-more a {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text-2);
+}
+.comm-more a:hover {
+  color: #fff;
+}
+.comm-more .arr {
+  display: inline-block;
+  transition: transform 0.2s var(--ease);
+}
+.comm-more a:hover .arr {
+  transform: translateX(3px);
+}
+@media (max-width: 860px) {
+  .comm-grid {
+    grid-template-columns: 1fr;
+  }
+}

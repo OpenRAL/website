@@ -99,7 +99,7 @@ export default function Contact() {
     <section id="contact" className="band band-contact">
       <div className="contact-grid">
         <motion.div className="contact-copy" {...left}>
-          <div className="eyebrow">08 — Get in touch</div>
+          <div className="eyebrow">05 — Get in touch</div>
           <h2>
             Let's <em>talk</em>.
           </h2>

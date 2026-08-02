@@ -114,7 +114,7 @@ export default function Dashboard() {
   return (
     <section id="dashboard" className="band">
       <motion.div className="band-head" {...head}>
-        <div className="eyebrow">07 — Mission control</div>
+        <div className="eyebrow">03 — Mission control</div>
         <h2>
           See the whole stack <em>running</em> — every action, sensor and trace in one pane.
         </h2>
