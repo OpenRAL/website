@@ -146,7 +146,10 @@ all-bold headings; color-based heading emphasis.
   views (rSkill kinds) and live-state indicators (agent chips lighting up).
 * **Nav** — centered cluster (brand · links · CTA), sticky, 12px backdrop-blur
   over translucent Ink. Scroll-spy: the in-view section's link goes pure white
-  with a 1px under-rule. Inactive links are Text Muted.
+  with a 1px under-rule — **exactly one link at a time**; with no tracked
+  section in view the current page's own link holds it. Inactive links are Text
+  Muted. Under 920px the links become a sideways-scrolling row with a faded
+  edge (never hidden); under 560px the mark stands in for the wordmark.
 * **Loaders / live states** — prefer a **typing/streaming reveal** or skeletal
   shimmer over spinners. The product's whole personality is "you can watch it
   think," so show progressive text, not a circular spinner.
