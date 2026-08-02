@@ -14,16 +14,16 @@ export default function Nav() {
   const [active, setActive] = useState("");
   const path = typeof window !== "undefined" ? window.location.pathname.replace(/\/+$/, "") : "";
 
-  // scroll-spy: highlight the nav item for the section in view (home only —
-  // on subpages the hash targets don't exist and the observer is empty)
+  // scroll-spy: highlight the nav item for the section in view — a section that
+  // scrolls out clears itself, so the page's own link takes the rule back
   useEffect(() => {
     const sections = LINKS.map((l) => document.getElementById(l.href.split("#")[1])).filter(Boolean);
     if (!sections.length) return;
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
+        entries.forEach((e) =>
+          setActive((cur) => (e.isIntersecting ? e.target.id : cur === e.target.id ? "" : cur))
+        );
       },
       { rootMargin: "-45% 0px -50% 0px" }
     );
@@ -31,7 +31,13 @@ export default function Nav() {
     return () => io.disconnect();
   }, []);
 
-  const isActive = (l) => l.href === path || (!!active && l.href.endsWith("#" + active));
+  // exactly one link lights up: the page must match, then the in-view section —
+  // or the page's own bare link when no tracked section is showing
+  const isActive = (l) => {
+    const [linkPath, hash] = l.href.split("#");
+    if (linkPath.replace(/\/+$/, "") !== path) return false;
+    return hash ? hash === active : !active;
+  };
 
   return (
     <motion.header
@@ -44,7 +50,7 @@ export default function Nav() {
         <img className="brand-mark" src="/assets/icon.svg" alt="" aria-hidden="true" />
         <span className="brand-name">OpenRAL</span>
       </a>
-      <nav className="nav-links">
+      <nav className="nav-links" aria-label="Primary">
         {LINKS.map((l) => (
           <a
             key={l.href}
@@ -55,10 +61,10 @@ export default function Nav() {
             {l.label}
           </a>
         ))}
-        <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener" className="nav-cta">
-          GitHub ↗
-        </a>
       </nav>
+      <a href="https://github.com/OpenRAL/openral" target="_blank" rel="noopener" className="nav-cta">
+        GitHub ↗
+      </a>
     </motion.header>
   );
 }
