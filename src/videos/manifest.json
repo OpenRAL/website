@@ -32,6 +32,26 @@
       "full": "benchmarks/aloha-insertion_act_fail/full.mp4"
     },
     {
+      "id": "benchmarks/behavior-popcorn_pi05_success",
+      "category": "benchmarks",
+      "benchmark": "behavior-popcorn",
+      "rskill": "pi05",
+      "status": "success",
+      "poster": "benchmarks/behavior-popcorn_pi05_success/poster.jpg",
+      "preview": "benchmarks/behavior-popcorn_pi05_success/preview.mp4",
+      "full": "benchmarks/behavior-popcorn_pi05_success/full.mp4"
+    },
+    {
+      "id": "benchmarks/behavior-radio_gr00t-n17_fail",
+      "category": "benchmarks",
+      "benchmark": "behavior-radio",
+      "rskill": "gr00t-n17",
+      "status": "fail",
+      "poster": "benchmarks/behavior-radio_gr00t-n17_fail/poster.jpg",
+      "preview": "benchmarks/behavior-radio_gr00t-n17_fail/preview.mp4",
+      "full": "benchmarks/behavior-radio_gr00t-n17_fail/full.mp4"
+    },
+    {
       "id": "benchmarks/libero-object_smolvla_success",
       "category": "benchmarks",
       "benchmark": "libero-object",
@@ -202,16 +222,6 @@
       "full": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/full.mp4"
     },
     {
-      "id": "simulation/g1-walking_mujoco-playground-s0_success",
-      "category": "simulation",
-      "benchmark": "g1-walking",
-      "rskill": "mujoco-playground-s0",
-      "status": "success",
-      "poster": "simulation/g1-walking_mujoco-playground-s0_success/poster.jpg",
-      "preview": "simulation/g1-walking_mujoco-playground-s0_success/preview.mp4",
-      "full": "simulation/g1-walking_mujoco-playground-s0_success/full.mp4"
-    },
-    {
       "id": "simulation/isaac-pick_act-libero_fail",
       "category": "simulation",
       "benchmark": "isaac-pick",
@@ -270,6 +280,16 @@
       "poster": "deployment/tabletop-charger_openarm_fail/poster.jpg",
       "preview": "deployment/tabletop-charger_openarm_fail/preview.mp4",
       "full": "deployment/tabletop-charger_openarm_fail/full.mp4"
+    },
+    {
+      "id": "simulation/g1-walking_mujoco-playground-s0_success",
+      "category": "simulation",
+      "benchmark": "g1-walking",
+      "rskill": "mujoco-playground-s0",
+      "status": "success",
+      "poster": "simulation/g1-walking_mujoco-playground-s0_success/poster.jpg",
+      "preview": "simulation/g1-walking_mujoco-playground-s0_success/preview.mp4",
+      "full": "simulation/g1-walking_mujoco-playground-s0_success/full.mp4"
     }
   ]
 }

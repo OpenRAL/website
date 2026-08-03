@@ -20,7 +20,7 @@
      --no-upload   encode + write manifest only (skip the HF push)
    ------------------------------------------------------------------ */
 import { execFileSync } from "node:child_process";
-import { readdirSync, mkdirSync, writeFileSync, existsSync, statSync } from "node:fs";
+import { readdirSync, mkdirSync, writeFileSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -118,8 +118,52 @@ if (!count) {
   process.exit(1);
 }
 
+/* Clips uploaded to the dataset by hand (no raw file in media/) would be wiped
+   from the manifest by a regen — the site would silently stop showing them.
+   Keep every complete clip that's live on the CDN but absent locally. Falls
+   back to the committed manifest if the Hub is unreachable. */
+async function cdnExtras(localIds) {
+  const dirs = new Map(); // "category/base" -> Set of filenames present
+  try {
+    const res = await fetch(`https://huggingface.co/api/datasets/${REPO}/tree/main?recursive=1`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    for (const { path, type } of await res.json()) {
+      if (type !== "file") continue;
+      const i = path.lastIndexOf("/");
+      const [dir, file] = [path.slice(0, i), path.slice(i + 1)];
+      if (!CATEGORIES.includes(dir.split("/")[0])) continue;
+      if (!dirs.has(dir)) dirs.set(dir, new Set());
+      dirs.get(dir).add(file);
+    }
+  } catch (err) {
+    console.warn(`⚠ could not read ${REPO} (${err.message}) — keeping existing manifest entries`);
+    const prev = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")).clips : [];
+    return prev.filter((c) => !localIds.has(c.id));
+  }
+
+  const extras = [];
+  for (const [id, files] of [...dirs].sort()) {
+    if (localIds.has(id)) continue;
+    if (!["poster.jpg", "preview.mp4", "full.mp4"].every((f) => files.has(f))) continue;
+    const [category, base] = [id.split("/")[0], id.slice(id.indexOf("/") + 1)];
+    const { benchmark, rskill, status } = parseName(base);
+    if (!status) continue;
+    extras.push({
+      id, category, benchmark, rskill, status,
+      poster: `${id}/poster.jpg`,
+      preview: `${id}/preview.mp4`,
+      full: `${id}/full.mp4`,
+    });
+  }
+  return extras;
+}
+
+const extras = await cdnExtras(new Set(clips.map((c) => c.id)));
+for (const e of extras) console.log(`↺ kept ${e.id} — on the CDN, no raw in media/`);
+clips.push(...extras);
+
 writeFileSync(MANIFEST, JSON.stringify({ base: BASE, clips }, null, 2) + "\n");
-console.log(`\n✓ wrote ${MANIFEST} (${count} clip${count > 1 ? "s" : ""})`);
+console.log(`\n✓ wrote ${MANIFEST} (${clips.length} clip${clips.length > 1 ? "s" : ""})`);
 
 if (noUpload) {
   console.log("↷ --no-upload: skipped HF push.");
