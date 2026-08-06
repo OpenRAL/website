@@ -172,6 +172,16 @@
       "full": "benchmarks/rlbench-meat_3d-diffuser_success/full.mp4"
     },
     {
+      "id": "benchmarks/robocasa-pick-place_xr1-nf4_fail",
+      "category": "benchmarks",
+      "benchmark": "robocasa-pick-place",
+      "rskill": "xr1-nf4",
+      "status": "fail",
+      "poster": "benchmarks/robocasa-pick-place_xr1-nf4_fail/poster.jpg",
+      "preview": "benchmarks/robocasa-pick-place_xr1-nf4_fail/preview.mp4",
+      "full": "benchmarks/robocasa-pick-place_xr1-nf4_fail/full.mp4"
+    },
+    {
       "id": "benchmarks/robocasa-pick_rldx1-rc365-nf4_success",
       "category": "benchmarks",
       "benchmark": "robocasa-pick",
