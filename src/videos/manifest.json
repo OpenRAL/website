@@ -222,6 +222,16 @@
       "full": "benchmarks/simpler-env_rldx1-widowx-nf4_fail/full.mp4"
     },
     {
+      "id": "benchmarks/vlabench-select-fruit_xr1-nf4_fail",
+      "category": "benchmarks",
+      "benchmark": "vlabench-select-fruit",
+      "rskill": "xr1-nf4",
+      "status": "fail",
+      "poster": "benchmarks/vlabench-select-fruit_xr1-nf4_fail/poster.jpg",
+      "preview": "benchmarks/vlabench-select-fruit_xr1-nf4_fail/preview.mp4",
+      "full": "benchmarks/vlabench-select-fruit_xr1-nf4_fail/full.mp4"
+    },
+    {
       "id": "simulation/isaac-pick_act-libero_fail",
       "category": "simulation",
       "benchmark": "isaac-pick",
