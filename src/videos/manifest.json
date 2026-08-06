@@ -202,6 +202,16 @@
       "full": "benchmarks/robocasa365-close-blender_xr1-nf4_fail/full.mp4"
     },
     {
+      "id": "benchmarks/robocasa365-open-drawer_xr1-nf4_success",
+      "category": "benchmarks",
+      "benchmark": "robocasa365-open-drawer",
+      "rskill": "xr1-nf4",
+      "status": "success",
+      "poster": "benchmarks/robocasa365-open-drawer_xr1-nf4_success/poster.jpg",
+      "preview": "benchmarks/robocasa365-open-drawer_xr1-nf4_success/preview.mp4",
+      "full": "benchmarks/robocasa365-open-drawer_xr1-nf4_success/full.mp4"
+    },
+    {
       "id": "benchmarks/robotwin_lingbotv1_success",
       "category": "benchmarks",
       "benchmark": "robotwin",
