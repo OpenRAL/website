@@ -2,6 +2,16 @@
   "base": "https://huggingface.co/datasets/OpenRAL/website-media/resolve/main",
   "clips": [
     {
+      "id": "benchmarks/behavior-popcorn_pi05-b1k_success",
+      "category": "benchmarks",
+      "benchmark": "behavior-popcorn",
+      "rskill": "pi05-b1k",
+      "status": "success",
+      "poster": "benchmarks/behavior-popcorn_pi05-b1k_success/poster.jpg",
+      "preview": "benchmarks/behavior-popcorn_pi05-b1k_success/preview.mp4",
+      "full": "benchmarks/behavior-popcorn_pi05-b1k_success/full.mp4"
+    },
+    {
       "id": "benchmarks/aloha-cube_act_fail",
       "category": "benchmarks",
       "benchmark": "aloha-cube",
@@ -262,6 +272,36 @@
       "full": "benchmarks/vlabench-select-fruit_xr1-nf4_fail/full.mp4"
     },
     {
+      "id": "deployment/robocasa-navigation_ros2-nav_success",
+      "category": "deployment",
+      "benchmark": "robocasa-navigation",
+      "rskill": "ros2-nav",
+      "status": "success",
+      "poster": "deployment/robocasa-navigation_ros2-nav_success/poster.jpg",
+      "preview": "deployment/robocasa-navigation_ros2-nav_success/preview.mp4",
+      "full": "deployment/robocasa-navigation_ros2-nav_success/full.mp4"
+    },
+    {
+      "id": "deployment/tabletop-charger_openarm_fail",
+      "category": "deployment",
+      "benchmark": "tabletop-charger",
+      "rskill": "openarm",
+      "status": "fail",
+      "poster": "deployment/tabletop-charger_openarm_fail/poster.jpg",
+      "preview": "deployment/tabletop-charger_openarm_fail/preview.mp4",
+      "full": "deployment/tabletop-charger_openarm_fail/full.mp4"
+    },
+    {
+      "id": "simulation/g1-walking_mujoco-playground-s0_success",
+      "category": "simulation",
+      "benchmark": "g1-walking",
+      "rskill": "mujoco-playground-s0",
+      "status": "success",
+      "poster": "simulation/g1-walking_mujoco-playground-s0_success/poster.jpg",
+      "preview": "simulation/g1-walking_mujoco-playground-s0_success/preview.mp4",
+      "full": "simulation/g1-walking_mujoco-playground-s0_success/full.mp4"
+    },
+    {
       "id": "simulation/isaac-pick_act-libero_fail",
       "category": "simulation",
       "benchmark": "isaac-pick",
@@ -300,36 +340,6 @@
       "poster": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/poster.jpg",
       "preview": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/preview.mp4",
       "full": "simulation/tabletop_pnp_pi05-openarm-nf4_fail/full.mp4"
-    },
-    {
-      "id": "deployment/robocasa-navigation_ros2-nav_success",
-      "category": "deployment",
-      "benchmark": "robocasa-navigation",
-      "rskill": "ros2-nav",
-      "status": "success",
-      "poster": "deployment/robocasa-navigation_ros2-nav_success/poster.jpg",
-      "preview": "deployment/robocasa-navigation_ros2-nav_success/preview.mp4",
-      "full": "deployment/robocasa-navigation_ros2-nav_success/full.mp4"
-    },
-    {
-      "id": "deployment/tabletop-charger_openarm_fail",
-      "category": "deployment",
-      "benchmark": "tabletop-charger",
-      "rskill": "openarm",
-      "status": "fail",
-      "poster": "deployment/tabletop-charger_openarm_fail/poster.jpg",
-      "preview": "deployment/tabletop-charger_openarm_fail/preview.mp4",
-      "full": "deployment/tabletop-charger_openarm_fail/full.mp4"
-    },
-    {
-      "id": "simulation/g1-walking_mujoco-playground-s0_success",
-      "category": "simulation",
-      "benchmark": "g1-walking",
-      "rskill": "mujoco-playground-s0",
-      "status": "success",
-      "poster": "simulation/g1-walking_mujoco-playground-s0_success/poster.jpg",
-      "preview": "simulation/g1-walking_mujoco-playground-s0_success/preview.mp4",
-      "full": "simulation/g1-walking_mujoco-playground-s0_success/full.mp4"
     }
   ]
 }
