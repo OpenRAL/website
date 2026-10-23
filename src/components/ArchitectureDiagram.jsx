@@ -201,7 +201,7 @@ export default function ArchitectureDiagram() {
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="detail-copy">
-              <h3>{selNode.title.replace("\n", " ")}</h3>
+              <h3>{selNode.title.replaceAll("\n", " ")}</h3>
               <p>{selNode.detail.body}</p>
             </div>
             <ul className="detail-items">
