@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import Select from "./Select.jsx";
+import { track } from "../analytics.js";
 import "./Contact.css";
 
 const AUDIENCE = [
@@ -82,6 +83,7 @@ export default function Contact() {
       const out = await res.json().catch(() => ({}));
       if (res.ok) {
         setStatus({ msg: "Message sent. We'll be in touch.", kind: "ok" });
+        track("contact_form_sent", { topic: form.audience.value });
         setValues({ name: "", email: "", message: "" });
       } else if (res.status === 503 && out.code === "not_configured") {
         setStatus({ msg: "Email isn't wired up yet — please reach us on Discord.", kind: "info" });

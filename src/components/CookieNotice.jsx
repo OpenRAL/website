@@ -38,8 +38,9 @@ export default function CookieNotice() {
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <p>
-            OpenRAL uses <strong>no tracking cookies</strong> — only essential local storage to remember this
-            notice. <a href="/privacy">Privacy</a>.
+            OpenRAL sets <strong>no cookies</strong>. We count visits and clicks with cookieless, anonymous
+            analytics — nothing is stored on your device except a flag to hide this notice.{" "}
+            <a href="/privacy">Privacy</a>.
           </p>
           <button type="button" className="cookie-ok" onClick={dismiss}>
             Got it

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
+import { track } from "../analytics.js";
 import "./Terminal.css";
 
 // Exact `console.export_text()` output of openral_cli.main.render_banner("0.1.0", width=127)
@@ -216,6 +217,7 @@ export default function Terminal() {
     try {
       await navigator.clipboard.writeText(CURL_CMD);
       setCopied(true);
+      track("install_command_copied");
       setTimeout(() => setCopied(false), 1800);
     } catch {
       /* clipboard unavailable — no-op */
