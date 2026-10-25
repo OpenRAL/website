@@ -123,6 +123,13 @@ export default function Contact() {
               </svg>
               Join the Discord
             </a>
+            <a className="cc-discord" href="https://calendly.com/adrianllopart/30min" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
+                <path d="M3.5 10h17M8 3v4M16 3v4" />
+              </svg>
+              Book a 30-min call
+            </a>
           </div>
         </motion.div>
 
