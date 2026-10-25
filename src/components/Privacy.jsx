@@ -12,21 +12,26 @@ export default function Privacy() {
         <div className="legal-head">
           <div className="eyebrow">Legal</div>
           <h1>Privacy notice</h1>
-          <p className="legal-meta">Last updated 17 June 2026</p>
+          <p className="legal-meta">Last updated 25 October 2026</p>
         </div>
 
         <p className="legal-lead">
           OpenRAL is an open-source project. This site is a marketing page with a single contact form — there are
-          no accounts, no payments and no advertising or analytics tracking. This notice explains the little data
-          we do handle.
+          no accounts, no payments, no advertising and no cookies. We use privacy-friendly, anonymous analytics to
+          understand how the site is used. This notice explains the little data we handle.
         </p>
 
         <section>
           <h2>What we collect</h2>
           <p>
-            Only what you type into the contact form: your <strong>name</strong>, <strong>email address</strong>{" "}
-            and <strong>message</strong> (plus the topic you select). We don't collect anything else about you, and
-            there is no account to create.
+            <strong>Contact form:</strong> what you type in — your <strong>name</strong>, <strong>email address</strong>{" "}
+            and <strong>message</strong> (plus the topic you select). There is no account to create.
+          </p>
+          <p>
+            <strong>Usage analytics:</strong> anonymous, aggregate information about visits — pages viewed, which
+            links and buttons are clicked, the referring site, browser and device type, and an approximate location
+            (country/city) derived from your IP address. We never record what you type into the form, and we don't
+            try to identify you.
           </p>
         </section>
 
@@ -43,7 +48,10 @@ export default function Privacy() {
         <section>
           <h2>Cookies &amp; tracking</h2>
           <p>
-            This site sets <strong>no advertising, analytics or tracking cookies</strong>. The only thing stored in
+            This site sets <strong>no cookies</strong>. Analytics run cookieless via{" "}
+            <a href="https://posthog.com" target="_blank" rel="noopener">PostHog</a> (EU cloud) and{" "}
+            <a href="https://vercel.com/docs/analytics/privacy-policy" target="_blank" rel="noopener">Vercel Web Analytics</a>:
+            nothing is stored on your device, so you aren't recognised across visits. The only thing stored in
             your browser is a small <code>localStorage</code> flag remembering that you dismissed the cookie
             notice — it never leaves your device. Fonts are <strong>self-hosted</strong>, so loading the page makes
             no third-party requests that could reveal your IP to a font provider.
