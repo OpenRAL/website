@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import Select from "./Select.jsx";
+import { track } from "../analytics.js";
 import "./Contact.css";
 
 const AUDIENCE = [
@@ -82,6 +83,7 @@ export default function Contact() {
       const out = await res.json().catch(() => ({}));
       if (res.ok) {
         setStatus({ msg: "Message sent. We'll be in touch.", kind: "ok" });
+        track("contact_form_sent", { topic: form.audience.value });
         setValues({ name: "", email: "", message: "" });
       } else if (res.status === 503 && out.code === "not_configured") {
         setStatus({ msg: "Email isn't wired up yet — please reach us on Discord.", kind: "info" });
@@ -120,6 +122,13 @@ export default function Contact() {
                 <path d="M19.5 5.2A17 17 0 0 0 15.3 4l-.2.4a13 13 0 0 1 3.7 1.2 13.6 13.6 0 0 0-11.6 0A13 13 0 0 1 10.9 4.4L10.7 4a17 17 0 0 0-4.2 1.2C3.7 9.3 3 13.3 3.3 17.2a17 17 0 0 0 5.1 2.6l.6-1c-.6-.2-1.1-.5-1.6-.8l.4-.3a9.7 9.7 0 0 0 8.4 0l.4.3c-.5.3-1 .6-1.6.8l.6 1a17 17 0 0 0 5.1-2.6c.4-4.5-.6-8.5-2.8-12ZM9.5 14.7c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8Zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8-.7 1.8-1.6 1.8Z" />
               </svg>
               Join the Discord
+            </a>
+            <a className="cc-discord" href="https://calendly.com/adrianllopart/30min" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
+                <path d="M3.5 10h17M8 3v4M16 3v4" />
+              </svg>
+              Book a 30-min call
             </a>
           </div>
         </motion.div>

@@ -75,6 +75,18 @@ then `vercel dev`) — it serves the Vite build and the serverless function toge
 3. In Resend, **verify the `openral.com` domain** so the function can send from it.
 4. Map the custom domain (`openral.com`) in Vercel → Settings → Domains.
 
+### Analytics
+
+Page views and every link/button click are recorded by [PostHog](https://posthog.com)
+(EU cloud, autocapture) plus named events `contact_form_sent` (topic only),
+`install_command_copied` and `video_opened`. It runs cookieless (in-memory
+persistence), so no consent banner is needed; returning visitors are counted
+again on each load. Set `VITE_POSTHOG_KEY` (the project API key, `phc_…`) in
+Vercel to turn it on — without it, analytics is a no-op. Set
+`VITE_POSTHOG_HOST` only if the project is on US cloud
+(`https://us.i.posthog.com`; update the CSP in `vercel.json` to match).
+Vercel Web Analytics also stays on for a basic traffic view.
+
 ### Contact form behavior
 
 The form posts `{ audience, name, email, message }` to `/api/contact`. `audience`

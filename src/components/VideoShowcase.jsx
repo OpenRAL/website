@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useReveal } from "../hooks/useReveal.js";
 import manifest from "../videos/manifest.json";
+import { track } from "../analytics.js";
 import "./VideoShowcase.css";
 
 /* ------------------------------------------------------------------
@@ -320,7 +321,10 @@ export default function VideoShowcase() {
             clips={clips}
             paused={!!open}
             reduce={reduce}
-            onOpen={setOpen}
+            onOpen={(clip) => {
+              setOpen(clip);
+              track("video_opened", { clip: clip.id });
+            }}
           />
         </motion.div>
       </AnimatePresence>
