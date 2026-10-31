@@ -1,0 +1,6 @@
+Contact: mailto:security@openral.com
+Contact: https://github.com/OpenRAL/openral/security/advisories/new
+Expires: 2027-10-31T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.openral.com/.well-known/security.txt
+Policy: https://github.com/OpenRAL/openral/blob/master/SECURITY.md
